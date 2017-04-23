@@ -1,0 +1,176 @@
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  background: -webkit-linear-gradient(top, #bbcccc, #aaaaaa) fixed;
+  background: linear-gradient(180deg, #bbcccc, #aaaaaa) fixed;
+}
+
+span {
+  position: absolute;
+  display: block;
+  width: 20em;
+  height: 20em;
+  overflow: none;
+}
+
+/***** Clouds *****/
+#clouds {
+  display: none;
+}
+
+/***** RAINDROPS *****/
+.rain {
+  position: absolute;
+  top: calc(50% - 35em);
+  left: calc(50% - 11em);
+}
+
+.drop {
+  position: inherit;
+  top: calc(50%);
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  background-color: #33aacc;
+  -webkit-animation: raining 1s infinite;
+          animation: raining 1s infinite;
+}
+
+.drop::before {
+  content: '';
+  position: relative;
+  top: -37px;
+  width: 0;
+  height: 0;
+  border-left: 1em solid transparent;
+  border-right: 1em solid transparent;
+  border-bottom: 2em solid #33aacc;
+}
+
+.drop-1 {
+  left: calc(50%);
+  -webkit-animation-delay: .1s;
+          animation-delay: .1s;
+}
+
+.drop-2 {
+  left: calc(50% + 5em);
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+
+.drop-3 {
+  left: calc(50% - 5em);
+  -webkit-animation-delay: .75s;
+          animation-delay: .75s;
+}
+
+.drop-4 {
+  left: calc(50% + 10em);
+  -webkit-animation-delay: .4s;
+          animation-delay: .4s;
+}
+
+.drop-5 {
+  left: calc(50% - 10em);
+  -webkit-animation-delay: .25s;
+          animation-delay: .25s;
+}
+
+.drop-6 {
+  left: calc(50% + 15em);
+  -webkit-animation-delay: .5s;
+          animation-delay: .5s;
+}
+
+.drop-7 {
+  left: calc(50% - 15em);
+  -webkit-animation-delay: .9s;
+          animation-delay: .9s;
+}
+
+.drop-8 {
+  left: calc(50% + 20em);
+  -webkit-animation-delay: 1.1s;
+          animation-delay: 1.1s;
+}
+
+.drop-9 {
+  left: calc(50% - 20em);
+  -webkit-animation-delay: .6s;
+          animation-delay: .6s;
+}
+
+.drop-10 {
+  left: calc(50% + 25em);
+  -webkit-animation-delay: .3s;
+          animation-delay: .3s;
+}
+
+.drop-11 {
+  left: calc(50% - 25em);
+  -webkit-animation-delay: .85s;
+          animation-delay: .85s;
+}
+
+.drop-12 {
+  left: calc(50% + 30em);
+  -webkit-animation-delay: .9s;
+          animation-delay: .9s;
+}
+
+.drop-13 {
+  left: calc(50% - 30em);
+  -webkit-animation-delay: 1.25s;
+          animation-delay: 1.25s;
+}
+
+.drop-14 {
+  left: calc(50% + 35em);
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+
+.drop-15 {
+  left: calc(50% - 35em);
+  -webkit-animation-delay: .5s;
+          animation-delay: .5s;
+}
+
+.drop-16 {
+  left: calc(50% + 40em);
+  -webkit-animation-delay: .35s;
+          animation-delay: .35s;
+}
+
+.drop-17 {
+  left: calc(50% - 40em);
+  -webkit-animation-delay: 1.1s;
+          animation-delay: 1.1s;
+}
+
+@-webkit-keyframes raining {
+  0% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+  100% {
+    -webkit-transform: translateY(60em);
+            transform: translateY(60em);
+  }
+}
+
+@keyframes raining {
+  0% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+  100% {
+    -webkit-transform: translateY(60em);
+            transform: translateY(60em);
+  }
+}
