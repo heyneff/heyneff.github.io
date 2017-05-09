@@ -1,0 +1,89 @@
+/* Area + stacked area charts */
+.nv-stackedAreaChart .nv-area:nth-child(5n+5) { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
+.nv-stackedAreaChart .nv-area:nth-child(5n+4) { fill: var(--series-2) !important; stroke: var(--series-2) !important; }
+.nv-stackedAreaChart .nv-area:nth-child(5n+3) { fill: var(--series-3) !important; stroke: var(--series-3) !important; }
+.nv-stackedAreaChart .nv-area:nth-child(5n+2) { fill: var(--series-4) !important; stroke: var(--series-4) !important; }
+.nv-stackedAreaChart .nv-area:nth-child(5n+1) { fill: var(--series-5) !important; stroke: var(--series-5) !important; }
+
+/* Area + stacked area chart hovers */
+.nv-stackedAreaChart .nv-scatter .nv-group:nth-child(5n+5) { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
+.nv-stackedAreaChart .nv-scatter .nv-group:nth-child(5n+4) { fill: var(--series-2) !important; stroke: var(--series-2) !important; }
+.nv-stackedAreaChart .nv-scatter .nv-group:nth-child(5n+3) { fill: var(--series-3) !important; stroke: var(--series-3) !important; }
+.nv-stackedAreaChart .nv-scatter .nv-group:nth-child(5n+2) { fill: var(--series-4) !important; stroke: var(--series-4) !important; }
+.nv-stackedAreaChart .nv-scatter .nv-group:nth-child(5n+1) { fill: var(--series-5) !important; stroke: var(--series-5) !important; }
+
+/* Area + stacked area chart legends */
+.nv-stackedAreaChart .nv-series:nth-child(5n+5) circle { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
+.nv-stackedAreaChart .nv-series:nth-child(5n+4) circle { fill: var(--series-2) !important; stroke: var(--series-2) !important; }
+.nv-stackedAreaChart .nv-series:nth-child(5n+3) circle { fill: var(--series-3) !important; stroke: var(--series-3) !important; }
+.nv-stackedAreaChart .nv-series:nth-child(5n+2) circle { fill: var(--series-4) !important; stroke: var(--series-4) !important; }
+.nv-stackedAreaChart .nv-series:nth-child(5n+1) circle { fill: var(--series-5) !important; stroke: var(--series-5) !important; }
+
+/* TO DO: Area chart tooltip legends */
+
+/* Bar charts + tooltip legends */
+.nv-multiBarWithLegend .nv-group:nth-child(5n+1) rect { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
+.nv-multiBarWithLegend .nv-group:nth-child(5n+2) rect { fill: var(--series-2) !important; stroke: var(--series-2) !important; }
+.nv-multiBarWithLegend .nv-group:nth-child(5n+3) rect { fill: var(--series-3) !important; stroke: var(--series-3) !important; }
+.nv-multiBarWithLegend .nv-group:nth-child(5n+4) rect { fill: var(--series-4) !important; stroke: var(--series-4) !important; }
+.nv-multiBarWithLegend .nv-group:nth-child(5n+5) rect { fill: var(--series-5) !important; stroke: var(--series-5) !important; }
+
+/* Bar chart legends */
+.nv-multiBarWithLegend .nv-series:nth-child(5n+1) circle { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
+.nv-multiBarWithLegend .nv-series:nth-child(5n+2) circle { fill: var(--series-2) !important; stroke: var(--series-2) !important; }
+.nv-multiBarWithLegend .nv-series:nth-child(5n+3) circle { fill: var(--series-3) !important; stroke: var(--series-3) !important; }
+.nv-multiBarWithLegend .nv-series:nth-child(5n+4) circle { fill: var(--series-4) !important; stroke: var(--series-4) !important; }
+.nv-multiBarWithLegend .nv-series:nth-child(5n+5) circle { fill: var(--series-5) !important; stroke: var(--series-5) !important; }
+
+/* Line chart lines + hover strokes */
+.nv-lineChart .nv-group:nth-child(5n+1) { stroke: var(--series-1) !important; }
+.nv-lineChart .nv-group:nth-child(5n+2) { stroke: var(--series-2) !important; }
+.nv-lineChart .nv-group:nth-child(5n+3) { stroke: var(--series-3) !important; }
+.nv-lineChart .nv-group:nth-child(5n+4) { stroke: var(--series-4) !important; }
+.nv-lineChart .nv-group:nth-child(5n+5) { stroke: var(--series-5) !important; }
+
+/* Line chart hover fills */
+.nv-lineChart .nv-scatter .nv-group:nth-child(5n+1) { fill: var(--series-1) !important; }
+.nv-lineChart .nv-scatter .nv-group:nth-child(5n+2) { fill: var(--series-2) !important; }
+.nv-lineChart .nv-scatter .nv-group:nth-child(5n+3) { fill: var(--series-3) !important; }
+.nv-lineChart .nv-scatter .nv-group:nth-child(5n+4) { fill: var(--series-4) !important; }
+.nv-lineChart .nv-scatter .nv-group:nth-child(5n+5) { fill: var(--series-5) !important; }
+
+/* Line chart legends */
+.nv-lineChart .nv-series:nth-child(5n+1) circle { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
+.nv-lineChart .nv-series:nth-child(5n+2) circle { fill: var(--series-2) !important; stroke: var(--series-2) !important; }
+.nv-lineChart .nv-series:nth-child(5n+3) circle { fill: var(--series-3) !important; stroke: var(--series-3) !important; }
+.nv-lineChart .nv-series:nth-child(5n+4) circle { fill: var(--series-4) !important; stroke: var(--series-4) !important; }
+.nv-lineChart .nv-series:nth-child(5n+5) circle { fill: var(--series-5) !important; stroke: var(--series-5) !important; }
+
+/* TO DO: Line chart tooltip legends */
+
+/* Line + bar charts */
+.nv-linePlusBar .nv-bars rect { fill: var(--series-3) !important; stroke: none !important; }
+.nv-linePlusBar .nv-line path { stroke: var(--series-1) !important; }
+.nv-linePlusBar .nv-scatter .nv-group { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
+.nv-linePlusBar .nv-series:nth-child(5n+1) circle { fill: var(--series-3) !important; stroke: var(--series-3) !important; }
+.nv-linePlusBar .nv-series:nth-child(5n+2) circle { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
+
+/* TO DO: Line + bar chart tooltip legends */
+
+/* Pie + doughnut charts */
+.nv-pieChart .nv-slice:nth-child(5n+2) path { fill: var(--series-1) !important; }
+.nv-pieChart .nv-slice:nth-child(5n+4) path { fill: var(--series-2) !important; }
+.nv-pieChart .nv-slice:nth-child(5n+1) path { fill: var(--series-3) !important; }
+.nv-pieChart .nv-slice:nth-child(5n+3) path { fill: var(--series-4) !important; }
+.nv-pieChart .nv-slice:nth-child(5n+5) path { fill: var(--series-5) !important; }
+
+/* Pie + doughnut chart legends */
+
+.nv-pieChart .nv-series:nth-child(5n+2) circle { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
+.nv-pieChart .nv-series:nth-child(5n+4) circle { fill: var(--series-2) !important; stroke: var(--series-2) !important; }
+.nv-pieChart .nv-series:nth-child(5n+1) circle { fill: var(--series-3) !important; stroke: var(--series-3) !important; }
+.nv-pieChart .nv-series:nth-child(5n+3) circle { fill: var(--series-4) !important; stroke: var(--series-4) !important; }
+.nv-pieChart .nv-series:nth-child(5n+5) circle { fill: var(--series-5) !important; stroke: var(--series-5) !important; }
+
+/* TO DO: Pie chart tooltip legends */
+
+/* Scatter plots */
+.nv-scatterWrap .nv-point { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
+/* TO DO: Scatter plot tooltip legends */
