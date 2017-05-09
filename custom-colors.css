@@ -59,10 +59,10 @@
 /* TO DO: Line chart tooltip legends */
 
 /* Line + bar charts */
-.nv-linePlusBar .nv-bars rect { fill: var(--series-3) !important; stroke: none !important; }
+.nv-linePlusBar .nv-bars rect { fill: var(--series-2) !important; stroke: none !important; }
 .nv-linePlusBar .nv-line path { stroke: var(--series-1) !important; }
 .nv-linePlusBar .nv-scatter .nv-group { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
-.nv-linePlusBar .nv-series:nth-child(5n+1) circle { fill: var(--series-3) !important; stroke: var(--series-3) !important; }
+.nv-linePlusBar .nv-series:nth-child(5n+1) circle { fill: var(--series-2) !important; stroke: var(--series-2) !important; }
 .nv-linePlusBar .nv-series:nth-child(5n+2) circle { fill: var(--series-1) !important; stroke: var(--series-1) !important; }
 
 /* TO DO: Line + bar chart tooltip legends */
