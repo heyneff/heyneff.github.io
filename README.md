@@ -1,2 +1,2 @@
 # The Code-Based Art of Michael Neff
-heyneff.github.io
+http://heyneff.github.io
