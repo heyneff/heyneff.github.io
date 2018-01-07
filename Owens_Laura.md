@@ -1,4 +1,4 @@
-# Consolidated contact information fro and annotations to _Ownes, Laura_
+# Consolidated contact information from and annotations to _Ownes, Laura_
 
 ## Owens, Laura
 by Scott Rothkopf (Author), Laura Owens (Author)
