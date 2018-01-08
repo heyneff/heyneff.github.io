@@ -1,4 +1,4 @@
-# Consolidated data and annotations to _Ownes, Laura_
+# Consolidated data and annotations to _Owens, Laura_
 
 ## [Owens, Laura](http://amzn.to/2COWNPb)
 by Scott Rothkopf (Author), Laura Owens (Author)
