@@ -290,6 +290,78 @@ Gavin Brown's enterprise
 tel 212 431 1512 fax 212 965 1704  
 E-mail: [year@interport.net](mailto:year@interport.net)
 
+## page 143 invitation, _Sharon Lockhart, Laura Owens and Frances Stark,_ Blum & Poe, Santa Monica, 1997
+Blum & Poe
+2042 Broadway Santa Monica CA 90404
+TEL 310 453 8311 FAX 310 453 2821
+
+## page 148 Fax from Frances Stark, 1997
+FROM: FRANCES STARK 213 666 9864
+
+## page 164 Fax from Sadie Coles, 1997
+Sadie Coles HQ  
+35 Heddon Street London WIR 3LL  
+Tel 44(0)171 434 2227  
+Fax 44(0)171 434 2228
+
+## page 167 City Coles HQ, London, 1997
+Gregory Phillips architects  
+66 Great Cumberland Place London W1H 7FD TEL. 0171 724 3040 FAX. 0171 724 3020
+
+## page 186 Invitation, _Laura Owens and Sharon Lockhart_, Studio Guenzania, Milan, 1998
+STUDIO GUENZANIA   VIA EUSTACIA 10   20129   TEL. 02 29409251   FAX 02 29408080
+
+## page 188 Fax from Sadie Coles with notes by Owens, 1998
+ACME Assistan who can drive you around for $100 a day + gas  
+Eva McCoy (213)463-3622
+  
+(Andrea Zittel → 718 9632230  
+⬇ lives near me - I think you  
+told me you were frineds>>  
+If you want to see if she's around)  
+  
+Kevin Hanley - Work/Day 310 840 7894  
+  
+Jason Meadows – Home - 213 662 8527
+CallBrentPeterson 213 931 5467
+Brent is the guy w/ Gallery next to ACME who is also a UCLA Student–Call him if you can't find Jason Apparently he is hard-to-find  
+Jeff Burton-213 851 3136  
+PAE WHITE 626 796 4390  
+Lisa Anne Auerbach 626 799 6439
+Sharon Lockhart & Alex Slade 213 953 0391  
+  
+Cameron Jamie (old number might not be current)  
+213 664 9860  
+  
+Miles Coolidge 213 482 1805  
+Ruby NERi - (?) 31 8215267  
+phone# Dec of 97 - She might have moved  
+since graduating.
+
+## page 204 Invitation, Crown Center Gallery, Loyola University, Chicago, 1998
+Laura Owens Exhibition  
+November 1 - December 4, 1998  
+Reception: Sunday,November 1, 1998,3 - 5pm  
+Cown Center Gallery  
+  
+525 North Sheridan Rd.  
+Chicago, IL 60626  
+TEL 773-508-3811  
+FAX 773-508-2282  
+bkillam@luc.edu  
+MON - FRI 9am -4pm
+
+## page 206 Hotel confirmation, 1998
+JUST PASSING THROUGH  
+15134 Beachview Terrace  
+Dolton, IL 60419  
+
+## page 207 
+1 - 800 - 2CONNECT
+
+## page 212 TBD
+
+## page 204 Invitation, Crown Center Gallery, Loyola University, Chicago, 1998
 ### page 626
 https://m.youtube.com/watch?t=1185s&v=_Fo1Yoip_4M
 
