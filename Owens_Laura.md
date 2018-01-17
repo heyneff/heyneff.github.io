@@ -1,4 +1,4 @@
-# Consolidated data and annotations to _Owens, Laura_
+# Consolidated data from and annotations to _Owens, Laura_
 
 ## [Owens, Laura](http://amzn.to/2COWNPb)
 by Scott Rothkopf (Author), Laura Owens (Author)
@@ -359,9 +359,16 @@ Dolton, IL 60419
 ## page 207 
 1 - 800 - 2CONNECT
 
-## page 212 TBD
+## page 212 Flyer with notes by Owens, 1998
+Marilyn Sussman
+Gary Auerbach
+412 Greenwood
+Evanston 60201
+847 869 4830
 
-## page 204 Invitation, Crown Center Gallery, Loyola University, Chicago, 1998
+David Driscoll
+773 381 0925
+
 ### page 626
 https://m.youtube.com/watch?t=1185s&v=_Fo1Yoip_4M
 
