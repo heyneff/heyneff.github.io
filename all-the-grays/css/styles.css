@@ -15,9 +15,9 @@ html, body {
   /*background-color: red;*/
 }
 .grid div:nth-child(9n) {
-  background-color: black;
+  background-color: rgb(0,0,0);
 }
-.grid div:nth-child(0n+0) {background-color: rgb(﻿0,0,0);}
+.grid div:nth-child(0n+0) {background-color: rgb(0,0,0);}
 .grid div:nth-child(0n+1) {background-color: rgb(1,1,1);}
 .grid div:nth-child(0n+2) {background-color: rgb(2,2,2);}
 .grid div:nth-child(0n+3) {background-color: rgb(3,3,3);}
