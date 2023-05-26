@@ -1,13 +1,20 @@
-Average Flag
+Average Flag, 1997–2023
 
-Color			r		g		b		hex
-White			1.000	1.000	1.000	#FFFFFF
-Old Glory Red	.698	.132	.203	#B22234
-Old Glory Blue	.234	.233	.430	#3C3B6E
+Average Flag 
 
-White
-((6/13)*1*1.9)-(0.76*0.5385*(3/7))+(0.001301*50)=0.76657593406
+https://en.wikipedia.org/wiki/Flag_of_the_United_States#Specifications
+
+Colors, sRGB
+White 			rgb(100%,100%,100)
+Old Glory Red	rgb(69.8%,13.2%,20.3%)
+Old Glory Blue	rgb(23.4%,23.3%,43.0%)
+
+White area
+white area/flag area=proportion of white to flag area
 0.76657593406/1.9=0.40346101792 or 40.35%
+
+	((white stripes/total stripes)*height*width)-(field height*field width*(white field-adjacent stripes/total field-adjacent stripes))+(star area*number of stars)=white area
+	((6/13)*1*1.9)-(0.76*0.5385*(3/7))+(0.001301*50)=0.76657593406
 
 	Stripes
 	=((6/13)*1*1.9)-(0.76*0.5385*(3/7))
@@ -20,11 +27,11 @@ Old Glory Red
 0.78921406593/1.9=0.41537582417 or 41.54%
 
 Old Glory Blue
-Field area - area of stars = Old Glory Blue area
-(0.76*0.5385)-(0.001301*50)=0.34421
+Old Glory Blue area / Flag width = Old Glory Blue area as percentage of total flag area
+0.34421/1.9=0.18116315789 or 18.12%
 
-	Old Glory Blue area / Flag width = Old Glory Blue area as percentage of total flag area
-	0.34421/1.9=0.18116315789 or 18.12%
+	Field area - area of stars = Old Glory Blue area
+	(0.76*0.5385)-(0.001301*50)=0.34421
 
 	Field width * Field height = Field area
 	0.76*0.5385
