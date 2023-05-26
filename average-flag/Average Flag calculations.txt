@@ -1,0 +1,59 @@
+Average Flag
+
+Color			r		g		b		hex
+White			1.000	1.000	1.000	#FFFFFF
+Old Glory Red	.698	.132	.203	#B22234
+Old Glory Blue	.234	.233	.430	#3C3B6E
+
+White
+((6/13)*1*1.9)-(0.76*0.5385*(3/7))+(0.001301*50)=0.76657593406
+0.76657593406/1.9=0.40346101792 or 40.35%
+
+	Stripes
+	=((6/13)*1*1.9)-(0.76*0.5385*(3/7))
+
+	Stars (diameter= 0.0616, area 0.001301 each)
+	=0.001301*50
+
+Old Glory Red
+((7/13)*1*1.9)-(0.76*0.5385*(4/7)=0.78921406593
+0.78921406593/1.9=0.41537582417 or 41.54%
+
+Old Glory Blue
+Field area - area of stars = Old Glory Blue area
+(0.76*0.5385)-(0.001301*50)=0.34421
+
+	Old Glory Blue area / Flag width = Old Glory Blue area as percentage of total flag area
+	0.34421/1.9=0.18116315789 or 18.12%
+
+	Field width * Field height = Field area
+	0.76*0.5385
+
+	Stars area (Add to white, Subtract from Old Glory Blue)
+	(0.001301*50)*-1
+
+Flag area
+Flag height * Flag width = Flag area
+1*1.9=1.9 squ
+
+Old Glory Blue area + Old Glory Red area + White area = Total area
+0.34421+0.78921406593+0.76657593406=1.89999999999 squ
+
+Percentage area multiplied by red, green, and blue values
+r=(0.40346101792*1.000)+(0.41537582417*1.000)+(0.18116315789*1.000)/3=1
+g=(0.40346101792*.698)+(0.41537582417*.132)+(0.18116315789*.203)/3=0.34870410631
+b=(0.40346101792*.234)+(0.41537582417*.233)+(0.18116315789*.43)/3=0.21715916452
+
+Red, green, and blue values multiplied by 255 to map to rgb scale
+r=(0.40346101792*1.000)+(0.40346101792*.698)+(0.40346101792*.234)=0.77948668662*255=198.769105088 255-198.769105088=56.230894912
+g=(0.41537582417*1.000)+(0.41537582417*.132)+(0.41537582417*.233)=0.56698799999*255=144.581939997 255-144.581939997=110.418060003
+b=(0.18116315789*1.000)+(0.18116315789*.203)+(0.18116315789*.43)=0.29583943683*255=75.4390563917 255-75.4390563917=179.560943608
+
+Average color of the United States flag in rgb color space
+rgb(1,0.34870410631,0.21715916452) /* Areas */
+rgb(198.769105088,144.581939997,75.4390563917) /* @255 */
+rgb(56.230894912,110.418060003,179.560943608) /* *255, 255- */
+rgb(255,95.17148769,68.61861379) /* Converted rgb values to 0–255 scale */
+rgb(0,159.8285123,186.3813862) /* Converted rgb values to 0–255 scale, subtracted from 255 */
+rgb(77.948668662%,56.698799999,29.583943683)
+rgb(188,128,144)
