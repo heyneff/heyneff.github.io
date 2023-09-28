@@ -1,0 +1,193 @@
+<html>
+  <head>
+    <title>Ghost, 2017 Michael Neff</title>
+    <style>
+      div {
+                   border: 1px solid rgba(0,0,0,0);
+                   margin: auto;
+      }
+      body {
+                    color: white;
+      }
+      .iphone {
+            border-radius: 45px;
+                   bottom: 20px;
+               box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.07), 12px 12px 12px rgba(200, 200, 200, 0.05);
+                    color: white;
+                   height: 605px;
+                     left: 0;
+                   margin: auto;
+                 position: absolute;
+                    right: 0;
+                      top: 0;
+                      width: 295px;
+      }
+      .speaker {
+            border-radius: 3px;
+               box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.07);
+                   height: 4px;
+                   margin: 30px auto 30px auto;
+                    width: 50px;;
+      }
+      .home {
+            border-radius: 50%;
+                   border: 4px solid rgb(250,250,250);
+               box-shadow: inset 0 0 24px rgb(252, 252, 252);
+                   height: 40px;
+                   margin: 15px auto;
+                    width: 40px;
+      }
+      .screen {
+               box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.02);
+            border-radius: 3px;
+                    color: white;
+                   height: 460px;
+               margin-top: 20px;
+                    width: 270px;
+      }
+      .apps, .dock {
+                    width: 100%;
+                  display: flex;
+                flex-flow: row wrap;
+          justify-content: space-around;
+                   margin: auto;
+      }
+      .apps {
+                   height: 85.7%;
+      }
+      .dock {
+         background-color: white;
+                   height: 14.3%;
+               box-shadow: inset 0 0 48px rgb(248, 248, 248);
+      }
+      .app {
+            border-radius: 10px;
+               box-shadow: inset 0 0 48px rgb(248, 248, 248);
+                   height: 44px;
+                   margin: 10px;
+                    width: 44px;
+      }
+      button#btnFullscreen {
+        border-radius: 8px;
+        box-shadow: 0 0 12px rgba(0,0,0,0.1);
+        position: relative;
+        border: none;
+        height: 36px;
+        opacity: .9;
+        display: inline-block;
+        width: 36px;
+        overflow: hidden;
+        background-color: rgb(230,230,230);
+        background: url('data:image/svg+xml,<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><g fill-rule="nonzero" fill="#000"><path d="M0 6h2V2h4V0H0"/><path d="M0 6h2V2h4V0H0M10 0v2h4v4h2V0"/><path d="M10 0v2h4v4h2V0"/><g><path d="M14 14h-4v2h6v-6h-2"/><path d="M14 14h-4v2h6v-6h-2"/></g><g><path d="M2 10H0v6h6v-2H2"/><path d="M2 10H0v6h6v-2H2"/></g></g></svg>') no-repeat;
+        background-position: center; 
+        padding: 0;
+        color: inherit;
+        text-align: inherit;
+        font-size: 100%;
+        font-family: inherit;
+        cursor: default;
+        line-height: inherit;
+        transition: 0.5s;
+      }
+      button#btnFullscreen:hover {
+        /*background-color: rgb(200,200,200);*/
+        box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        bottom: 1px ;
+        /*width: 38px;
+        height: 38px;*/
+        transition: 0.5s;
+      }
+      button#btnFullscreen:-webkit-full-screen,
+      button#btnFullscreen:-moz-full-screen,
+      button#btnFullscreen:-ms-fullscreen,
+      button#btnFullscreen:fullscreen  { background: url('data:image/svg+xml,<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><g fill-rule="nonzero" fill="#000"><path d="M4 4H0v2h6V0H4"/><path d="M4 4H0v2h6V0H4M12 4V0h-2v6h6V4"/><path d="M12 4V0h-2v6h6V4"/><g><path d="M10 16h2v-4h4v-2h-6"/><path d="M10 16h2v-4h4v-2h-6"/></g><g><path d="M0 12h4v4h2v-6H0"/><path d="M0 12h4v4h2v-6H0"/></g></g></svg>') no-repeat;;
+    }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  </head>
+  <body id="ghost">
+    <div class="iphone">
+      <div class="speaker"></div>
+      <div class="screen">
+        <div class="apps">
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+        </div>
+        <div class="dock">
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+          <div class="app"></div>
+        </div>
+      </div>
+      <div class="home"></div>
+    </div>
+    
+    <button id="btnFullscreen" type="button"></button>
+
+    <script>
+      $("#btnFullscreen").hide();
+      var i = null;
+      $("#ghost").mousemove(function() {
+      clearTimeout(i);
+      $("#btnFullscreen").show();
+      i = setTimeout('$("#btnFullscreen").hide();', 1000);
+      }).mouseleave(function() {
+      clearTimeout(i);
+      $("#btnFullscreen").hide();  
+      });
+    </script>
+    <script>
+      function toggleFullscreen(elem) {
+        elem = elem || document.documentElement;
+        if (!document.fullscreenElement && !document.mozFullScreenElement &&
+          !document.webkitFullscreenElement && !document.msFullscreenElement) {
+          if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+          } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+          } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+          } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+        }
+      }
+      document.getElementById('btnFullscreen').addEventListener('click', function() {
+        toggleFullscreen();
+      });
+    </script>
+  </body>
+</html>
