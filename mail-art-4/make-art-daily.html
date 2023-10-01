@@ -5,13 +5,14 @@
 			<style type="text/css">
 				:root {
 					--text-color: black;
+					--size: 300px;
 				}
 				html, body {
 					font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
 				}
 				img, video {
-					min-height: 200px;
-					max-height: 200px;
+					min-height: var(--size);
+					max-height: var(--size);
 				}
 				.daily-list {
 					padding: 0;
@@ -50,11 +51,43 @@
 				}
 				.failure {
 					text-decoration: line-through;
-					clear: right;
+					color: white;
+					content: 'failure';
+/*					clear: right;*/
 				}
 				.selected {
 					display: inline-block;
 					background-color: yellowgreen;
+				}
+				.date {
+					vertical-align: top;
+					background-color: black;
+/*					margin-top: 4px;
+					padding: 4px;*/
+					height: var(--size);
+				}
+				.date h2 {
+					display: inline-block;
+					color: white;
+/*					border-top: 4px solid white;*/
+					padding: 0 0.83em;
+				}
+				li p {
+					display: inline-block;
+					width: 100px;
+					padding: 0 12px;
+					text-transform: initial;
+					margin: 0;
+					vertical-align: top;
+					font-size: 12px;
+
+				}
+				li p::before {
+					content: '←';
+					font-weight: bold;
+					margin-right: 4px;
+					display: inline-block;
+					clear: left;
 				}
 			</style>
 		</head>
@@ -82,262 +115,222 @@
 			<li><a href="by-project">By project</a></li>
 		</ul>
 		<ul class="daily-list">
-			<li>30 September<br>
-				<ul>
-					<li><img src="images/make-art-daily/IMG_4160.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4157.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4161.jpeg"/></li>
-				</ul>
-			</li>
-			<li>29 September<br>
-				<ul>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_2151221197.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_3101557261.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_1802262018.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_3558915156.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_3068259745.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do__painting__striking_color__419728804.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do__painting__striking_color__2662954620.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do__painting__striking_color__3198379687.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do__painting__striking_color__2626296860.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do__painting__striking_color__1043824792.jpeg"/></li>
-					<li><img src="images/make-art-daily/a_large_unframed_painting_hanging_alone_on_a_wall_in_a_modern_art_museum__50mm_lens__soft_subtle_light__a_single_person_stands_in_front_of_the_painting___1144798217.jpeg"/></li>
-					<li><img src="images/make-art-daily/a_large_unframed_painting_hanging_alone_on_a_wall_in_a_modern_art_museum__50mm_lens__soft_subtle_light__a_single_person_stands_in_front_of_the_painting___3021129527.jpeg"/></li>
-					<li><img src="images/make-art-daily/a_large_unframed_painting_hanging_alone_on_a_wall_in_a_modern_art_museum__50mm_lens__soft_subtle_light__a_single_person_stands_in_front_of_the_painting___1920891117.jpeg"/></li>
-					<li><img src="images/make-art-daily/a_large_unframed_painting_hanging_alone_on_a_wall_in_a_modern_art_museum__50mm_lens__soft_subtle_light__a_single_person_stands_in_front_of_the_painting___286477788.jpeg"/></li>
-					<li><img src="images/make-art-daily/a_large_unframed_painting_hanging_alone_on_a_wall_in_a_modern_art_museum__50mm_lens__soft_subtle_light__a_single_person_stands_in_front_of_the_painting___1840693384.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_canon_5d_mkiii__50_mm__dslr____ar_3_2___s_750___no_camera_3336603128.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_canon_5d_mkiii__50_mm__dslr____ar_3_2___s_750___no_camera_497169463.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_canon_5d_mkiii__50_mm__dslr____ar_3_2___s_750___no_camera_1069272325.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_canon_5d_mkiii__50_mm__dslr____ar_3_2___s_750___no_camera_2238877448.jpeg"/></li>
-					<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_canon_5d_mkiii__50_mm__dslr____ar_3_2___s_750___no_camera_1190088033.jpeg"/></li>
-					<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_1389164606.jpeg"/></li>
-					<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_1956677051.jpeg"/></li>
-					<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_3874300336.jpeg"/></li>
-					<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_431692669.jpeg"/></li>
-					<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_541345015.jpeg"/></li>
-					<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_2097748553.jpeg"/></li>
-					<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_2520954953.jpeg"/></li>
-					<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_3895780716.jpeg"/></li>
-					<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_3887250208.jpeg"/></li>
-					<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_2852817451.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4116.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4113.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4115.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4117.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4118.jpeg"/></li>
-				</ul>
-			</li>
-			<li>28 September<br>
-				<ul>
-					<li><img src="images/make-art-daily/IMG_4109.jpeg"/><br>Recording the sound of me peeing while I read text messages</li>
-					<li><img src="images/make-art-daily/IMG_4111.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4161.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4157.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4110.jpeg"/></li>
-				</ul>
-			</li>
-			<li>27 September<br>
-				<ul>
-					<li><img src="images/make-art-daily/IMG_4101.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4102.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4105.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4106.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4099.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4098.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4096.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4095.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4094.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4090.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4089.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4088.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4087.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4085.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4083.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4082.jpeg"/></li>
-					<li><img src="images/make-art-daily/IMG_4081.jpeg"/></li>
-					<li><img src="images/make-art-daily/github.com_heyneff_heyneff.github.io_issues_1.jpeg"/></li>
-				</ul>
-			</li>
-			<li>
-				<ul>
-					<li class="failure">26 September<br>
-						<ul>
-							<li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-			<li>25 September<br>
-				<ul>
-					<li><img src="images/make-art-daily/IMG_4060.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_4061.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_4063.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_4064.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_4065.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_4069.jpeg"></li>
-				</ul>
-			</li>
-			<li>24 September<br>
-				<ul>
-					<li><img src="images/garage-doors-of-sf/IMG_4025.jpeg"></li>
-					<li><img src="images/garage-doors-of-sf/IMG_4027.jpeg"></li>
-					<li><img src="images/garage-doors-of-sf/IMG_4028.jpeg"></li>
-					<li><img src="images/garage-doors-of-sf/IMG_4030.jpeg"></li>
-					<li><img src="images/garage-doors-of-sf/IMG_4033.jpeg"></li>
-					<li><img src="images/garage-doors-of-sf/IMG_4034.jpeg"></li>
-					<li><img src="images/garage-doors-of-sf/IMG_4035.jpeg"></li>
-					<li><img src="images/garage-doors-of-sf/IMG_4036.jpeg"></li>
-					<li><img src="images/garage-doors-of-sf/IMG_4037.jpeg"></li>
-					<li><img src="images/garage-doors-of-sf/IMG_4038.jpeg"></li>
-				</ul>
-			</li>
-			<li class="failure">23 September<br>
-				<ul>
-					<li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li>
-				</ul>
-			</li>
-			<li>22 September<br>
-				<ul>
-					<li><img src="images/make-art-daily/IMG_4019.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_22093251.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_85362915.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_98358322.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_163042986.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_374333277.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_476914736.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_510454164.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_569689634.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_594621827.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_601256180.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_605433130.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_676141074.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_857483873.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_888136415.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_914079298.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_944327369.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_945020972.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_992556582.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_993806363.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1006890160.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1013281913.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1050653506.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1169910392.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1326348797.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1423459344.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1432018470.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1441030694.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1484808201.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1491419689.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1495611503.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1495739393.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1505720706.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1621295270.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1623422968.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1645769632.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1714818351.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1734556261.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1932280634.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1946265727.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1999568472.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2009599483.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2026631002.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2086303849.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2098923092.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2143615575.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2211186212.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2248320325.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2277609755.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2280123920.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2326813485.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2382900914.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2451877247.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2559652639.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2598760701.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2599891761.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2617013894.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2650967348.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2664370929.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2670431738.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2671709307.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2689786576.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2701933030.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2704610442.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2756306629.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2776920293.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2816515900.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2830776131.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2965061136.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3025203050.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3086412290.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3097333440.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3143811879.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3149009536.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3186342659.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3299615593.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3316621393.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3383913510.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3466461927.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3484007564.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3590680601.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3600700742.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3608620445.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3614587195.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3620774803.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3713872969.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3728258597.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3761091902.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3789879126.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3802966805.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3815630219.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3835909465.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3902484315.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3988328502.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4004551577.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4004807257.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4028317949.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4047710224.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4124135812.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4142045690.jpeg"></li>
-					<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4281356944.jpeg"></li>
-				</ul>
-			</li>
-			<li>21 September<br>
-				<ul>
-					<li><img src="images/make-art-daily/office-vignettes/IMG_3998.jpeg"></li>
-					<li><img src="images/make-art-daily/office-vignettes/IMG_3999.jpeg"></li>
-					<li><img src="images/make-art-daily/office-vignettes/IMG_4004.jpeg"></li>
-					<li><img src="images/make-art-daily/office-vignettes/IMG_4005.jpeg"></li>
-					<li><img src="images/make-art-daily/office-vignettes/IMG_4007.jpeg"></li>
-					<li><img src="images/make-art-daily/office-vignettes/IMG_4009.jpeg"></li>
-					<li><img src="images/make-art-daily/office-vignettes/IMG_4012.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3993.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3987.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3989.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3990.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3992.jpeg"></li>
-				</ul>
-			</li>
-			<li>20 September<br>
-				<ul>
-					<li><img src="images/make-art-daily/IMG_3981.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3983.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3985.jpeg"></li>
-				</ul>
-			</li>
-			<li>19 September<br>
-				<ul>
-					<li><img src="images/make-art-daily/IMG_3948.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3957.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3960.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3965.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3968.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3971.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3973.jpeg"></li>
-					<li><img src="images/make-art-daily/IMG_3974.jpeg"></li>
-				</ul>
-			</li>
-			<li>18 September<br>
+			<li class="date"><h2>30 September</h2></li>
+			<li><img src="images/make-art-daily/IMG_4160.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4157.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4161.jpeg"/></li>
+			<li class="date"><h2>29 September</h2></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_2151221197.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_3101557261.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_1802262018.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_3558915156.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_3068259745.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do__painting__striking_color__419728804.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do__painting__striking_color__2662954620.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do__painting__striking_color__3198379687.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do__painting__striking_color__2626296860.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do__painting__striking_color__1043824792.jpeg"/></li>
+			<li><img src="images/make-art-daily/a_large_unframed_painting_hanging_alone_on_a_wall_in_a_modern_art_museum__50mm_lens__soft_subtle_light__a_single_person_stands_in_front_of_the_painting___1144798217.jpeg"/></li>
+			<li><img src="images/make-art-daily/a_large_unframed_painting_hanging_alone_on_a_wall_in_a_modern_art_museum__50mm_lens__soft_subtle_light__a_single_person_stands_in_front_of_the_painting___3021129527.jpeg"/></li>
+			<li><img src="images/make-art-daily/a_large_unframed_painting_hanging_alone_on_a_wall_in_a_modern_art_museum__50mm_lens__soft_subtle_light__a_single_person_stands_in_front_of_the_painting___1920891117.jpeg"/></li>
+			<li><img src="images/make-art-daily/a_large_unframed_painting_hanging_alone_on_a_wall_in_a_modern_art_museum__50mm_lens__soft_subtle_light__a_single_person_stands_in_front_of_the_painting___286477788.jpeg"/></li>
+			<li><img src="images/make-art-daily/a_large_unframed_painting_hanging_alone_on_a_wall_in_a_modern_art_museum__50mm_lens__soft_subtle_light__a_single_person_stands_in_front_of_the_painting___1840693384.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_canon_5d_mkiii__50_mm__dslr____ar_3_2___s_750___no_camera_3336603128.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_canon_5d_mkiii__50_mm__dslr____ar_3_2___s_750___no_camera_497169463.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_canon_5d_mkiii__50_mm__dslr____ar_3_2___s_750___no_camera_1069272325.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_canon_5d_mkiii__50_mm__dslr____ar_3_2___s_750___no_camera_2238877448.jpeg"/></li>
+			<li><img src="images/make-art-daily/what_happens_when_you_don_t_know_what_to_do_canon_5d_mkiii__50_mm__dslr____ar_3_2___s_750___no_camera_1190088033.jpeg"/></li>
+			<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_1389164606.jpeg"/></li>
+			<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_1956677051.jpeg"/></li>
+			<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_3874300336.jpeg"/></li>
+			<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_431692669.jpeg"/></li>
+			<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_541345015.jpeg"/></li>
+			<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_2097748553.jpeg"/></li>
+			<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_2520954953.jpeg"/></li>
+			<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_3895780716.jpeg"/></li>
+			<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_3887250208.jpeg"/></li>
+			<li><img src="images/make-art-daily/aerial_view_with_a_canon_r5__50_mm__dslr__la_river__golden_hour____v_5___ar_3_2___s_750___no_camera_2852817451.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4116.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4113.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4115.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4117.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4118.jpeg"/></li>
+			<li class="date"><h2>28 September</h2></li>
+			<li><img src="images/make-art-daily/IMG_4109.jpeg"/><p>A recording the sound of me peeing while I read text messages</li>
+			<li><img src="images/make-art-daily/IMG_4111.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4161.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4157.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4110.jpeg"/></li>
+			<li class="date"><h2>27 September</h2></li>
+			<li><img src="images/make-art-daily/IMG_4101.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4102.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4105.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4106.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4099.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4098.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4096.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4095.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4094.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4090.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4089.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4088.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4087.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4085.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4083.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4082.jpeg"/></li>
+			<li><img src="images/make-art-daily/IMG_4081.jpeg"/></li>
+			<li><img src="images/make-art-daily/github.com_heyneff_heyneff.github.io_issues_1.jpeg"/></li>
+			<li class="failure date"><h2>26 September</h2></li>
+			<li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li>
+			<li class="date"><h2>25 September</h2></li>
+			<li><img src="images/make-art-daily/IMG_4060.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_4061.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_4063.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_4064.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_4065.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_4069.jpeg"></li>
+			<li><h2 >24 September</h2></li>
+			<li><img src="images/garage-doors-of-sf/IMG_4025.jpeg"></li>
+			<li><img src="images/garage-doors-of-sf/IMG_4027.jpeg"></li>
+			<li><img src="images/garage-doors-of-sf/IMG_4028.jpeg"></li>
+			<li><img src="images/garage-doors-of-sf/IMG_4030.jpeg"></li>
+			<li><img src="images/garage-doors-of-sf/IMG_4033.jpeg"></li>
+			<li><img src="images/garage-doors-of-sf/IMG_4034.jpeg"></li>
+			<li><img src="images/garage-doors-of-sf/IMG_4035.jpeg"></li>
+			<li><img src="images/garage-doors-of-sf/IMG_4036.jpeg"></li>
+			<li><img src="images/garage-doors-of-sf/IMG_4037.jpeg"></li>
+			<li><img src="images/garage-doors-of-sf/IMG_4038.jpeg"></li>
+			<li class="failure date"><h2>23 September</h2></li>
+			<li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li>
+			<li class="date"><h2>22 September</h2></li>
+			<li><img src="images/make-art-daily/IMG_4019.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_22093251.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_85362915.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_98358322.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_163042986.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_374333277.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_476914736.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_510454164.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_569689634.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_594621827.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_601256180.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_605433130.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_676141074.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_857483873.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_888136415.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_914079298.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_944327369.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_945020972.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_992556582.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_993806363.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1006890160.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1013281913.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1050653506.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1169910392.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1326348797.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1423459344.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1432018470.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1441030694.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1484808201.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1491419689.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1495611503.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1495739393.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1505720706.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1621295270.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1623422968.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1645769632.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1714818351.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1734556261.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1932280634.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1946265727.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_1999568472.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2009599483.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2026631002.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2086303849.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2098923092.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2143615575.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2211186212.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2248320325.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2277609755.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2280123920.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2326813485.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2382900914.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2451877247.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2559652639.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2598760701.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2599891761.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2617013894.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2650967348.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2664370929.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2670431738.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2671709307.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2689786576.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2701933030.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2704610442.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2756306629.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2776920293.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2816515900.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2830776131.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_2965061136.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3025203050.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3086412290.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3097333440.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3143811879.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3149009536.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3186342659.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3299615593.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3316621393.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3383913510.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3466461927.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3484007564.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3590680601.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3600700742.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3608620445.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3614587195.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3620774803.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3713872969.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3728258597.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3761091902.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3789879126.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3802966805.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3815630219.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3835909465.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3902484315.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_3988328502.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4004551577.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4004807257.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4028317949.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4047710224.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4124135812.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4142045690.jpeg"></li>
+			<li><img src="images/make-art-daily/2023_photograph_of_an_iconic_house_in_los_angeles_with_an_iconic_1960s_or_1970s_american_muscle_car_parked_in_front_4281356944.jpeg"></li>
+			<li class="date"><h2>21 September</h2></li>
+			<li><img src="images/make-art-daily/office-vignettes/IMG_3998.jpeg"></li>
+			<li><img src="images/make-art-daily/office-vignettes/IMG_3999.jpeg"></li>
+			<li><img src="images/make-art-daily/office-vignettes/IMG_4004.jpeg"></li>
+			<li><img src="images/make-art-daily/office-vignettes/IMG_4005.jpeg"></li>
+			<li><img src="images/make-art-daily/office-vignettes/IMG_4007.jpeg"></li>
+			<li><img src="images/make-art-daily/office-vignettes/IMG_4009.jpeg"></li>
+			<li><img src="images/make-art-daily/office-vignettes/IMG_4012.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3993.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3987.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3989.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3990.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3992.jpeg"></li>
+			<li class="date"><h2>20 September</h2></li>
+			<li><img src="images/make-art-daily/IMG_3981.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3983.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3985.jpeg"></li>
+			<li class="date"><h2>19 September</h2></li>
+			<li><img src="images/make-art-daily/IMG_3948.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3957.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3960.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3965.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3968.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3971.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3973.jpeg"></li>
+			<li><img src="images/make-art-daily/IMG_3974.jpeg"></li>
+			<li class="date">18 September<br>
 				<ul>
 					<li><video controls>
 							<source src="images/make-art-daily/IMG_3915.MOV" type="video/mp4" />
@@ -349,12 +342,12 @@
 					<li><img src="images/make-art-daily/IMG_4815.jpeg"></li>
 				</ul>
 			</li>
-			<li class="failure">17 September<br>
+			<li class="failure date">17 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li>
 				</ul>
 			</li>
-			<li>16 September<br>
+			<li class="date">16 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/heyneff_1980s_pixelated_computer_user_interface_sewn_onto_a_pie_0a59b4bf-43e7-42de-9efb-247628e8e881.jpeg"></li>
 					<li><img src="images/make-art-daily/heyneff_1980s_pixelated_computer_user_interface_sewn_onto_a_pie_0badb4f5-de2c-4ff0-97f0-f85b90f89233.jpeg"></li>
@@ -431,53 +424,53 @@
 					<li><img src="images/make-art-daily/heyneff_stack_of_30_thin_magazines._Simple_background._The_maga_d0e6cd48-22a4-4d13-8add-2acc870b5e2e.jpeg"></li>
 				</ul>
 			</li>
-			<li>15 September<br>
+			<li class="date">15 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/IMG_3880.jpeg"></li>
 					<li><img src="images/make-art-daily/IMG_3874.jpeg"></li>
 				</ul>
 			</li>
-			<li>14 September<br>
+			<li class="date">14 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/IMG_3862.jpeg"></li>
 				</ul>
 			</li>
-			<li class="failure">13 September<br>
+			<li class="failure date">13 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li>
 				</ul>
 			</li>
-			<li>12 September<br>
+			<li class="date">12 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/IMG_3861.jpeg"></li>
 				</ul>
 			</li>
-			<li class="failure">11 September<br>
+			<li class="failure date">11 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li>
 				</ul>
 			</li>
-			<li>10 September<br>
+			<li class="date">10 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/IMG_3833.jpeg"></li>
 				</ul>
 			</li>
-			<li>9 September<br>
+			<li class="date">9 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/IMG_3794.jpeg"></li>
 				</ul>
 			</li>
-			<li class="failure">8 September<br>
+			<li class="failure date">8 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li>
 				</ul>
 			</li>
-			<li>7 September<br>
+			<li class="date">7 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/IMG_3762.jpeg"></li>
 				</ul>
 			</li>
-			<li>6 September<br>
+			<li class="date">6 September<br>
 				<ul>
 					<li><img src="images/garage-doors-of-sf/IMG_3758.jpeg"></li>
 					<li><img src="images/garage-doors-of-sf/IMG_3759.jpeg"></li>
@@ -486,7 +479,7 @@
 					<li><img src="images/make-art-daily/IMG_3754.jpeg"></li>
 				</ul>
 			</li>
-			<li>5 September<br>
+			<li class="date">5 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/IMG_3714.jpeg"></li>
 					<li><img src="images/make-art-daily/IMG_3735.jpeg"></li>
@@ -534,13 +527,13 @@
 					<li><img src="images/garage-doors-of-sf/IMG_3684.jpeg"></li>
 				</ul>
 			</li>
-			<li>4 September<br>
+			<li class="date">4 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/IMG_3678.jpeg"></li>
 					<li><img src="images/make-art-daily/IMG_3680.jpeg"></li>
 				</ul>
 			</li>
-			<li>3 September<br>
+			<li class="date">3 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/IMG_3628.jpeg"></li>
 					<li><img src="images/make-art-daily/IMG_3629.jpeg"></li>
@@ -559,12 +552,12 @@
 					<li><img src="images/make-art-daily/IMG_3673.jpeg"></li>
 				</ul>
 			</li>
-			<li>2 September<br>
+			<li class="date">2 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/IMG_3619.jpeg"></li>
 				</ul>
 			</li>
-			<li>1 September<br>
+			<li class="date">1 September<br>
 				<ul>
 					<li><img src="images/make-art-daily/Screenshot 2023-09-01 at 4.45.37 PM.png"></li>
 				</ul>
