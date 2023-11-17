@@ -5,6 +5,7 @@
 			<style type="text/css">
 				:root {
 					--size: 300px;
+					--radius: 16px;
 				}
 				html, body {
 					color: black;
@@ -14,9 +15,12 @@
 				img, video {
 					min-height: var(--size);
 					max-height: var(--size);
+					margin: 0;
+					padding: 0;
 				}
 				.daily-list {
 					padding: 0;
+					margin: 0;
 				}
 				.daily-list ul {
 					padding: 0 0 1rem 0;
@@ -51,10 +55,6 @@
 					border: none;
 				}
 				.failure {
-/*					text-decoration: line-through;
-					color: red;
-					border-bottom: 2px solid red;
-					padding-bottom: -24px;*/
 				    position: relative;
 				    display: inline-block;
 				}
@@ -64,7 +64,13 @@
 				    width: 100%;
 				    position: absolute;
 				    right: 0;
-				    top: 50%;
+				    top: 48%;
+				}
+				.failure li {
+					border-radius: var(--radius);
+				}
+				li.date.fail {
+					border-radius: var(--radius);
 				}
 				.selected {
 					display: inline-block;
@@ -73,14 +79,14 @@
 				.date {
 					vertical-align: top;
 					background-color: black;
-/*					margin-top: 4px;
-					padding: 4px;*/
+					margin-top: 4px;
+					padding: 4px;
 					height: var(--size);
+					border-radius: var(--radius) 0 0 var(--radius);
 				}
 				.date h2 {
 					display: inline-block;
 					color: white;
-/*					border-top: 4px solid white;*/
 					padding: 0 0.83em;
 				}
 				li p {
@@ -102,31 +108,32 @@
 				}
 			</style>
 		</head>
-		<ul>
-			<li>Drawings before bed</li>
-			<li>Emprops project</li>
-			<li>Enjoy reading</li>
-			<li>Fix 5D Mk III</li>
-			<li>Get enough sleep</li>
-			<li>Hang art</li>
-			<li>Jessica Silverman show</li>
-			<li>Mail Art 4: Document before & after</li>
-			<li>Make art daily</li>
-			<li>Organize office</li>
-			<li>QR code works</li>
-			<li>Release "An Idea of Los Angeles" NFTs and promote them</li>
-			<li>Revel in time with the kids</li>
-			<li>SFMoMA photo show</li>
-			<li>Stretch paintings</li>
-			<li>Weed the backyard</li>
-		</ul>
+		<label for="goal-select">Goal</label>
+		<select name="goals" id="goal-select">
+		  <option value="Drawings before bed">Drawings before bed</option>
+		  <option value="Emprops project">Emprops project</option>
+		  <option value="Enjoy reading">Enjoy reading</option>
+		  <option value="Fix 5D Mk III">Fix 5D Mk III</option>
+		  <option value="Get enough sleep">Get enough sleep</option>
+		  <option value="Hang art">Hang art</option>
+		  <option value="Jessica Silverman show">Jessica Silverman show</option>
+		  <option value="Mail Art 4: Document before & after">Mail Art 4: Document before & after</option>
+		  <option value="Make art daily" selected>Make art daily</option>
+		  <option value="Organize office">Organize office</option>
+		  <option value="QR code works">QR code works</option>
+		  <option value="Release An Idea of Los Angeles NFTs and promote them">Release "An Idea of Los Angeles" NFTs and promote them</option>
+		  <option value="Revel in time with the kids">Revel in time with the kids</option>
+		  <option value="SFMoMA photo show">SFMoMA photo show</option>
+		  <option value="Stretch paintings">Stretch paintings</option>
+		  <option value="Weed the backyard">Weed the backyard</option>
+		</select>
 		<h1>Make art daily</h1>
 		<ul class="view">
 			<li class="selected"><a href="#">Chronological</a></li>
 			<li><a href="by-project">By project</a></li>
 		</ul>
 		<ul class="daily-list">
-			<li class="date"><h2 class="failure">30 September</h2></li>
+			<li class="date"><h2>30 September</h2></li>
 			<li><img src="images/make-art-daily/IMG_4160.jpeg"/></li>
 			<li><img src="images/make-art-daily/IMG_4157.jpeg"/></li>
 			<li><img src="images/make-art-daily/IMG_4161.jpeg"/></li>
@@ -167,7 +174,7 @@
 			<li><img src="images/make-art-daily/IMG_4117.jpeg"/></li>
 			<li><img src="images/make-art-daily/IMG_4118.jpeg"/></li>
 			<li class="date"><h2>28 September</h2></li>
-			<li><img src="images/make-art-daily/IMG_4109.jpeg"/><p>A recording the sound of me peeing while I read text messages</li>
+			<li><img src="images/make-art-daily/IMG_4109.jpeg"/><p>A recording of the sound of me peeing while I read text messages</li>
 			<li><img src="images/make-art-daily/IMG_4111.jpeg"/></li>
 			<li><img src="images/make-art-daily/IMG_4161.jpeg"/></li>
 			<li><img src="images/make-art-daily/IMG_4157.jpeg"/></li>
@@ -191,7 +198,7 @@
 			<li><img src="images/make-art-daily/IMG_4082.jpeg"/></li>
 			<li><img src="images/make-art-daily/IMG_4081.jpeg"/></li>
 			<li><img src="images/make-art-daily/github.com_heyneff_heyneff.github.io_issues_1.jpeg"/></li>
-			<li class="date"><h2 class="failure">26 September</h2></li>
+			<li class="date fail"><h2 class="failure">26 September</h2></li>
 			<!-- <li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li> -->
 			<li class="date"><h2>25 September</h2></li>
 			<li><img src="images/make-art-daily/IMG_4060.jpeg"></li>
@@ -211,7 +218,7 @@
 			<li><img src="images/garage-doors-of-sf/IMG_4036.jpeg"></li>
 			<li><img src="images/garage-doors-of-sf/IMG_4037.jpeg"></li>
 			<li><img src="images/garage-doors-of-sf/IMG_4038.jpeg"></li>
-			<li class="date"><h2 class="failure">23 September</h2></li>
+			<li class="date fail"><h2 class="failure">23 September</h2></li>
 			<!-- <li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li> -->
 			<li class="date"><h2>22 September</h2></li>
 			<li><img src="images/make-art-daily/IMG_4019.jpeg"></li>
@@ -350,7 +357,7 @@
 				</video>
 			<li><img src="images/make-art-daily/IMG_3917.jpeg"></li>
 			<li><img src="images/make-art-daily/IMG_4815.jpeg"></li>
-			<li class="date"><h2 class="failure">17 September</h2></li>
+			<li class="date fail"><h2 class="failure">17 September</h2></li>
 			<!-- <li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li> -->
 			<li class="date"><h2>16 September</h2></li>
 			<li><img src="images/make-art-daily/heyneff_1980s_pixelated_computer_user_interface_sewn_onto_a_pie_0a59b4bf-43e7-42de-9efb-247628e8e881.jpeg"></li>
@@ -431,17 +438,17 @@
 			<li><img src="images/make-art-daily/IMG_3874.jpeg"></li>
 			<li class="date"><h2>14 September</h2></li>
 			<li><img src="images/make-art-daily/IMG_3862.jpeg"></li>
-			<li class="date"><h2 class="failure">13 September</h2></li>
+			<li class="date fail"><h2 class="failure">13 September</h2></li>
 			<!-- <li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li> -->
 			<li class="date"><h2>12 September</h2></li>
 			<li><img src="images/make-art-daily/IMG_3861.jpeg"></li>
-			<li class="date"><h2 class="failure">11 September</h2></li>
+			<li class="date fail"><h2 class="failure">11 September</h2></li>
 			<!-- <li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li> -->
 			<li class="date"><h2>10 September</h2></li>
 			<li><img src="images/make-art-daily/IMG_3833.jpeg"></li>
 			<li class="date"><h2>9 September</h2></li>
 			<li><img src="images/make-art-daily/IMG_3794.jpeg"></li>
-			<li class="date"><h2 class="failure">8 September</h2></li>
+			<li class="date fail"><h2 class="failure">8 September</h2></li>
 			<!-- <li><img src="images/make-art-daily/2023_09_24_0r2_Kleki.png"></li> -->
 			<li class="date"><h2>7 September</h2></li>
 			<li><img src="images/make-art-daily/IMG_3762.jpeg"></li>
