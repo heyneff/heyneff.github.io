@@ -6,21 +6,24 @@
 				:root {
 					--size: 300px;
 					--radius: 16px;
+					--text-color: black;
 				}
 				html, body {
 					color: black;
 					background-color: #ddd;
 					font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
 				}
-				:root {
-					--text-color: black;
-				}
 				.failure {
 				    text-decoration: line-through red;
 				}
 				a {
 					text-decoration: none;
+					color: var(--text-color);
 				}
+				a:visited {
+					color: var(--text-color);
+				}
+
 			</style>
 		</head>
 		<h1>Mail Art 4: A Record of Your <span style="text-decoration:line-through red;">Failures</span></h1>
