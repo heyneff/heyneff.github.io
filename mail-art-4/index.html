@@ -2,39 +2,11 @@
 	<body>
 		<head>
 			<title>A Record of Your Failures</title>
-			<style type="text/css">
-				:root {
-					--size: 300px;
-					--radius: 16px;
-					--text-color: black;
-				}
-				html, body {
-					color: black;
-					background-color: #ddd;
-					font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
-				}
-				.failure {
-				    text-decoration: line-through;
-					text-decoration-color: red;
-				}
-				a {
-					text-decoration: none;
-					color: var(--text-color);
-				}
-				a:hover {
-					text-decoration: underline;
-				}
-				a:visited {
-					color: var(--text-color);
-				}
-				.kinda {
-				    text-decoration: line-through wavy silver;
-				}
-			</style>
+			<link rel="stylesheet" type="text/css" href="styles.css">
 		</head>
-		<h1>Mail Art 4: A Record of Your <span style="text-decoration:line-through red;">Failures</span></h1>
+		<h1>Mail Art 4: A Record of Your <span class="failure">Failures</span></h1>
 		<h2>Goals</h2>
-		<ul>
+		<ul class="goals">
 			<li class="failure">Drawings before bed</li>
 			<li class="failure">Emprops project</li>
 			<li class="failure">Enjoy reading</li>

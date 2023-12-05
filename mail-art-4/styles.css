@@ -1,0 +1,149 @@
+:root {
+	--size: 300px;
+	--radius: 16px;
+	--text-color: black;
+}
+html, body {
+	color: black;
+	background-color: #ddd;
+	font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+.goals {
+	font-size: 2rem;
+}
+.failure {
+    text-decoration: line-through;
+	text-decoration-color: red;
+}
+a {
+	text-decoration: none;
+	color: var(--text-color);
+}
+a:hover {
+	text-decoration: underline;
+}
+a:visited {
+	color: var(--text-color);
+}
+.kinda {
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,191,0,0.7);
+    text-decoration-style: wavy;
+}
+.kinda:hover {
+    text-decoration: underline;
+    text-decoration-color: rgba(255,191,0,1);
+    text-decoration-style: wavy;
+}
+figure, video {
+	height: 90%;
+}
+img, .date video {
+	min-height: var(--size);
+	max-height: var(--size);
+	margin: 0;
+	padding: 0;
+}
+.daily-list {
+	padding: 0;
+	margin: 0;
+/* Horizontal scrolling */
+	/*overflow: auto;
+	white-space: nowrap;*/
+}
+.daily-list ul {
+	padding: 1rem 0 2rem 0;
+	margin-top: 0;
+}
+ul.daily-list li:first-child {
+	border-radius: 1rem 0 0 1rem;
+}
+.daily-list li:last-child img {
+	border-radius: 0 1rem 1rem 0;
+}
+ul.daily-list {
+	margin-bottom: 1rem;
+}
+.daily-list li, .view li {
+	margin: 0;
+	padding: 0;
+}
+ul.daily-list li, ul.kids li {
+	display: inline-block;
+	list-style-type: none;
+	text-transform: uppercase;
+}
+.daily-list ul li ul li {
+	text-transform: initial;
+}
+.view {
+	margin: 1rem 0;
+	padding: 0;
+}
+.view li {
+	padding: 4px 16px;
+	margin: 0 4px 0 4px;
+	text-decoration: none;
+	border-radius: 16px;
+	display: inline-block;
+	list-style-type: none;
+	text-transform: uppercase;
+	font-weight: 500;
+}
+.view li:hover {
+	filter: red;
+}
+.view li:last-child {
+	border: none;
+}
+.date .failure {
+    position: relative;
+    display: inline-block;
+}
+.date .failure::before {
+    content: '';
+    border-bottom: 3px solid red;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    top: 48%;
+}
+.failure li {
+	border-radius: var(--radius);
+}
+li.date.fail {
+	border-radius: var(--radius);
+}
+.selected {
+	display: inline-block;
+	background-color: yellowgreen;
+}
+.date {
+	vertical-align: top;
+	background-color: black;
+	margin-top: 4px;
+	padding: 4px;
+	height: var(--size);
+}
+.date h2 {
+	display: inline-block;
+	color: white;
+	padding: 0 0.83em;
+}
+li p {
+	display: inline-block;
+	width: 100px;
+	padding: 0 12px;
+	text-transform: initial;
+	margin: 0;
+	vertical-align: top;
+	font-size: 12px;
+
+}
+li p::before {
+	content: '←';
+	font-weight: bold;
+	margin-right: 4px;
+	display: inline-block;
+	clear: left;
+}
