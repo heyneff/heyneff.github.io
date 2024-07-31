@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curation: Lorna Mills cars</title>
+    <style>
+      body {
+          display: flex;
+          justify-content: center;  /* Center horizontally */
+          align-items: center;  /* Center vertically */
+          height: 100vh;  /* Full viewport height */
+          margin: 0;
+          background: black;
+      }
+      .image-row {
+          display: flex;
+          width: 100%;
+          overflow: hidden;
+      }
+      .image-row img {
+          flex: 1;
+          width: 100%;
+          height: 200px; /* Set a fixed height */
+          object-fit: cover; /* Ensures images cover their container while preserving aspect ratio */
+      }
+    </style>
+</head>
+<body>
+    <div class="image-row">
+        <a href="https://objkt.com/tokens/hicetnunc/852820"><img src="https://ipfs.io/ipfs/QmdEPvDoaVo9UpKzCgsemq2pW7dFYaKz8zX31T7rRg1Abh" alt="Pseudo Herbaceous, 2024, by Lorna Mills, 30 editions, Animated Gif, 700x700, 15 toxic frames,10fps, @lm_netwebs"></a>
+        <a href="https://objkt.com/tokens/hicetnunc/852489"><img src="https://ipfs.io/ipfs/QmR1xZrg4jmZZnQUCHmhPio8iLRLzkpkQC4DSgULPjE6hL" alt="Pardon Me, 2024, by Lorna Mills, 30 editions, Animated Gif, 700x700, 15 sorry frames,10fps, @lm_netwebs"></a>
+        <a href="https://objkt.com/tokens/KT1Rx3z9Hsjgd1VAJc87ioCppAaQb1WQBVso/4"><img src="https://ipfs.io/ipfs/QmUN2ctbtpo1WZeFFJ4H1jRqJ3u675j566TSU67UQvA7wP" alt="Conditional Perpetua, 2024, by Lorna Mills, 268 editions, Animated Gif, 700x700, 11 soporific frames, 10fps, @lm_netwebs"></a>
+        <a href="https://objkt.com/tokens/hicetnunc/835880"><img src="https://ipfs.io/ipfs/QmUxsENw7VybdUu8whtrmaRPy3FBt48FuFnqynyEYZXYFf" alt="Money Trail, 2023, by Lorna Mills, 30 editions, Animated Gif, 700x700, 10 frames, 10fps, @lm_netwebs"></a>
+        <a href="https://objkt.com/tokens/hicetnunc/852206"><img src="https://ipfs.io/ipfs/Qmdettk6FXo751CwfUhicHNRZaMdCZ4PT8SQYqqKhw2xpV" alt="Sleeping Potion, 2024, by Lorna Mills, 30 editions, Animated Gif, 700x700, 10 gasping frames,10fps, @lm_netwebs"></a>
+    </div>
+</body>
+</html>
