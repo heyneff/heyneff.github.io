@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge of perception (variable), 2024 by Michael Neff</title>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+    <script>
+        // Function to generate a random hex color
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Function to calculate a color one shade lighter or darker
+        function adjustColor(color, adjustBy) {
+            let newColor = '#';
+            for (let i = 1; i < 7; i += 2) {
+                let component = parseInt(color.substr(i, 2), 16);
+                component = Math.max(0, Math.min(255, component + adjustBy)); // Keep value between 0 and 255
+                newColor += component.toString(16).padStart(2, '0');
+            }
+            return newColor;
+        }
+
+        // Set the background gradient on page load
+        window.onload = function() {
+            const randomColor = getRandomColor();
+            const lighterOrDarker = Math.random() < 0.5 ? -16 : 16; // Randomly choose to go lighter or darker
+            const adjustedColor = adjustColor(randomColor, lighterOrDarker);
+
+            document.body.style.background = `linear-gradient(to bottom, ${randomColor}, ${adjustedColor})`;
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>
