@@ -11,28 +11,24 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f0f0f0;
+            background-color: #0f0f0f;
         }
 
         .progress-container {
-            width: 100%;
+            width: 80vw;
             margin: 10%;
-            background-color: #ddd;
-            border-radius: 10%;
-            height: 5%;
-            overflow: hidden;
-            /*box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);*/
+            background-color: black;
+            border: 1px solid white;
+            border-radius: 0.1rem;
+            height: 3%;
         }
 
         .progress-bar {
             height: 100%;
             width: 0;
-            background-color: #4caf50;
-            text-align: center;
-            line-height: 30px;
-            color: white;
-            font-size: 14px;
+            background-color: white;
             transition: width 0.5s ease;
+            border-radius: 0rem;
         }
     </style>
 </head>
@@ -62,7 +58,7 @@
             const progressBar = document.getElementById('progress-bar');
             const progress = calculateProgress().toFixed(2);
             progressBar.style.width = progress + '%';
-            progressBar.innerText = progress + '%';
+            // progressBar.innerText = progress + '%';
         }
 
         updateProgressBar();
