@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The wind is coming, 2024 | Michael Neff</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .progress-container {
+            width: 80%;
+            background-color: #ddd;
+            border-radius: 25px;
+            height: 30px;
+            overflow: hidden;
+            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #4caf50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            font-size: 14px;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <script>
+        function calculateProgress() {
+            const start = new Date(new Date().getFullYear(), 4, 30); // May 30 of current year
+            const end = new Date(new Date().getFullYear() + 1, 4, 29); // May 29 of next year
+            const today = new Date();
+
+            if (today < start) {
+                start.setFullYear(start.getFullYear() - 1);
+                end.setFullYear(end.getFullYear() - 1);
+            }
+
+            const totalTime = end - start;
+            const elapsedTime = today - start;
+            return (elapsedTime / totalTime) * 100;
+        }
+
+        function updateProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            const progress = calculateProgress().toFixed(2);
+            progressBar.style.width = progress + '%';
+            progressBar.innerText = progress + '%';
+        }
+
+        updateProgressBar();
+    </script>
+
+</body>
+</html>
