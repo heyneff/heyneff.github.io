@@ -11,14 +11,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-/*            background-color: rgb(05,29,76);*/
             background-color: rgb(1,1,1);
         }
 
         .progress-container {
             width: 80vw;
             margin: 10%;
-/*            background-color: rgb(48,48,48);*/
             background-color: rgb(1,1,1);
             border: 1px solid rgb(207,207,207);
             border-radius: 0.1rem;
@@ -29,7 +27,7 @@
             height: 100%;
             width: 0;
             background-color: rgb(207,207,207);
-            transition: width 30s ease;
+            transition: width 30s ease, opacity 30s ease;
             border-radius: 0rem;
         }
     </style>
@@ -56,10 +54,31 @@
             return (elapsedTime / totalTime) * 100;
         }
 
+        function calculateOpacity() {
+            const startYear = 1976;
+            const endYear = 2061;
+            const currentYear = new Date().getFullYear();
+
+            if (currentYear >= startYear && currentYear <= endYear) {
+                const totalYears = endYear - startYear;
+                const yearsPassed = currentYear - startYear;
+                return 1 - (yearsPassed / totalYears); // 100% opacity in 1976, 0% opacity in 2061
+            } else if (currentYear > endYear) {
+                return 0; // Completely transparent after 2061
+            } else {
+                return 1; // Fully opaque before 1976
+            }
+        }
+
         function updateProgressBar() {
             const progressBar = document.getElementById('progress');
             const progress = calculateProgress().toFixed(2);
+            const opacity = calculateOpacity().toFixed(2);
+
             progressBar.style.width = progress + '%';
+            progressBar.style.opacity = opacity;
+
+            // You can uncomment this line to display the percentage inside the progress bar
             // progressBar.innerText = progress + '%';
         }
 
