@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Obfuscate — Michael Neff</title>
+		<title>Obfuscate, 2024 — Michael Neff</title>
 		<style type="text/css">
 			html, body {
 				margin: 0;
@@ -57,13 +57,13 @@
 				backdrop-filter: blur(20px);
 				border-radius: 0.5em;
 				color: white;
-				font-size: 1em;
+				font-size: 1.75em;
+				line-height: 1.25em;
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 				max-width: 90%;
 				z-index: 10;
 				opacity: 0;
-				animation: fadeInOut 0.5s ease-in-out forwards;
-
+				animation: fadeInOut 5s ease-in-out forwards;
 			}
 			@keyframes fadeInOut {
 				0% { opacity: 0; }   /* Start invisible */
@@ -75,6 +75,9 @@
 		<script>
 			// Array of project information
 			const projects = [
+				// "https://generator.artblocks.io/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/6000008" //Jeff Davis, View Card #8 STATIC
+				// "https://generator.artblocks.io/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/250000682" //Leo Villareal, Cosmic Reef #682
+				// "https://generator.artblocks.io/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/463000169", // Night Sea, l.o #169 NEEDS INTERACTION TO PLAY
 				{	caption: "Kim Asendorf, Cargo #252",
 					url: "https://generator.artblocks.io/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/426000252",
 					web: "https://www.artblocks.io/marketplace/asset/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/426000252"
@@ -94,6 +97,46 @@
 				{	caption: "Jan Robert Leegte, JPEG #45",
 					url: "https://generator.artblocks.io/371000045",
 					web: "https://www.artblocks.io/marketplace/asset/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/371000045"
+				},
+				{	caption: "Melissa Wiederrecht, Bakhoor Assandal #72",
+					web: "https://generator.artblocks.io/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/479000072",
+					url: ""
+				},
+				{	caption: "Casey REAS, 89 Bright x Empty Rooms #35",
+					url: "https://generator.artblocks.io/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/85000035",
+					web: "https://www.artblocks.io/marketplace/asset/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/85000035"
+				},
+				{	caption: "Casey REAS, ATOMS #17",
+					url: "https://generator.artblocks.io/0x294fed5f1d3d30cfa6fe86a937dc3141eec8bc6d/1000017",
+					web: "https://www.artblocks.io/marketplace/asset/0x069eeda3395242bd0d382e3ec5738704569b8885/604"
+				},
+				{	caption: "Casey REAS, 923 EMPTY ROOMS #648",
+					url: "https://generator.artblocks.io/0x145789247973c5d612bf121e9e4eef84b63eb707/1000648",
+					web: "https://www.artblocks.io/marketplace/asset/0x145789247973c5d612bf121e9e4eef84b63eb707/1000648"
+				},
+				{	caption: "Casey REAS, Network C #3",
+					url: "https://generator.artblocks.io/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/6000003",
+					web: "https://www.artblocks.io/marketplace/asset/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/6000003"
+				},
+				{	caption: "Paweł Dudko, Ingress #105",
+					url: "https://generator.artblocks.io/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/377000105",
+					web: "https://www.artblocks.io/marketplace/asset/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/377000105"
+				},
+				{	caption: "Paweł Dudko, Gravity #28",
+					url: "https://generator.artblocks.io/0x9f79e46a309f804aa4b7b53a1f72c69137427794/15000028",
+					web: "https://www.artblocks.io/marketplace/asset/0x9f79e46a309f804aa4b7b53a1f72c69137427794/15000028"
+				},
+				{	caption: "john provencher, spawn #134",
+					url: "https://generator.artblocks.io/161000134",
+					web: "https://www.artblocks.io/marketplace/asset/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/161000134"
+				},
+				{	caption: "Loren Bednar, Kaleidoscope #54",
+					url: "https://generator.artblocks.io/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/4000054",
+					web: "https://www.artblocks.io/marketplace/asset/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/4000054"
+				},
+				{	caption: "Rafaël Rozendaal, Twist #74",
+					url: "https://generator.artblocks.io/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/490000074",
+					web: "https://www.artblocks.io/marketplace/asset/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/490000074"
 				},
 				{	caption: "Tabor Robak, Colorspace #78",
 					url: "https://generator.artblocks.io/309000078",
@@ -115,10 +158,33 @@
 			}
 
 			// Set the iframe source and show caption
-			window.onload = function() {
+			function loadProject() {
 				const selectedProject = getRandomProject();
 				document.getElementById("randomIframe").src = selectedProject.url;
 				showCaption(`<a href="${selectedProject.web}" style="color: white; text-decoration: none;" target="_blank">${selectedProject.caption}</a>`);
+			}
+
+			// Event listeners for key press, mouse click, and touch
+			function initEventListeners() {
+				// Show caption on key press
+				document.addEventListener('keydown', function(event) {
+					loadProject();
+				});
+
+				// Show caption on mouse click or touch
+				document.addEventListener('click', function(event) {
+					loadProject();
+				});
+
+				document.addEventListener('touchstart', function(event) {
+					loadProject();
+				});
+			}
+
+			// Initialize the page
+			window.onload = function() {
+				loadProject();
+				initEventListeners();
 			};
 		</script>
 	</head>
