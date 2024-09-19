@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<title>Obfuscate — Michael Neff</title>
+		<style type="text/css">
+			html, body {
+				margin: 0;
+				padding: 0;
+				background: white;
+				position: relative;
+				background-color: black;
+				height: 100vh;
+				overflow: hidden;
+			}
+			main {
+			  height: auto;
+			  width: auto;
+			  margin: 0 auto;
+			  padding: 20px;
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			  resize: both;
+			  overflow: auto;
+			}
+			main div {
+			  width: 50%;
+			  padding: 5em;
+			  resize: both;
+			  overflow: auto;
+			  background: purple;
+			}
+			iframe {
+				width: 100%;
+				height: 100%;
+				-webkit-user-select: none;
+				margin: auto;
+				background-color: hsl(0, 0%, 90%);
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.blur {
+				filter: blur(48px);
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+			}
+			.caption-container {
+				position: absolute;
+				bottom: 1rem;
+				left: 1rem;
+				width: auto;
+				padding: 0.75rem 1rem;
+				background: rgba(0, 0, 0, 0.3);
+				backdrop-filter: blur(10px);
+				border-radius: 0.5rem;
+				color: white;
+				font-size: 1rem;
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+				max-width: 30%;
+				z-index: 100000000;
+				display: none;
+			}
+		</style>
+		<script>
+			// Array of URLs with captions
+			const artworks = [
+				{ url: "https://generator.artblocks.io/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/426000252", caption: "Kim Asendorf, Cargo #252" },
+				{ url: "https://generator.artblocks.io/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/457000668", caption: "Steve Pikelny, Dopamine Machines #668" },
+				{ url: "https://generator.artblocks.io/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/215000296", caption: "Matt Kane, Gazers #296" },
+				{ url: "https://generator.artblocks.io/0xea698596b6009a622c3ed00dd5a8b5d1cae4fc36/6000002", caption: "John Gerrard, World Flag #2" },
+				{ url: "https://generator.artblocks.io/309000078", caption: "Tabor Robak, Colorspace #78" }
+			];
+
+			// Function to randomly select an artwork
+			function getRandomArtwork() {
+				const randomIndex = Math.floor(Math.random() * artworks.length);
+				return artworks[randomIndex];
+			}
+
+			// Display the caption for 5 seconds
+			function showCaption(caption) {
+				const captionDiv = document.getElementById('caption');
+				captionDiv.innerHTML = caption;
+				captionDiv.style.display = 'block';
+				setTimeout(() => {
+					captionDiv.style.display = 'none';
+				}, 5000); // Hide after 5 seconds
+			}
+
+			// Set the iframe source and show caption
+			window.onload = function() {
+				const selectedArtwork = getRandomArtwork();
+				document.getElementById("randomIframe").src = selectedArtwork.url;
+				showCaption(selectedArtwork.caption);
+			};
+		</script>
+	</head>
+	<body>
+		<iframe id="randomIframe" src="" class="blur"></iframe>
+		<div id="caption" class="caption-container"></div>
+	</body>
+</html>
