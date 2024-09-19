@@ -12,22 +12,22 @@
 				overflow: hidden;
 			}
 			main {
-			  height: auto;
-			  width: auto;
-			  margin: 0 auto;
-			  padding: 20px;
-			  display: flex;
-			  justify-content: center;
-			  align-items: center;
-			  resize: both;
-			  overflow: auto;
+				height: auto;
+				width: auto;
+				margin: 0 auto;
+				padding: 20px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				resize: both;
+				overflow: auto;
 			}
 			main div {
-			  width: 50%;
-			  padding: 5em;
-			  resize: both;
-			  overflow: auto;
-			  background: purple;
+				width: 50%;
+				padding: 5em;
+				resize: both;
+				overflow: auto;
+				background: purple;
 			}
 			iframe {
 				width: 100%;
@@ -49,52 +49,76 @@
 			}
 			.caption-container {
 				position: absolute;
-				top: 1rem;
-				left: 1rem;
+				top: 1em;
+				left: 1em;
 				width: auto;
-				padding: 0.75rem 1rem;
+				padding: 0.75em 1em;
 				background: rgba(0, 0, 0, 0.3);
-				backdrop-filter: blur(10px);
-				border-radius: 0.5rem;
+				backdrop-filter: blur(20px);
+				border-radius: 0.5em;
 				color: white;
-				font-size: 1rem;
+				font-size: 1em;
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-				max-width: 30%;
-				z-index: 100000000;
-				display: none;
+				max-width: 90%;
+				z-index: 10;
+				opacity: 0;
+				animation: fadeInOut 0.5s ease-in-out forwards;
+
+			}
+			@keyframes fadeInOut {
+				0% { opacity: 0; }   /* Start invisible */
+				10% { opacity: 1; }  /* Fade in by 10% */
+				90% { opacity: 1; }  /* Stay fully visible until 90% */
+				100% { opacity: 0; } /* Fade out by the end */
 			}
 		</style>
 		<script>
-			// Array of URLs with captions
-			const artworks = [
-				{ url: "https://generator.artblocks.io/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/426000252", caption: "Kim Asendorf, Cargo #252" },
-				{ url: "https://generator.artblocks.io/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/457000668", caption: "Steve Pikelny, Dopamine Machines #668" },
-				{ url: "https://generator.artblocks.io/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/215000296", caption: "Matt Kane, Gazers #296" },
-				{ url: "https://generator.artblocks.io/0xea698596b6009a622c3ed00dd5a8b5d1cae4fc36/6000002", caption: "John Gerrard, World Flag #2" },
-				{ url: "https://generator.artblocks.io/309000078", caption: "Tabor Robak, Colorspace #78" }
+			// Array of project information
+			const projects = [
+				{	caption: "Kim Asendorf, Cargo #252",
+					url: "https://generator.artblocks.io/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/426000252",
+					web: "https://www.artblocks.io/marketplace/asset/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/426000252"
+				},
+				{	caption: "Steve Pikelny, Dopamine Machines #668",
+					url: "https://generator.artblocks.io/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/457000668",
+					web: "https://www.artblocks.io/marketplace/asset/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/457000668"
+				},
+				{	caption: "Matt Kane, Gazers #296",
+					url: "https://generator.artblocks.io/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/215000296",
+					web: "https://www.artblocks.io/marketplace/asset/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/215000296"
+				},
+				{	caption: "John Gerrard, World Flag #2",
+					url: "https://generator.artblocks.io/0xea698596b6009a622c3ed00dd5a8b5d1cae4fc36/6000002",
+					web: "https://www.artblocks.io/marketplace/asset/0xea698596b6009a622c3ed00dd5a8b5d1cae4fc36/6000002"
+				},
+				{	caption: "Jan Robert Leegte, JPEG #45",
+					url: "https://generator.artblocks.io/371000045",
+					web: "https://www.artblocks.io/marketplace/asset/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/371000045"
+				},
+				{	caption: "Tabor Robak, Colorspace #78",
+					url: "https://generator.artblocks.io/309000078",
+					web: "https://www.artblocks.io/marketplace/asset/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/309000078"
+				}
 			];
 
-			// Function to randomly select an artwork
-			function getRandomArtwork() {
-				const randomIndex = Math.floor(Math.random() * artworks.length);
-				return artworks[randomIndex];
+			// Function to randomly select a project
+			function getRandomProject() {
+				const randomIndex = Math.floor(Math.random() * projects.length);
+				return projects[randomIndex];
 			}
 
-			// Display the caption for 5 seconds
+			// Display the caption with fade in and fade out animation
 			function showCaption(caption) {
 				const captionDiv = document.getElementById('caption');
 				captionDiv.innerHTML = caption;
-				captionDiv.style.display = 'block';
-				setTimeout(() => {
-					captionDiv.style.display = 'none';
-				}, 5000); // Hide after 5 seconds
+				captionDiv.style.animation = 'fadeInOut 5s ease-in-out forwards';
 			}
 
 			// Set the iframe source and show caption
 			window.onload = function() {
-				const selectedArtwork = getRandomArtwork();
-				document.getElementById("randomIframe").src = selectedArtwork.url;
-				showCaption(selectedArtwork.caption);
+				const selectedProject = getRandomProject();
+				document.getElementById("randomIframe").src = selectedProject.url;
+				showCaption(`<a href="${selectedProject.web}" style="color: white; text-decoration: none;" target="_blank">${selectedProject.caption}</a>`);
 			};
 		</script>
 	</head>
