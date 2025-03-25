@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hairy</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      background-color: #030303;
+      flex-direction: column;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.4);
+    }
+  </style>
+</head>
+<body>
+  <button id="playButton" style="display: none;">Hairy</button>
+
+  <script>
+    // List your 17 audio files here
+    const audioFiles = [
+      "17 The Man With Two Faces.mp3", 
+      "01 The Boy Who Lived.mp3", 
+      "02 The Vanishing Glass.mp3", 
+      "03 The Letters From No One.mp3", 
+      "04 The Keeper Of The Keys.mp3", 
+      "05 Diagon Alley.mp3", 
+      "06 Journey From Platform.mp3", 
+      "07 The Sorting Hat.mp3", 
+      "08 The Potions Teacher.mp3", 
+      "09 The Midnight Duel.mp3", 
+      "10 Hallowe'en.mp3", 
+      "11 Quidditch.mp3", 
+      "12 The Mirror Of Erised.mp3", 
+      "13 Nicolas Flamel.mp3", 
+      "14 Norwegian Ridgeback.mp3", 
+      "15 The Forbidden Forest.mp3", 
+      "16 Through The Trapdoor.mp3" 
+    ];
+
+    // Array to hold our audio objects
+    const audioElements = [];
+
+    // Attempt to play each audio file
+    const playPromises = audioFiles.map(src => {
+      const audio = new Audio(src);
+      audioElements.push(audio);
+      return audio.play();
+    });
+
+    // If any autoplay is blocked, show the fallback play button
+    Promise.all(playPromises).catch(() => {
+      document.getElementById("playButton").style.display = "block";
+    });
+
+    // Fallback: play all audio files on button click
+    document.getElementById("playButton").addEventListener("click", () => {
+      audioElements.forEach(audio => audio.play());
+      document.getElementById("playButton").style.display = "none";
+    });
+  </script>
+</body>
+</html>
