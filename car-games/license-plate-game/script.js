@@ -10,82 +10,289 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // States data - all 50 US states plus DC
-  const states = [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 
-    'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 
-    'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 
-    'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 
-    'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 
-    'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 
-    'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 
-    'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 
-    'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 
-    'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming',
-    'District of Columbia'
+  // Define checklist data for U.S. states
+  const usStates = [
+    { name: 'Alabama', abbreviation: 'AL' },
+    { name: 'Alaska', abbreviation: 'AK' },
+    { name: 'Arizona', abbreviation: 'AZ' },
+    { name: 'Arkansas', abbreviation: 'AR' },
+    { name: 'California', abbreviation: 'CA' },
+    { name: 'Colorado', abbreviation: 'CO' },
+    { name: 'Connecticut', abbreviation: 'CT' },
+    { name: 'Delaware', abbreviation: 'DE' },
+    { name: 'District of Columbia', abbreviation: 'DC' },
+    { name: 'Florida', abbreviation: 'FL' },
+    { name: 'Georgia', abbreviation: 'GA' },
+    { name: 'Hawaii', abbreviation: 'HI' },
+    { name: 'Idaho', abbreviation: 'ID' },
+    { name: 'Illinois', abbreviation: 'IL' },
+    { name: 'Indiana', abbreviation: 'IN' },
+    { name: 'Iowa', abbreviation: 'IA' },
+    { name: 'Kansas', abbreviation: 'KS' },
+    { name: 'Kentucky', abbreviation: 'KY' },
+    { name: 'Louisiana', abbreviation: 'LA' },
+    { name: 'Maine', abbreviation: 'ME' },
+    { name: 'Maryland', abbreviation: 'MD' },
+    { name: 'Massachusetts', abbreviation: 'MA' },
+    { name: 'Michigan', abbreviation: 'MI' },
+    { name: 'Minnesota', abbreviation: 'MN' },
+    { name: 'Mississippi', abbreviation: 'MS' },
+    { name: 'Missouri', abbreviation: 'MO' },
+    { name: 'Montana', abbreviation: 'MT' },
+    { name: 'Nebraska', abbreviation: 'NE' },
+    { name: 'Nevada', abbreviation: 'NV' },
+    { name: 'New Hampshire', abbreviation: 'NH' },
+    { name: 'New Jersey', abbreviation: 'NJ' },
+    { name: 'New Mexico', abbreviation: 'NM' },
+    { name: 'New York', abbreviation: 'NY' },
+    { name: 'North Carolina', abbreviation: 'NC' },
+    { name: 'North Dakota', abbreviation: 'ND' },
+    { name: 'Ohio', abbreviation: 'OH' },
+    { name: 'Oklahoma', abbreviation: 'OK' },
+    { name: 'Oregon', abbreviation: 'OR' },
+    { name: 'Pennsylvania', abbreviation: 'PA' },
+    { name: 'Rhode Island', abbreviation: 'RI' },
+    { name: 'South Carolina', abbreviation: 'SC' },
+    { name: 'South Dakota', abbreviation: 'SD' },
+    { name: 'Tennessee', abbreviation: 'TN' },
+    { name: 'Texas', abbreviation: 'TX' },
+    { name: 'Utah', abbreviation: 'UT' },
+    { name: 'Vermont', abbreviation: 'VT' },
+    { name: 'Virginia', abbreviation: 'VA' },
+    { name: 'Washington', abbreviation: 'WA' },
+    { name: 'West Virginia', abbreviation: 'WV' },
+    { name: 'Wisconsin', abbreviation: 'WI' },
+    { name: 'Wyoming', abbreviation: 'WY' }
   ];
 
-  // Initialize the game
-  initGame();
+  // Define checklist data for Canadian provinces/territories
+  const canadianProvinces = [
+    { name: 'Alberta', abbreviation: 'AB' },
+    { name: 'British Columbia', abbreviation: 'BC' },
+    { name: 'Manitoba', abbreviation: 'MB' },
+    { name: 'New Brunswick', abbreviation: 'NB' },
+    { name: 'Newfoundland and Labrador', abbreviation: 'NL' },
+    { name: 'Northwest Territories', abbreviation: 'NT' },
+    { name: 'Nova Scotia', abbreviation: 'NS' },
+    { name: 'Nunavut', abbreviation: 'NU' },
+    { name: 'Ontario', abbreviation: 'ON' },
+    { name: 'Prince Edward Island', abbreviation: 'PE' },
+    { name: 'Quebec', abbreviation: 'QC' },
+    { name: 'Saskatchewan', abbreviation: 'SK' },
+    { name: 'Yukon', abbreviation: 'YT' }
+  ];
 
-  function initGame() {
+  // Variables to track game state
+  let gameStartDate = new Date();
+  let foundPlates = {};
+
+  // Function to sort arrays alphabetically by name
+  function sortRegionsAlphabetically(regions) {
+    return [...regions].sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  // Get sorted arrays
+  const sortedUSStates = sortRegionsAlphabetically(usStates);
+  const sortedCanadianProvinces = sortRegionsAlphabetically(canadianProvinces);
+
+  // Function to generate HTML for checklist sections
+  function generateChecklistHTML() {
     const statesGrid = document.getElementById('states-grid');
+    statesGrid.innerHTML = ''; // Clear existing content
     
     // Load saved state from localStorage
-    const savedStates = JSON.parse(localStorage.getItem('licensePlateGame')) || {};
+    loadGameState();
     
-    // Create UI for each state
-    states.forEach(state => {
-      const stateAbbr = getStateAbbreviation(state);
-      const stateElement = document.createElement('div');
-      stateElement.className = 'state-item';
-      if (savedStates[stateAbbr]) {
-        stateElement.classList.add('found');
-      }
-      
-      stateElement.textContent = stateAbbr;
-      stateElement.title = state;
-      
-      stateElement.addEventListener('click', () => {
-        toggleState(stateElement, stateAbbr);
-      });
-      
-      statesGrid.appendChild(stateElement);
+    // Create US States section
+    const usSection = document.createElement('div');
+    usSection.className = 'region-section';
+    
+    const usHeader = document.createElement('h2');
+    usHeader.textContent = 'United States';
+    usHeader.className = 'region-header';
+    usSection.appendChild(usHeader);
+    
+    const usGrid = document.createElement('div');
+    usGrid.className = 'region-grid';
+    
+    sortedUSStates.forEach(state => {
+      const stateElement = createRegionElement(state, 'us');
+      usGrid.appendChild(stateElement);
     });
+    
+    usSection.appendChild(usGrid);
+    statesGrid.appendChild(usSection);
+    
+    // Create Canadian Provinces section
+    const canadaSection = document.createElement('div');
+    canadaSection.className = 'region-section';
+    
+    const canadaHeader = document.createElement('h2');
+    canadaHeader.textContent = 'Canada';
+    canadaHeader.className = 'region-header';
+    canadaSection.appendChild(canadaHeader);
+    
+    const canadaGrid = document.createElement('div');
+    canadaGrid.className = 'region-grid';
+    
+    sortedCanadianProvinces.forEach(province => {
+      const provinceElement = createRegionElement(province, 'canada');
+      canadaGrid.appendChild(provinceElement);
+    });
+    
+    canadaSection.appendChild(canadaGrid);
+    statesGrid.appendChild(canadaSection);
+    
+    // Update progress tracker
+    updateProgressTracker();
   }
-
-  function toggleState(element, stateAbbr) {
-    // Toggle visual state
-    element.classList.toggle('found');
+  
+  // Function to create a single region element (state or province)
+  function createRegionElement(region, regionType) {
+    const element = document.createElement('div');
+    element.className = 'state-item';
+    element.dataset.abbreviation = region.abbreviation;
+    element.dataset.regionType = regionType;
     
-    // Update localStorage
-    const savedStates = JSON.parse(localStorage.getItem('licensePlateGame')) || {};
-    
-    if (element.classList.contains('found')) {
-      savedStates[stateAbbr] = true;
-    } else {
-      delete savedStates[stateAbbr];
+    // Check if this plate has been found
+    if (foundPlates[region.abbreviation]) {
+      element.classList.add('found');
     }
     
-    localStorage.setItem('licensePlateGame', JSON.stringify(savedStates));
+    // Format the text as "State Name (Abbreviation)"
+    element.textContent = region.abbreviation;
+    element.title = `${region.name} (${region.abbreviation})`;
+    
+    // Add click event to toggle state
+    element.addEventListener('click', () => {
+      toggleRegionFound(element, region.abbreviation);
+    });
+    
+    return element;
   }
-
-  // Helper function to get state abbreviations
-  function getStateAbbreviation(stateName) {
-    const abbreviations = {
-      'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR', 'California': 'CA',
-      'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE', 'Florida': 'FL', 'Georgia': 'GA',
-      'Hawaii': 'HI', 'Idaho': 'ID', 'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA',
-      'Kansas': 'KS', 'Kentucky': 'KY', 'Louisiana': 'LA', 'Maine': 'ME', 'Maryland': 'MD',
-      'Massachusetts': 'MA', 'Michigan': 'MI', 'Minnesota': 'MN', 'Mississippi': 'MS', 'Missouri': 'MO',
-      'Montana': 'MT', 'Nebraska': 'NE', 'Nevada': 'NV', 'New Hampshire': 'NH', 'New Jersey': 'NJ',
-      'New Mexico': 'NM', 'New York': 'NY', 'North Carolina': 'NC', 'North Dakota': 'ND', 'Ohio': 'OH',
-      'Oklahoma': 'OK', 'Oregon': 'OR', 'Pennsylvania': 'PA', 'Rhode Island': 'RI', 'South Carolina': 'SC',
-      'South Dakota': 'SD', 'Tennessee': 'TN', 'Texas': 'TX', 'Utah': 'UT', 'Vermont': 'VT',
-      'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV', 'Wisconsin': 'WI', 'Wyoming': 'WY',
-      'District of Columbia': 'DC'
+  
+  // Function to toggle a region as found/not found
+  function toggleRegionFound(element, abbreviation) {
+    element.classList.toggle('found');
+    
+    if (element.classList.contains('found')) {
+      foundPlates[abbreviation] = true;
+    } else {
+      delete foundPlates[abbreviation];
+    }
+    
+    // Update localStorage
+    saveGameState();
+    
+    // Update progress tracker
+    updateProgressTracker();
+  }
+  
+  // Function to update the progress tracker
+  function updateProgressTracker() {
+    const totalRegions = sortedUSStates.length + sortedCanadianProvinces.length;
+    const foundCount = Object.keys(foundPlates).length;
+    const progressPercentage = (foundCount / totalRegions) * 100;
+    
+    // Update the stats text
+    document.getElementById('progress-stats').textContent = 
+      `${foundCount}/${totalRegions} regions found`;
+    
+    // Update the progress bar
+    document.getElementById('progress-fill').style.width = `${progressPercentage}%`;
+  }
+  
+  // Function to save game state to localStorage
+  function saveGameState() {
+    const gameState = {
+      dateCreated: gameStartDate.toISOString(),
+      foundPlates: foundPlates
     };
     
-    return abbreviations[stateName] || stateName;
+    localStorage.setItem('licensePlateGame', JSON.stringify(gameState));
   }
+  
+  // Function to load game state from localStorage
+  function loadGameState() {
+    const savedState = localStorage.getItem('licensePlateGame');
+    
+    if (savedState) {
+      const gameState = JSON.parse(savedState);
+      gameStartDate = new Date(gameState.dateCreated);
+      foundPlates = gameState.foundPlates || {};
+      
+      // Display the date created
+      document.getElementById('date-created').textContent = 
+        `(${gameStartDate.toLocaleDateString()})`;
+    } else {
+      // Initialize a new game
+      gameStartDate = new Date();
+      foundPlates = {};
+      
+      // Display the date created
+      document.getElementById('date-created').textContent = 
+        `(${gameStartDate.toLocaleDateString()})`;
+        
+      // Save initial state
+      saveGameState();
+    }
+  }
+  
+  // Function to start a new game
+  function startNewGame() {
+    gameStartDate = new Date();
+    foundPlates = {};
+    
+    // Update display
+    document.getElementById('date-created').textContent = 
+      `(${gameStartDate.toLocaleDateString()})`;
+    
+    // Clear all found states
+    document.querySelectorAll('.state-item').forEach(item => {
+      item.classList.remove('found');
+    });
+    
+    // Save new game state
+    saveGameState();
+    
+    // Update progress tracker
+    updateProgressTracker();
+    
+    // Hide the modal
+    document.getElementById('confirmation-modal').classList.add('hidden');
+    document.getElementById('modal-overlay').classList.add('hidden');
+  }
+  
+  // Set up event listeners for the buttons
+  function setupEventListeners() {
+    // New Game button
+    document.getElementById('new-game-btn').addEventListener('click', () => {
+      document.getElementById('confirmation-modal').classList.remove('hidden');
+      document.getElementById('modal-overlay').classList.remove('hidden');
+    });
+    
+    // Back button (cancel)
+    document.getElementById('back-btn').addEventListener('click', () => {
+      document.getElementById('confirmation-modal').classList.add('hidden');
+      document.getElementById('modal-overlay').classList.add('hidden');
+    });
+    
+    // Confirm New Game button
+    document.getElementById('confirm-new-game-btn').addEventListener('click', startNewGame);
+    
+    // Also close modal when clicking the overlay
+    document.getElementById('modal-overlay').addEventListener('click', () => {
+      document.getElementById('confirmation-modal').classList.add('hidden');
+      document.getElementById('modal-overlay').classList.add('hidden');
+    });
+  }
+  
+  // Initialize the game
+  function initGame() {
+    generateChecklistHTML();
+    setupEventListeners();
+  }
+  
+  // Start the game
+  initGame();
 });
