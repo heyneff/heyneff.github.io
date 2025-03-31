@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4285f4">
+  <title>License Plate Game</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/favicon.ico">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+  <header class="app-header">
+    <div class="title-area">
+      <h1>License Plate Game <span id="date-created"></span></h1>
+    </div>
+    <div id="progress-tracker" class="progress-tracker">
+      <!-- Progress information will be dynamically updated here -->
+      <div id="progress-stats">0/51 states found</div>
+      <div id="progress-bar">
+        <div id="progress-fill"></div>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <div class="game-container">
+      <p class="game-intro">Track the license plates you've spotted on your road trip.</p>
+      <div id="states-grid" class="states-grid">
+        <!-- States will be populated here via JavaScript -->
+      </div>
+      <button id="new-game-btn" class="primary-btn">New Game</button>
+    </div>
+  </main>
+  
+  <div id="confirmation-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Confirm New Game</h2>
+      <p>Clear your observations and start a new game?</p>
+      <div class="modal-buttons">
+        <button id="back-btn" class="secondary-btn">Back</button>
+        <button id="confirm-new-game-btn" class="danger-btn">Clear and start new game</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="modal-overlay" class="modal-overlay hidden"></div>
+  
+  <footer>
+    <p>&copy; 2025 License Plate Game</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

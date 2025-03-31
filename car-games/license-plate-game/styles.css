@@ -1,0 +1,321 @@
+/* 
+  License Plate Game - Main Stylesheet
+  A clean, responsive design with light/dark mode support
+*/
+
+/* ----- CSS Reset and Base Styles ----- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Light mode colors (default) */
+  --bg-color: #f5f5f5;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --text-secondary: #666666;
+  --primary-color: #4285f4;
+  --secondary-color: #e0e0e0;
+  --accent-color: #34a853;
+  --danger-color: #ea4335;
+  --border-color: #dddddd;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --found-color: #81c784;
+  --found-text: #ffffff;
+  --state-bg: #e0e0e0;
+  --progress-bg: #e0e0e0;
+}
+
+/* Dark mode colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #f5f5f5;
+    --text-secondary: #bbbbbb;
+    --primary-color: #5c9cff;
+    --secondary-color: #333333;
+    --accent-color: #56d364;
+    --danger-color: #ff5c5c;
+    --border-color: #404040;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --found-color: #4caf50;
+    --found-text: #ffffff;
+    --state-bg: #333333;
+    --progress-bg: #333333;
+  }
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ----- Header and Navigation ----- */
+.app-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.title-area {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.title-area h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+/* Progress tracker styles */
+.progress-tracker {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+#progress-stats {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+#progress-bar {
+  height: 0.5rem;
+  background-color: var(--progress-bg);
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+#progress-fill {
+  height: 100%;
+  background-color: var(--found-color);
+  width: 0%; /* Will be updated via JavaScript */
+  transition: width 0.3s ease;
+}
+
+/* ----- Main Content Area ----- */
+main {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.game-container {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.game-intro {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+/* States grid */
+.states-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+.state-item {
+  background-color: var(--state-bg);
+  border-radius: 5px;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: bold;
+  position: relative;
+}
+
+.state-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.state-item.found {
+  background-color: var(--found-color);
+  color: var(--found-text);
+}
+
+/* ----- Buttons ----- */
+.primary-btn, .secondary-btn, .danger-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 1rem;
+}
+
+.primary-btn {
+  background-color: var(--primary-color);
+  color: white;
+  align-self: center;
+  margin-top: 1rem;
+}
+
+.primary-btn:hover {
+  background-color: var(--primary-color);
+  opacity: 0.9;
+}
+
+.secondary-btn {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.secondary-btn:hover {
+  background-color: var(--secondary-color);
+  opacity: E;
+}
+
+.danger-btn {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.danger-btn:hover {
+  background-color: var(--danger-color);
+  opacity: 0.9;
+}
+
+/* ----- Modal Dialog ----- */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  z-index: 100;
+  max-width: 90%;
+  width: 400px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+
+.modal h2 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.modal p {
+  margin-bottom: 1.5rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ----- Footer ----- */
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: var(--text-secondary);
+  background-color: var(--bg-color);
+  margin-top: auto;
+}
+
+/* ----- Responsive Adjustments ----- */
+/* Mobile phones (portrait) */
+@media (max-width: 480px) {
+  .states-grid {
+    grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+  }
+  
+  .state-item {
+    padding: 0.75rem 0.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .modal {
+    padding: 1.5rem;
+  }
+}
+
+/* Mobile phones (landscape) */
+@media (max-height: 480px) and (orientation: landscape) {
+  .app-header {
+    padding: 0.5rem;
+  }
+  
+  .progress-tracker {
+    margin-top: 0.25rem;
+  }
+  
+  .states-grid {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 8px;
+  }
+  
+  .state-item {
+    padding: 0.5rem 0.25rem;
+  }
+  
+  .game-container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+}
+
+/* Tablets and larger screens */
+@media (min-width: 768px) {
+  .states-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  }
+  
+  .title-area h1 {
+    font-size: 2rem;
+  }
+  
+  .game-container {
+    padding: 2rem;
+  }
+}
+
+/* Large desktop screens */
+@media (min-width: 1200px) {
+  .states-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
