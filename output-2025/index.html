@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tom Sachs ISRU Summer Camp —OBI #4 — July 28, 2025 by Michael Neff</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A minimal canvas rendering of the word OUTPUT by Michael Neff for the Tom Sachs ISRU Summer Camp —OBI #4.">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    canvas {
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="outputCanvas" width="800" height="200" role="img" aria-label="Canvas rendering of the word OUTPUT"></canvas>
+  <script>
+    const c = document.getElementById('outputCanvas');
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#000';
+    ctx.font = 'bold 100px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('OUTPUT', c.width / 2, c.height / 2);
+  </script>
+</body>
+</html>
