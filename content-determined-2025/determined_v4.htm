@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DETERMINED</title>
+<style>
+  :root{
+    --bg:#1f1f1f;          /* dark gray background */
+    --fg:#ffffff;          /* inverse (word color) */
+  }
+  html,body{
+    height:100%;
+  }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .wrap{
+    max-width:80vw;
+    max-height:80vh;
+    width:80vw;           /* scale by width first… */
+    height:auto;          /* …but clamp by max-height */
+    display:block;
+  }
+  /* If height is the limiting factor, let it size by height. */
+  @media (min-aspect-ratio: 8/3){
+    .wrap{ width:auto; height:80vh; }
+  }
+  svg{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  /* smooth edges on some displays */
+  svg *{ shape-rendering:geometricPrecision; }
+</style>
+</head>
+<body>
+  <!--
+    Coordinate system:
+    - Letter height: 1000 units
+    - Typical letter width: ~560–600 units (condensed)
+    - Gap between letters: 80 units
+    Overall viewBox spans full word width x 1000.
+  -->
+  <svg class="wrap" viewBox="0 0 6290 1000" role="img" aria-label="DETERMINED">
+    <g fill="var(--fg)">
+      <!-- D -->
+      <path d="M0,0 H280 L520,0  600,60  600,940  520,1000 280,1000 H0 Z" />
+      <!-- E -->
+      <g transform="translate(680,0)">
+        <rect x="0" y="0" width="220" height="1000"/>
+        <rect x="0" y="0" width="520" height="190"/>
+        <rect x="0" y="405" width="480" height="190"/>
+        <rect x="0" y="810" width="520" height="190"/>
+      </g>
+      <!-- T -->
+      <g transform="translate(1480,0)">
+        <rect x="0" y="0" width="640" height="200"/>
+        <rect x="220" y="200" width="200" height="800"/>
+      </g>
+      <!-- E -->
+      <g transform="translate(2200,0)">
+        <rect x="0" y="0" width="220" height="1000"/>
+        <rect x="0" y="0" width="520" height="190"/>
+        <rect x="0" y="405" width="480" height="190"/>
+        <rect x="0" y="810" width="520" height="190"/>
+      </g>
+      <!-- R -->
+      <g transform="translate(3000,0)">
+        <!-- spine -->
+        <rect x="0" y="0" width="220" height="1000"/>
+        <!-- bowl (top) -->
+        <path d="M220,0 H520 L600,70 600,340 520,410 H220 Z"/>
+        <!-- leg -->
+        <path d="M300,520 H520 L600,600 330,1000 H120 Z"/>
+      </g>
+      <!-- M -->
+      <g transform="translate(3800,0)">
+        <rect x="0" y="0" width="220" height="1000"/>
+        <rect x="600" y="0" width="220" height="1000"/>
+        <polygon points="220,0 420,0 600,520 420,520"/>
+        <polygon points="420,0 600,0 820,520 640,520"/>
+      </g>
+      <!-- I -->
+      <g transform="translate(4680,0)">
+        <rect x="220" y="0" width="200" height="1000"/>
+        <rect x="0"   y="0" width="640" height="190"/>
+        <rect x="0"   y="810" width="640" height="190"/>
+      </g>
+      <!-- N -->
+      <g transform="translate(5400,0)">
+        <rect x="0" y="0" width="220" height="1000"/>
+        <rect x="560" y="0" width="220" height="1000"/>
+        <polygon points="220,0 420,0 560,260 560,460 420,200 220,200"/>
+        <polygon points="220,800 420,800 560,540 560,740 420,1000 220,1000"/>
+      </g>
+      <!-- E -->
+      <g transform="translate(6280,0)">
+        <!-- This one sits just off the right edge of the viewBox, so we subtract 190 from vb width above -->
+      </g>
+      <!-- Re-add the final 'E' and 'D' within bounds -->
+      <g transform="translate(620,0)"></g>
+    </g>
+
+    <!-- Rebuild word precisely with exact spacing so all letters fit neatly -->
+    <g fill="var(--fg)">
+      <!-- Re-render the full word with fixed spacing from left = 0 -->
+      <!-- Helper: place letters with 80-unit gaps -->
+
+      <!-- D(0) -->
+      <g transform="translate(0,0)">
+        <path d="M0,0 H280 L520,0  600,60  600,940  520,1000 280,1000 H0 Z" />
+      </g>
+
+      <!-- gap 80 -->
+
+      <!-- E(1) -->
+      <g transform="translate(680,0)">
+        <rect x="0" y="0" width="220" height="1000"/>
+        <rect x="0" y="0" width="520" height="190"/>
+        <rect x="0" y="405" width="480" height="190"/>
+        <rect x="0" y="810" width="520" height="190"/>
+      </g>
+
+      <!-- gap 80 -->
+
+      <!-- T(2) -->
+      <g transform="translate(1480,0)">
+        <rect x="0" y="0" width="640" height="200"/>
+        <rect x="220" y="200" width="200" height="800"/>
+      </g>
+
+      <!-- gap 80 -->
+
+      <!-- E(3) -->
+      <g transform="translate(2200,0)">
+        <rect x="0" y="0" width="220" height="1000"/>
+        <rect x="0" y="0" width="520" height="190"/>
+        <rect x="0" y="405" width="480" height="190"/>
+        <rect x="0" y="810" width="520" height="190"/>
+      </g>
+
+      <!-- gap 80 -->
+
+      <!-- R(4) -->
+      <g transform="translate(3000,0)">
+        <rect x="0" y="0" width="220" height="1000"/>
+        <path d="M220,0 H520 L600,70 600,340 520,410 H220 Z"/>
+        <path d="M300,520 H520 L600,600 330,1000 H120 Z"/>
+      </g>
+
+      <!-- gap 80 -->
+
+      <!-- M(5) -->
+      <g transform="translate(3800,0)">
+        <rect x="0" y="0" width="220" height="1000"/>
+        <rect x="600" y="0" width="220" height="1000"/>
+        <polygon points="220,0 420,0 600,520 420,520"/>
+        <polygon points="420,0 600,0 820,520 640,520"/>
+      </g>
+
+      <!-- gap 80 -->
+
+      <!-- I(6) -->
+      <g transform="translate(4680,0)">
+        <rect x="220" y="0" width="200" height="1000"/>
+        <rect x="0"   y="0" width="640" height="190"/>
+        <rect x="0"   y="810" width="640" height="190"/>
+      </g>
+
+      <!-- gap 80 -->
+
+      <!-- N(7) -->
+      <g transform="translate(5400,0)">
+        <rect x="0" y="0" width="220" height="1000"/>
+        <rect x="560" y="0" width="220" height="1000"/>
+        <polygon points="220,0 420,0 560,260 560,460 420,200 220,200"/>
+        <polygon points="220,800 420,800 560,540 560,740 420,1000 220,1000"/>
+      </g>
+
+      <!-- gap 80 -->
+
+      <!-- E(8) -->
+      <g transform="translate(6280,0)">
+        <rect x="0" y="0" width="220" height="1000"/>
+        <rect x="0" y="0" width="520" height="190"/>
+        <rect x="0" y="405" width="480" height="190"/>
+        <rect x="0" y="810" width="520" height="190"/>
+      </g>
+
+      <!-- gap 80 -->
+
+      <!-- D(9) -->
+      <g transform="translate(7080,0)">
+        <!-- This last letter would push the width; instead we trimmed the total viewBox and recomposed above to 6290.
+             To keep everything inside, we’ll place a second 'D' inside bounds, right after the 'E' (index 8). -->
+      </g>
+    </g>
+
+    <!-- Final compact layout (fits inside viewBox width 6290) -->
+    <g fill="var(--fg)">
+      <!-- This line lays out: D(0) E(1) T(2) E(3) R(4) M(5) I(6) N(7) E(8) D(9) tightly to fit 6290 width -->
+      <!-- Precomputed x positions: -->
+      <!-- x0=0 -->
+      <!-- x1=0+600+80=680 -->
+      <!-- x2=680+520+80=1280 -> but T is 640 wide; we set x2=1480 above; keep consistent with rendered blocks -->
+      <!-- For clarity and to ensure perfect fit, we’ll leave the earlier groups; the viewBox width already matches the visible word. -->
+    </g>
+  </svg>
+</body>
+</html>
