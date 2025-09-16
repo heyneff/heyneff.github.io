@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CONTENT</title>
+  <style>
+    :root {
+      /* Dark gray background and its inverse for the lettering */
+      --bg: #1a1a1a;  /* dark gray */
+      --fg: #e8e8e8;  /* inverse (light) */
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      display: grid;
+      place-items: center; /* centers horizontally and vertically */
+    }
+    .wordmark {
+      max-width: 80vw;
+      max-height: 80vh;
+      width: 80vw;        /* scales primarily by width */
+      height: auto;       /* preserve aspect ratio */
+      display: block;
+    }
+    /* Smooth rendering hints */
+    svg { shape-rendering: geometricPrecision; text-rendering: optimizeLegibility; }
+  </style>
+</head>
+<body>
+  <!--
+    Inline SVG vector wordmark (no fonts). Built from geometric shapes to evoke
+    a condensed grotesk similar to Trade Gothic Bold Condensed #20.
+    ViewBox units: width 4120 x height 1000
+  -->
+  <svg class="wordmark" viewBox="0 0 4120 1000" xmlns="http://www.w3.org/2000/svg" aria-label="CONTENT">
+    <defs>
+      <style>
+        .fg { fill: var(--fg); }
+        .bg { fill: var(--bg); }
+      </style>
+    </defs>
+
+    <!-- Letter metrics (approx): each letter block width = 520, gap = 80 -->
+    <!-- C -->
+    <g transform="translate(0,0)">
+      <!-- Outer rounded rect to suggest a curved form -->
+      <rect class="fg" x="0" y="0" width="520" height="1000" rx="260" ry="260" />
+      <!-- Inner counter -->
+      <rect class="bg" x="80" y="120" width="360" height="760" rx="180" ry="180" />
+      <!-- Open the right side to form a C shape -->
+      <rect class="bg" x="260" y="0" width="260" height="1000" />
+    </g>
+
+    <!-- O -->
+    <g transform="translate(600,0)">
+      <rect class="fg" x="0" y="0" width="520" height="1000" rx="260" ry="260" />
+      <rect class="bg" x="80" y="120" width="360" height="760" rx="180" ry="180" />
+    </g>
+
+    <!-- N -->
+    <g transform="translate(1200,0)">
+      <!-- Left stem -->
+      <rect class="fg" x="0" y="0" width="140" height="1000" />
+      <!-- Right stem -->
+      <rect class="fg" x="380" y="0" width="140" height="1000" />
+      <!-- Diagonal connective (bold, condensed) -->
+      <polygon class="fg" points="120,0 280,0 520,1000 360,1000" />
+    </g>
+
+    <!-- T -->
+    <g transform="translate(1800,0)">
+      <!-- Top bar -->
+      <rect class="fg" x="0" y="0" width="520" height="160" />
+      <!-- Stem (centered) -->
+      <rect class="fg" x="190" y="160" width="140" height="840" />
+    </g>
+
+    <!-- E -->
+    <g transform="translate(2400,0)">
+      <!-- Left stem -->
+      <rect class="fg" x="0" y="0" width="140" height="1000" />
+      <!-- Top bar -->
+      <rect class="fg" x="140" y="0" width="380" height="160" />
+      <!-- Middle bar (slightly shorter for a condensed feel) -->
+      <rect class="fg" x="140" y="420" width="320" height="160" />
+      <!-- Bottom bar -->
+      <rect class="fg" x="140" y="840" width="380" height="160" />
+    </g>
+
+    <!-- N -->
+    <g transform="translate(3000,0)">
+      <rect class="fg" x="0" y="0" width="140" height="1000" />
+      <rect class="fg" x="380" y="0" width="140" height="1000" />
+      <polygon class="fg" points="120,0 280,0 520,1000 360,1000" />
+    </g>
+
+    <!-- T -->
+    <g transform="translate(3600,0)">
+      <rect class="fg" x="0" y="0" width="520" height="160" />
+      <rect class="fg" x="190" y="160" width="140" height="840" />
+    </g>
+  </svg>
+</body>
+</html>
