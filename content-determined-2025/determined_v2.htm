@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DETERMINED</title>
+  <style>
+    :root{
+      /* Choose a dark gray; lettering will be its inverse. */
+      --bg: #1a1a1a;
+    }
+    html,body{height:100%;margin:0}
+    body{
+      background: var(--bg);
+      display:grid;
+      place-items:center;
+    }
+    canvas{display:block;width:100vw;height:100vh}
+    /* Helps screen readers */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  </style>
+</head>
+<body>
+  <canvas id="c" aria-labelledby="title" role="img"></canvas>
+  <span id="title" class="sr-only">Word: DETERMINED, bold condensed lettering</span>
+
+  <script>
+  (function(){
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+
+    // Background and inverse foreground color
+    const bgHex = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+    const fgHex = invertHex(bgHex); // inverse of background for the lettering
+
+    // Logical glyph design units
+    const H = 1000;        // glyph height (baseline to cap height)
+    const S = 220;         // stem thickness
+    const G = 120;         // internal gap / counter padding
+    const LS = 80;         // letter spacing
+
+    // Define each glyph draw function and advance width (condensed)
+    const glyphs = {
+      'D': { w: 700, draw: (x,y)=>{
+          const R = (H/2);                    // outer radius
+          const r = R - G;                    // inner radius
+          // Outer D
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x+S, y);
+          // outer arc center
+          ctx.arc(x+S+R, y+R, R, -Math.PI/2, Math.PI/2, false);
+          ctx.lineTo(x, y+H);
+          ctx.closePath();
+          // Inner counter
+          ctx.moveTo(x+S+G, y+G);
+          ctx.lineTo(x+S+G, y+H-G);
+          ctx.arc(x+S+R, y+R, r, Math.PI/2, -Math.PI/2, true);
+          ctx.closePath();
+          ctx.fill('evenodd');
+        }},
+      'E': { w: 600, draw: (x,y)=>{
+          // vertical stem
+          rect(x, y, S, H);
+          // top bar
+          rect(x, y, 600, S);
+          // middle bar shorter
+          rect(x, y + (H-S)/2, 480, S);
+          // bottom bar
+          rect(x, y+H-S, 600, S);
+        }},
+      'T': { w: 600, draw: (x,y)=>{
+          rect(x, y, 600, S);
+          rect(x + (600-S)/2, y, S, H);
+        }},
+      'R': { w: 650, draw: (x,y)=>{
+          // Build like P + leg
+          // vertical stem
+          rect(x, y, S, H);
+          // bowl (outer)
+          const top = y;
+          const mid = y + H/2;
+          const Rb = (H/2);        // bowl radius
+          const cx = x+S+Rb; const cy = y + Rb;
+          ctx.beginPath();
+          // outer bowl
+          ctx.moveTo(x+S, top);
+          ctx.arc(cx, cy, Rb, -Math.PI/2, Math.PI/2, false);
+          ctx.lineTo(x+S, mid);
+          ctx.closePath();
+          // inner counter
+          const rb = Rb - G;
+          ctx.moveTo(x+S+G, top+G);
+          ctx.arc(cx, cy, rb, -Math.PI/2, Math.PI/2, true);
+          ctx.lineTo(x+S+G, mid-G);
+          ctx.closePath();
+          ctx.fill('evenodd');
+          // diagonal leg
+          const legX0 = x+S; const legY0 = mid;
+          const legX1 = x+650; const legY1 = y+H;
+          ctx.beginPath();
+          ctx.moveTo(legX0, legY0);
+          // Make a thick diagonal by building a parallelogram with thickness S
+          const nx = (legY1 - legY0);           // perp vector (not normalized)
+          const ny = -(legX1 - legX0);
+          const len = Math.hypot(nx, ny);
+          const ux = (nx/len)*S/2;
+          const uy = (ny/len)*S/2;
+          ctx.lineTo(legX0+ux, legY0+uy);
+          ctx.lineTo(legX1+ux, legY1+uy);
+          ctx.lineTo(legX1-ux, legY1-uy);
+          ctx.lineTo(legX0-ux, legY0-uy);
+          ctx.closePath();
+          ctx.fill();
+        }},
+      'M': { w: 800, draw: (x,y)=>{
+          // outer stems
+          rect(x, y, S, H);
+          rect(x+800-S, y, S, H);
+          // diagonals meeting at apex
+          // left diagonal
+          drawThickLine(x+S, y, x+400, y+H*0.52, S);
+          // right diagonal
+          drawThickLine(x+800-S, y, x+400, y+H*0.52, S);
+        }},
+      'I': { w: 260, draw: (x,y)=>{
+          rect(x + (260-S)/2, y, S, H);
+        }},
+      'N': { w: 700, draw: (x,y)=>{
+          rect(x, y, S, H);
+          rect(x+700-S, y, S, H);
+          drawThickLine(x+S, y, x+700-S, y+H, S);
+        }},
+    };
+
+    // Convenience: draw filled rectangle
+    function rect(x,y,w,h){ ctx.fillRect(x,y,w,h); }
+
+    // Draw a thick line as a parallelogram of width 't'
+    function drawThickLine(x1,y1,x2,y2,t){
+      const dx = x2-x1, dy = y2-y1;
+      const L = Math.hypot(dx,dy);
+      if(L === 0) return;
+      const px = -(dy/L)*(t/2);
+      const py =  (dx/L)*(t/2);
+      ctx.beginPath();
+      ctx.moveTo(x1+px, y1+py);
+      ctx.lineTo(x1-px, y1-py);
+      ctx.lineTo(x2-px, y2-py);
+      ctx.lineTo(x2+px, y2+py);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // Invert a hex color like #1a1a1a -> #E5E5E5
+    function invertHex(hex){
+      const n = hex.replace('#','');
+      const r = 255 - parseInt(n.slice(0,2),16);
+      const g = 255 - parseInt(n.slice(2,4),16);
+      const b = 255 - parseInt(n.slice(4,6),16);
+      return '#' + [r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');
+    }
+
+    // Build the word sequence
+    const WORD = 'DETERMINED'.split('');
+
+    // Compute logical word width in design units
+    function measureWord(){
+      let w = 0;
+      WORD.forEach((ch, i)=>{
+        const g = glyphs[ch];
+        w += g.w;
+        if(i < WORD.length-1) w += LS;
+      });
+      return w;
+    }
+
+    // Handle high-DPI and responsive sizing; keep within 80% of viewport on both axes
+    function resizeAndDraw(){
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      // Set canvas size with device pixel ratio for crispness
+      const dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+      canvas.width = Math.floor(vw * dpr);
+      canvas.height = Math.floor(vh * dpr);
+      canvas.style.width = vw + 'px';
+      canvas.style.height = vh + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      // Clear background
+      ctx.fillStyle = bgHex;
+      ctx.fillRect(0,0,vw,vh);
+
+      // Scale to fit 80% bounds
+      const logicalW = measureWord();
+      const scale = Math.min(0.8*vw / logicalW, 0.8*vh / H);
+
+      const drawW = logicalW * scale;
+      const drawH = H * scale;
+
+      const offsetX = (vw - drawW) / 2;
+      const offsetY = (vh - drawH) / 2;
+
+      ctx.save();
+      ctx.translate(offsetX, offsetY);
+      ctx.scale(scale, scale);
+
+      ctx.fillStyle = fgHex;
+
+      // Draw letters
+      let x = 0;
+      WORD.forEach((ch, i)=>{
+        const g = glyphs[ch];
+        if(!g){
+          // fallback: skip unknown
+          return;
+        }
+        g.draw(x, 0);
+        x += g.w + (i < WORD.length-1 ? LS : 0);
+      });
+
+      ctx.restore();
+    }
+
+    window.addEventListener('resize', resizeAndDraw, { passive: true });
+    resizeAndDraw();
+  })();
+  </script>
+</body>
+</html>
