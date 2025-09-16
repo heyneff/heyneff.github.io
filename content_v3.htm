@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CONTENT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#222;     /* dark gray background */
+      --fg:#eee;     /* inverse for the word */
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* The word scales responsively and never exceeds 80% of either viewport axis */
+    .word {
+      width: 80vmin;       /* never exceeds 80% of the smaller viewport side */
+      max-width: 80vw;
+      max-height: 80vh;
+      aspect-ratio: 5000 / 1000; /* matches the SVG viewBox for crisp scaling */
+      display: block;
+    }
+    /* Make the SVG fill its container while preserving aspect ratio */
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Inline SVG wordmark: condensed, bold, grotesk-style shapes approximating Trade Gothic Bold Condensed #20 -->
+  <svg class="word" viewBox="0 0 5000 1000" role="img" aria-label="CONTENT">
+    <defs>
+      <!-- Colors -->
+      <style>
+        .fg { fill: #eee; }
+        .bg { fill: #222; }
+      </style>
+
+      <!-- Reusable ring (O-like) via mask: outer rounded rect minus inner rounded rect -->
+      <!-- Parameters are baked into each letter group; this mask pattern is duplicated per letter as needed. -->
+    </defs>
+
+    <!-- Layout constants (for reference while reading):
+         H = 1000, W = 520, S (stroke/body thickness) = 160, G (gap) = 120
+         letter X positions: 0, 640, 1280, 1920, 2560, 3200, 3840, 4480
+    -->
+
+    <!-- C -->
+    <g transform="translate(0,0)">
+      <!-- Build a donut ring first -->
+      <defs>
+        <mask id="maskC">
+          <rect x="0" y="0" width="520" height="1000" rx="180" ry="180" fill="white"/>
+          <rect x="160" y="160" width="200" height="680" rx="120" ry="120" fill="black"/>
+        </mask>
+      </defs>
+      <rect x="0" y="0" width="520" height="1000" rx="180" ry="180" class="fg" mask="url(#maskC)"/>
+      <!-- Remove right-side to make a 'C' opening -->
+      <rect x="392" y="0" width="200" height="1000" class="bg"/>
+    </g>
+
+    <!-- O -->
+    <g transform="translate(640,0)">
+      <defs>
+        <mask id="maskO">
+          <rect x="0" y="0" width="520" height="1000" rx="180" ry="180" fill="white"/>
+          <rect x="160" y="160" width="200" height="680" rx="120" ry="120" fill="black"/>
+        </mask>
+      </defs>
+      <rect x="0" y="0" width="520" height="1000" rx="180" ry="180" class="fg" mask="url(#maskO)"/>
+    </g>
+
+    <!-- N -->
+    <g transform="translate(1280,0)">
+      <!-- Left stem -->
+      <rect x="0" y="0" width="160" height="1000" class="fg"/>
+      <!-- Right stem -->
+      <rect x="360" y="0" width="160" height="1000" class="fg"/>
+      <!-- Diagonal (a thick slanted bar) -->
+      <polygon class="fg"
+        points="
+          120,0
+          320,0
+          400,1000
+          200,1000
+        " />
+    </g>
+
+    <!-- T -->
+    <g transform="translate(1920,0)">
+      <!-- Top bar -->
+      <rect x="0" y="0" width="520" height="160" class="fg"/>
+      <!-- Center stem -->
+      <rect x="180" y="0" width="160" height="1000" class="fg"/>
+    </g>
+
+    <!-- E -->
+    <g transform="translate(2560,0)">
+      <!-- Vertical spine -->
+      <rect x="0" y="0" width="160" height="1000" class="fg"/>
+      <!-- Top arm -->
+      <rect x="0" y="0" width="520" height="160" class="fg"/>
+      <!-- Middle arm (slightly shorter for condensed feel) -->
+      <rect x="0" y="420" width="400" height="160" class="fg"/>
+      <!-- Bottom arm -->
+      <rect x="0" y="840" width="520" height="160" class="fg"/>
+    </g>
+
+    <!-- N -->
+    <g transform="translate(3200,0)">
+      <!-- Left stem -->
+      <rect x="0" y="0" width="160" height="1000" class="fg"/>
+      <!-- Right stem -->
+      <rect x="360" y="0" width="160" height="1000" class="fg"/>
+      <!-- Diagonal -->
+      <polygon class="fg"
+        points="
+          120,0
+          320,0
+          400,1000
+          200,1000
+        " />
+    </g>
+
+    <!-- T -->
+    <g transform="translate(3840,0)">
+      <!-- Top bar -->
+      <rect x="0" y="0" width="520" height="160" class="fg"/>
+      <!-- Center stem -->
+      <rect x="180" y="0" width="160" height="1000" class="fg"/>
+    </g>
+
+    <!-- (final) nothing after last letter; kept spacing consistent with viewBox -->
+  </svg>
+</body>
+</html>
