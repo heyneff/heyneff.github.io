@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CONTENT</title>
+  <style>
+    /* Page reset & layout */
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: grid;
+      place-items: center;               /* center vertically & horizontally */
+      background: linear-gradient(180deg, #000 0%, #fff 100%); /* 100% black → 0% black */
+      font-synthesis-weight: none;
+    }
+
+    /* SVG sizing constraints */
+    .word {
+      width: 80vw;        /* 80% of viewport width */
+      height: auto;       /* maintain aspect ratio from viewBox */
+      max-height: 80vh;   /* no more than 80% of viewport height */
+      display: block;
+    }
+
+    /* Invert color against background */
+    .invert {
+      mix-blend-mode: difference;  /* white text becomes the inverse of bg behind it */
+      fill: #fff;                  /* white + difference = invert */
+    }
+
+    /* Font stack approximating Trade Gothic Bold Condensed #20 */
+    :root {
+      --condensed-stack: 
+        "Trade Gothic LT Condensed", 
+        "Helvetica Neue Condensed Black",
+        "Arial Narrow", 
+        "Impact", 
+        "Haettenschweiler",
+        "Franklin Gothic Heavy",
+        system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <!-- Accessible title/desc for screen readers -->
+  <svg class="word" viewBox="0 0 1000 240" role="img" aria-labelledby="title desc"
+       preserveAspectRatio="xMidYMid meet">
+    <title id="title">CONTENT</title>
+    <desc id="desc">
+      The word “CONTENT” centered on a vertical gradient background from black to white.
+      The letters are bold, condensed, and invert the background color behind them.
+    </desc>
+
+    <!-- Baseline box (invisible) helps with consistent vertical placement if you tweak y -->
+    <rect x="0" y="0" width="1000" height="240" fill="none"/>
+
+    <!-- SVG text: bold, condensed feel; stretched to fill width via textLength -->
+    <text
+      class="invert"
+      x="500" y="170" text-anchor="middle"
+      font-family="var(--condensed-stack)"
+      font-weight="900"
+      font-stretch="condensed"
+      letter-spacing="0"
+      textLength="900" lengthAdjust="spacingAndGlyphs">
+      CONTENT
+    </text>
+  </svg>
+</body>
+</html>
