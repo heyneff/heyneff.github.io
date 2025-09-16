@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CONTENT</title>
+<style>
+  :root {
+    --bg: #1a1a1a;      /* dark gray background */
+    --fg: #e6e6e6;      /* inverse-ish light for strong contrast */
+  }
+  html, body {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    display: grid;
+    place-items: center;
+  }
+  /* Center the SVG and constrain its size per requirements */
+  .wordmark {
+    width: 80vw;        /* 80% of viewport width */
+    max-height: 80vh;   /* no more than 80% of viewport height */
+    display: block;
+  }
+  /* Subtle optical tweak for crisp rendering */
+  svg { shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
+</style>
+</head>
+<body>
+  <!--
+    Inline SVG vectors for a condensed, bold, sans-serif wordmark similar in feel to
+    Trade Gothic Bold Condensed #20. No fonts are used—only vector shapes.
+    Coordinate system: viewBox 0 0 700 200
+    Each letter nominal width: 80; gap between letters: 20
+  -->
+  <svg class="wordmark" viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title desc" role="img">
+    <title id="title">CONTENT</title>
+    <desc id="desc">Condensed bold sans-serif wordmark reading CONTENT, set as inline SVG vector shapes.</desc>
+
+    <!-- Common styling -->
+    <defs>
+      <style>
+        .fill { fill: var(--fg); }
+      </style>
+    </defs>
+
+    <!-- Letter layout helpers (not rendered) -->
+    <!-- Letter width = 80, gap = 20 -->
+
+    <!-- C -->
+    <g transform="translate(0,20)" class="fill">
+      <!-- Left vertical -->
+      <rect x="0" y="0" width="20" height="160" />
+      <!-- Top horizontal -->
+      <rect x="0" y="0" width="80" height="20" />
+      <!-- Bottom horizontal -->
+      <rect x="0" y="140" width="80" height="20" />
+    </g>
+
+    <!-- O (rectangular ‘ring’) -->
+    <g transform="translate(100,20)" class="fill">
+      <path d="
+        M0 0 H80 V160 H0 Z
+        M20 20 H60 V140 H20 Z
+      " fill-rule="evenodd"/>
+    </g>
+
+    <!-- N -->
+    <g transform="translate(200,20)" class="fill">
+      <!-- Left vertical -->
+      <rect x="0" y="0" width="20" height="160" />
+      <!-- Right vertical -->
+      <rect x="60" y="0" width="20" height="160" />
+      <!-- Diagonal -->
+      <polygon points="20,160 40,160 60,20 40,20" />
+    </g>
+
+    <!-- T -->
+    <g transform="translate(300,20)" class="fill">
+      <!-- Top bar -->
+      <rect x="0" y="0" width="80" height="20" />
+      <!-- Center stem -->
+      <rect x="30" y="20" width="20" height="140" />
+    </g>
+
+    <!-- E -->
+    <g transform="translate(400,20)" class="fill">
+      <!-- Left vertical -->
+      <rect x="0" y="0" width="20" height="160" />
+      <!-- Top bar -->
+      <rect x="0" y="0" width="80" height="20" />
+      <!-- Middle bar (slightly shorter for condensed feel) -->
+      <rect x="0" y="70" width="60" height="20" />
+      <!-- Bottom bar -->
+      <rect x="0" y="140" width="80" height="20" />
+    </g>
+
+    <!-- N -->
+    <g transform="translate(500,20)" class="fill">
+      <!-- Left vertical -->
+      <rect x="0" y="0" width="20" height="160" />
+      <!-- Right vertical -->
+      <rect x="60" y="0" width="20" height="160" />
+      <!-- Diagonal -->
+      <polygon points="20,160 40,160 60,20 40,20" />
+    </g>
+
+    <!-- T -->
+    <g transform="translate(600,20)" class="fill">
+      <!-- Top bar -->
+      <rect x="0" y="0" width="80" height="20" />
+      <!-- Center stem -->
+      <rect x="30" y="20" width="20" height="140" />
+    </g>
+  </svg>
+</body>
+</html>
