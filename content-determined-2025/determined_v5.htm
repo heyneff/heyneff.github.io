@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DETERMINED</title>
+  <style>
+    :root {
+      --bg: #222; /* dark gray */
+      --fg: #fff; /* inverse */
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wrap {
+      width: 80vw;
+      height: 80vh;
+      display: grid;
+      place-items: center;
+    }
+    /* Ensure the SVG scales to fit both width and height while preserving aspect ratio */
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!--
+      Geometric letterforms drawn as inline SVG vectors, inspired by Trade Gothic Bold Condensed #20.
+      Metrics: height = 200, letter width = 90, stroke thickness = 26, spacing = 16
+    -->
+    <svg viewBox="0 0 1044 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="DETERMINED">
+      <defs>
+        <style>
+          .fill { fill: var(--fg); }
+        </style>
+      </defs>
+      <g class="fill">
+        <!-- Helper constants documented in comments only: H=200, W=90, T=26, S=16 -->
+        <!-- Letter D (x=0) -->
+        <path d="M0,0 L64,0 Q90,100 64,200 L0,200 Z M26,26 L52,26 Q70,100 52,174 L26,174 Z" fill-rule="evenodd"/>
+
+        <!-- Letter E (x=106) -->
+        <g transform="translate(106,0)">
+          <rect x="0" y="0" width="26" height="200"/>
+          <rect x="0" y="0" width="90" height="26"/>
+          <rect x="0" y="87" width="65" height="26"/>
+          <rect x="0" y="174" width="90" height="26"/>
+        </g>
+
+        <!-- Letter T (x=212) -->
+        <g transform="translate(212,0)">
+          <rect x="0" y="0" width="90" height="26"/>
+          <rect x="32" y="0" width="26" height="200"/>
+        </g>
+
+        <!-- Letter E (x=318) -->
+        <g transform="translate(318,0)">
+          <rect x="0" y="0" width="26" height="200"/>
+          <rect x="0" y="0" width="90" height="26"/>
+          <rect x="0" y="87" width="65" height="26"/>
+          <rect x="0" y="174" width="90" height="26"/>
+        </g>
+
+        <!-- Letter R (x=424) -->
+        <g transform="translate(424,0)">
+          <!-- Stem -->
+          <rect x="0" y="0" width="26" height="200"/>
+          <!-- Bowl (top half) with counter using evenodd fill -->
+          <path d="M26,0 L64,0 Q90,50 64,100 L26,100 Z M39,26 L52,26 Q70,50 52,74 L39,74 Z" fill-rule="evenodd"/>
+          <!-- Leg -->
+          <polygon points="26,100 61,200 87,200 48,120"/>
+        </g>
+
+        <!-- Letter M (x=530) -->
+        <g transform="translate(530,0)">
+          <rect x="0" y="0" width="26" height="200"/>
+          <rect x="64" y="0" width="26" height="200"/>
+          <!-- Diagonals forming apex -->
+          <polygon points="26,0 45,0 64,90 45,90"/>
+          <polygon points="45,90 64,90 45,200 26,200"/>
+        </g>
+
+        <!-- Letter I (x=636) -->
+        <g transform="translate(636,0)">
+          <rect x="32" y="0" width="26" height="200"/>
+        </g>
+
+        <!-- Letter N (x=742) -->
+        <g transform="translate(742,0)">
+          <rect x="0" y="0" width="26" height="200"/>
+          <rect x="64" y="0" width="26" height="200"/>
+          <polygon points="26,0 45,0 64,200 45,200"/>
+        </g>
+
+        <!-- Letter E (x=848) -->
+        <g transform="translate(848,0)">
+          <rect x="0" y="0" width="26" height="200"/>
+          <rect x="0" y="0" width="90" height="26"/>
+          <rect x="0" y="87" width="65" height="26"/>
+          <rect x="0" y="174" width="90" height="26"/>
+        </g>
+
+        <!-- Letter D (x=954) -->
+        <g transform="translate(954,0)">
+          <path d="M0,0 L64,0 Q90,100 64,200 L0,200 Z M26,26 L52,26 Q70,100 52,174 L26,174 Z" fill-rule="evenodd"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+</body>
+</html>
