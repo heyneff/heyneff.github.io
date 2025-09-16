@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CONTENT — SVG Condensed</title>
+<style>
+  :root{
+    /* 0 = white, 100 = black */
+    --bg: 85;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    background: hsl(0 0% calc(var(--bg) * 1%));
+    color: hsl(0 0% calc(100% - var(--bg) * 1%));
+    display: grid;
+    place-items: center;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  /* Container to keep SVG within 80vw / 80vh */
+  .word-wrap {
+    width: min(80vw, 100%);
+    max-height: 80vh;
+    display: grid;
+    place-items: center;
+  }
+  svg {
+    width: 80vw;
+    max-width: 80vw;
+    height: auto;
+    max-height: 80vh;
+    display: block;
+    fill: currentColor; /* inherit inverted color from body */
+  }
+
+  /* Minimal control to adjust background black level (0–100) */
+  .ui {
+    position: fixed;
+    top: 0.75rem;
+    right: 0.75rem;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    font-size: 12px;
+    opacity: .6;
+    transition: opacity .2s ease;
+    user-select: none;
+  }
+  .ui:hover { opacity: 1; }
+  .ui input[type="range"] {
+    width: 140px;
+  }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,1px,1px); white-space: nowrap; border: 0;
+  }
+</style>
+</head>
+<body>
+  <!-- Optional background control: remove this div for a “poster” version -->
+  <div class="ui" aria-label="Controls">
+    <label for="bgRange">Background</label>
+    <input id="bgRange" type="range" min="0" max="100" step="1" value="85" aria-valuemin="0" aria-valuemax="100" aria-valuenow="85" aria-label="Background black level (percent)">
+    <span id="bgVal">85%</span>
+  </div>
+
+  <div class="word-wrap" aria-label="Word: CONTENT">
+    <!-- Geometric, condensed, bold-style letters built from rects/paths -->
+    <!-- Design grid: Letter box W=100, H=200, stroke thickness T=24, gap G=24 -->
+    <svg viewBox="0 0 992 200" role="img" aria-labelledby="title desc">
+      <title id="title">CONTENT</title>
+      <desc id="desc">Word CONTENT rendered as condensed bold inline SVG geometry, centered and scaled responsively.</desc>
+
+      <!-- C -->
+      <g transform="translate(0,0)">
+        <!-- Left vertical -->
+        <rect x="0" y="0" width="24" height="200"/>
+        <!-- Top bar -->
+        <rect x="0" y="0" width="88" height="24"/>
+        <!-- Bottom bar -->
+        <rect x="0" y="176" width="88" height="24"/>
+      </g>
+
+      <!-- O -->
+      <g transform="translate(124,0)">
+        <path d="
+          M 0 0 H 100 V 200 H 0 Z
+          M 24 24 H 76 V 176 H 24 Z
+        " fill-rule="evenodd"/>
+      </g>
+
+      <!-- N -->
+      <g transform="translate(248,0)">
+        <!-- Left and right verticals -->
+        <rect x="0" y="0" width="24" height="200"/>
+        <rect x="76" y="0" width="24" height="200"/>
+        <!-- Diagonal bar (thick) -->
+        <polygon points="24,200 48,200 76,0 52,0"/>
+      </g>
+
+      <!-- T -->
+      <g transform="translate(372,0)">
+        <rect x="0" y="0" width="100" height="24"/>
+        <rect x="38" y="0" width="24" height="200"/>
+      </g>
+
+      <!-- E -->
+      <g transform="translate(496,0)">
+        <rect x="0" y="0" width="24" height="200"/>
+        <rect x="0" y="0" width="100" height="24"/>
+        <rect x="0" y="88" width="84" height="24"/>
+        <rect x="0" y="176" width="100" height="24"/>
+      </g>
+
+      <!-- N -->
+      <g transform="translate(620,0)">
+        <rect x="0" y="0" width="24" height="200"/>
+        <rect x="76" y="0" width="24" height="200"/>
+        <polygon points="24,200 48,200 76,0 52,0"/>
+      </g>
+
+      <!-- T -->
+      <g transform="translate(744,0)">
+        <rect x="0" y="0" width="100" height="24"/>
+        <rect x="38" y="0" width="24" height="200"/>
+      </g>
+    </svg>
+  </div>
+
+<script>
+  // Keep the foreground as the exact inverse of the background black level.
+  const root = document.documentElement;
+  const range = document.getElementById('bgRange');
+  const out = document.getElementById('bgVal');
+
+  function applyBg(v){
+    root.style.setProperty('--bg', v);
+    out.textContent = v + '%';
+    range.setAttribute('aria-valuenow', v);
+    // Body text/SVG uses currentColor, which is computed as inverse via CSS.
+    document.body.style.color = `hsl(0 0% calc(100% - ${v} * 1%))`;
+    document.body.style.background = `hsl(0 0% calc(${v} * 1%))`;
+  }
+  range.addEventListener('input', e => applyBg(e.target.value));
+  // Initialize from default
+  applyBg(range.value);
+</script>
+</body>
+</html>
