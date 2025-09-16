@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CONTENT</title>
+<style>
+  :root {
+    --bg: #222;      /* dark gray background */
+    --fg: #fff;      /* inverse color for the word */
+  }
+  html, body {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    display: grid;
+    place-items: center;         /* centers horizontally + vertically */
+    min-height: 100svh;          /* safe mobile viewport */
+  }
+  /* Size the word to max 80% of viewport in both dimensions */
+  svg#wordmark {
+    width: 80vw;                 /* primary sizing by width */
+    height: auto;                /* preserve aspect ratio */
+    max-height: 80vh;            /* but never exceed 80% of height */
+    display: block;
+  }
+  /* Crisp edges on scaled vectors */
+  * { image-rendering: pixelated; }
+</style>
+</head>
+<body>
+  <!-- Inline SVG vectors, condensed geometric letterforms approximating Trade Gothic Bold Condensed #20 -->
+  <svg id="wordmark" viewBox="0 0 4100 1000" role="img" aria-labelledby="title desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="title">CONTENT</title>
+    <desc id="desc">The word CONTENT drawn as bold condensed inline SVG letterforms.</desc>
+    <defs>
+      <!-- Reusable masks for open counters (O/C-like forms) -->
+      <mask id="mask-ring-500">
+        <!-- white = keep, black = cutout -->
+        <rect x="0" y="0" width="500" height="1000" fill="white"/>
+        <!-- inner rounded rectangle to create the counter -->
+        <rect x="90" y="150" width="320" height="700" rx="80" fill="black"/>
+      </mask>
+      <mask id="mask-c-500">
+        <rect x="0" y="0" width="500" height="1000" fill="white"/>
+        <rect x="90" y="150" width="320" height="700" rx="80" fill="black"/>
+        <!-- remove right side to open the C -->
+        <rect x="390" y="120" width="140" height="760" fill="black"/>
+      </mask>
+    </defs>
+
+    <!-- Layout constants: each letter box is 500 wide; gap between letters is 100 -->
+    <!-- C -->
+    <g transform="translate(0,0)">
+      <rect x="0" y="0" width="500" height="1000" rx="120" fill="currentColor" mask="url(#mask-c-500)"/>
+    </g>
+
+    <!-- O -->
+    <g transform="translate(600,0)">
+      <rect x="0" y="0" width="500" height="1000" rx="120" fill="currentColor" mask="url(#mask-ring-500)"/>
+    </g>
+
+    <!-- N (left/right stems + bold diagonal) -->
+    <g transform="translate(1200,0)" fill="currentColor">
+      <!-- left stem -->
+      <rect x="0"   y="0" width="160" height="1000" rx="20"/>
+      <!-- right stem -->
+      <rect x="340" y="0" width="160" height="1000" rx="20"/>
+      <!-- diagonal (thick) -->
+      <polygon points="
+        120,0
+        280,0
+        380,260
+        220,1000
+        60,1000
+        160,740
+      "/>
+    </g>
+
+    <!-- T -->
+    <g transform="translate(1800,0)" fill="currentColor">
+      <!-- top bar -->
+      <rect x="0"   y="0"   width="500" height="180" rx="20"/>
+      <!-- center stem -->
+      <rect x="160" y="180" width="180" height="820" rx="20"/>
+    </g>
+
+    <!-- E -->
+    <g transform="translate(2400,0)" fill="currentColor">
+      <!-- left stem -->
+      <rect x="0" y="0" width="180" height="1000" rx="20"/>
+      <!-- top bar -->
+      <rect x="0" y="0"   width="500" height="180" rx="20"/>
+      <!-- middle bar (slightly shorter for condensed feel) -->
+      <rect x="0" y="410" width="440" height="180" rx="20"/>
+      <!-- bottom bar -->
+      <rect x="0" y="820" width="500" height="180" rx="20"/>
+    </g>
+
+    <!-- N -->
+    <g transform="translate(3000,0)" fill="currentColor">
+      <rect x="0"   y="0" width="160" height="1000" rx="20"/>
+      <rect x="340" y="0" width="160" height="1000" rx="20"/>
+      <polygon points="
+        120,0
+        280,0
+        380,260
+        220,1000
+        60,1000
+        160,740
+      "/>
+    </g>
+
+    <!-- T -->
+    <g transform="translate(3600,0)" fill="currentColor">
+      <rect x="0"   y="0"   width="500" height="180" rx="20"/>
+      <rect x="160" y="180" width="180" height="820" rx="20"/>
+    </g>
+  </svg>
+</body>
+</html>
