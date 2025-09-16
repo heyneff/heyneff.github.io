@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DETERMINED</title>
+<style>
+  :root{
+    /* Set the background between 0% (black) and 100% (white). */
+    --bg: 12%;
+  }
+  html, body {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    background: hsl(0 0% var(--bg));
+    display: grid;
+    place-items: center;
+  }
+  .wrap {
+    width: 80vw;
+    max-height: 80vh;    /* never exceed 80% of viewport height */
+    display: grid;
+    place-items: center;
+  }
+  svg {
+    width: 100%;
+    height: auto;        /* preserve aspect ratio, constrained by max-height */
+    max-height: 80vh;
+    display: block;
+  }
+  /* Invert against the background automatically */
+  .word {
+    fill: white;
+    mix-blend-mode: difference;
+  }
+  /* Slight optical adjustments to feel like a condensed grotesk */
+  .letter { transform: translateZ(0); }
+</style>
+</head>
+<body>
+  <div class="wrap" aria-label="Word: DETERMINED">
+    <!--
+      Geometric, condensed, bold sans-style letterforms built from vector shapes.
+      ViewBox units: height = 1000. Letter widths vary ~520–620 with 120 unit tracking.
+      preserveAspectRatio keeps it centered and scaled inside the 80vw / 80vh constraints.
+    -->
+    <svg viewBox="0 0 7360 1000" role="img" aria-labelledby="title desc" xmlns="http://www.w3.org/2000/svg">
+      <title id="title">DETERMINED</title>
+      <desc id="desc">Condensed, bold, sans-style letters drawn as SVG shapes, centered and scaled to fit.</desc>
+      <g class="word" fill-rule="evenodd" clip-rule="evenodd">
+
+        <!-- D -->
+        <g class="letter" transform="translate(0,0)">
+          <!-- Outer D with flat left and curved right; inner counter removed for heavy condensed look -->
+          <path d="
+            M0,0 H260
+            C580,0 620,0 740,160
+            C840,290 860,450 860,500
+            C860,550 840,710 740,840
+            C620,1000 580,1000 260,1000
+            H0 Z
+            " />
+          <!-- Left interior shave to tighten weight -->
+          <rect x="140" y="140" width="160" height="720"/>
+        </g>
+
+        <!-- letter spacing -->
+        <g transform="translate(980,0)">
+          <!-- E -->
+          <g class="letter">
+            <path d="M0,0 H560 V180 H200 V420 H520 V600 H200 V820 H560 V1000 H0 Z"/>
+          </g>
+        </g>
+
+        <g transform="translate(1660,0)">
+          <!-- T -->
+          <g class="letter">
+            <path d="M0,0 H740 V180 H460 V1000 H280 V180 H0 Z"/>
+          </g>
+        </g>
+
+        <g transform="translate(2540,0)">
+          <!-- E -->
+          <g class="letter">
+            <path d="M0,0 H560 V180 H200 V420 H520 V600 H200 V820 H560 V1000 H0 Z"/>
+          </g>
+        </g>
+
+        <g transform="translate(3220,0)">
+          <!-- R -->
+          <g class="letter">
+            <!-- Upright + bowl -->
+            <path d="
+              M0,0 H260
+              C560,0 640,120 640,280
+              C640,420 560,520 360,560
+              L740,1000 H500 L180,580 V1000 H0 Z
+              M260,180 H240 V420 H260
+              C420,420 460,380 460,300
+              C460,220 420,180 260,180 Z
+            "/>
+          </g>
+        </g>
+
+        <g transform="translate(4040,0)">
+          <!-- M -->
+          <g class="letter">
+            <path d="
+              M0,0 H200 V650 L360,360 H460 L620,650 V0 H820 V1000 H640 L410,590 L180,1000 H0 Z
+            "/>
+          </g>
+        </g>
+
+        <g transform="translate(4940,0)">
+          <!-- I -->
+          <g class="letter">
+            <path d="M160,0 H700 V180 H520 V820 H700 V1000 H160 V820 H340 V180 H160 Z"/>
+          </g>
+        </g>
+
+        <g transform="translate(5720,0)">
+          <!-- N -->
+          <g class="letter">
+            <path d="
+              M0,0 H200 V640 L560,0 H760 V1000 H560 V360 L200,1000 H0 Z
+            "/>
+          </g>
+        </g>
+
+        <g transform="translate(6500,0)">
+          <!-- E -->
+          <g class="letter">
+            <path d="M0,0 H560 V180 H200 V420 H520 V600 H200 V820 H560 V1000 H0 Z"/>
+          </g>
+        </g>
+
+        <!-- Final D advances after last E; we shift the whole viewBox wide enough to include it.
+             Place the last D by extending the viewBox width. -->
+        <g transform="translate(7080,0)">
+          <!-- D (narrower to fit) -->
+          <g class="letter">
+            <path d="
+              M0,0 H220
+              C520,0 540,0 640,150
+              C720,270 740,440 740,500
+              C740,560 720,730 640,850
+              C540,1000 520,1000 220,1000
+              H0 Z
+              " />
+            <rect x="120" y="140" width="140" height="720"/>
+          </g>
+        </g>
+
+      </g>
+    </svg>
+  </div>
+</body>
+</html>
