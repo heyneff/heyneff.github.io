@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CONTENT — Inline SVG</title>
+  <style>
+    :root {
+      --bg: #111;          /* dark default */
+      --fg: #fafafa;       /* light default (inverse of dark) */
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      display: grid;
+      place-items: center;
+    }
+    /* Wrapper keeps the word within 80% of the viewport in BOTH dimensions */
+    .wrap {
+      width: min(80vw, 160vmin);   /* generous width, still capped by max-height below */
+      max-width: 80vw;
+      max-height: 80vh;
+      display: grid;
+      place-items: center;
+    }
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 80vh; /* double-cap to respect the 80% height rule */
+    }
+    /* Optional: smooth toggle transition */
+    body, .wrap {
+      transition: background-color 200ms ease, color 200ms ease;
+    }
+    /* Accessibility hint (visually subtle) */
+    .hint {
+      position: fixed;
+      inset: auto 0 0 0;
+      text-align: center;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-size: 12px;
+      letter-spacing: .02em;
+      opacity: .35;
+      padding: .4rem .6rem .6rem;
+      user-select: none;
+      pointer-events: none;
+      color: var(--fg);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" aria-label="Wordmark CONTENT rendered as inline SVG vectors, centered and sized to at most eighty percent of the viewport.">
+    <!--
+      Inline SVG word: CONTENT
+      Letterforms are hand-built vector shapes (no fonts) in a condensed, bold, neo-grotesque spirit
+      reminiscent of Trade Gothic Bold Condensed #20.
+    -->
+    <svg viewBox="0 0 700 200" role="img" aria-labelledby="title desc">
+      <title id="title">CONTENT</title>
+      <desc id="desc">Condensed, bold sans-serif wordmark constructed from inline SVG vector shapes.</desc>
+
+      <defs>
+        <!-- Metrics (units): width=80, height=200, stroke-like thickness=28 -->
+        <!-- O: rounded-rect ring -->
+        <symbol id="L_O" viewBox="0 0 80 200">
+          <path fill="currentColor" fill-rule="evenodd"
+            d="
+              M 6,0 h 68 a 6,6 0 0 1 6,6 v 188 a 6,6 0 0 1 -6,6 h -68 a 6,6 0 0 1 -6,-6 v -188 a 6,6 0 0 1 6,-6 z
+              M 28,28 h 24 a 0,0 0 0 1 0,0 v 144 a 0,0 0 0 1 0,0 h -24 a 0,0 0 0 1 0,0 v -144 a 0,0 0 0 1 0,0 z
+            " />
+        </symbol>
+
+        <!-- C: O with a right-side gap -->
+        <symbol id="L_C" viewBox="0 0 80 200">
+          <path fill="currentColor" fill-rule="evenodd"
+            d="
+              M 6,0 h 68 a 6,6 0 0 1 6,6 v 188 a 6,6 0 0 1 -6,6 h -68 a 6,6 0 0 1 -6,-6 v -188 a 6,6 0 0 1 6,-6 z
+              M 28,28 h 30 v 144 h -30 z
+              M 56,48 h 24 v 104 h -24 z
+            " />
+        </symbol>
+
+        <!-- N: two verticals with diagonal -->
+        <symbol id="L_N" viewBox="0 0 80 200">
+          <path fill="currentColor"
+            d="
+              M 6,0 h 28 v 200 h -28 z
+              M 46,0 h 28 v 200 h -28 z
+            " />
+          <path fill="currentColor"
+            d="
+              M 26,0 h 28 l -28,200 h -28 z
+            " />
+        </symbol>
+
+        <!-- T: wide top bar + centered stem -->
+        <symbol id="L_T" viewBox="0 0 80 200">
+          <rect x="0" y="0" width="80" height="32" fill="currentColor" />
+          <rect x="26" y="32" width="28" height="168" fill="currentColor" />
+        </symbol>
+
+        <!-- E: left stem + three arms -->
+        <symbol id="L_E" viewBox="0 0 80 200">
+          <rect x="6" y="0" width="28" height="200" fill="currentColor" />
+          <rect x="6" y="0" width="68" height="32" fill="currentColor" />
+          <rect x="6" y="84" width="56" height="32" fill="currentColor" />
+          <rect x="6" y="168" width="68" height="32" fill="currentColor" />
+        </symbol>
+
+        <!-- Narrow spacer -->
+        <symbol id="SP" viewBox="0 0 10 200">
+          <rect width="10" height="200" fill="transparent" />
+        </symbol>
+      </defs>
+
+      <!-- Compose: C O N T E N T (with tight spacing for condensed feel) -->
+      <g transform="translate(10,0)">
+        <use href="#L_C" x="0"    y="0" />
+        <use href="#SP"  x="82"   y="0" />
+        <use href="#L_O" x="92"   y="0" />
+        <use href="#SP"  x="174"  y="0" />
+        <use href="#L_N" x="184"  y="0" />
+        <use href="#SP"  x="266"  y="0" />
+        <use href="#L_T" x="276"  y="0" />
+        <use href="#SP"  x="358"  y="0" />
+        <use href="#L_E" x="368"  y="0" />
+        <use href="#SP"  x="450"  y="0" />
+        <use href="#L_N" x="460"  y="0" />
+        <use href="#SP"  x="542"  y="0" />
+        <use href="#L_T" x="552"  y="0" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="hint">Tip: click or press “L” to toggle light/dark background (word color auto-inverts)</div>
+
+  <script>
+    // On load, randomly pick light or dark; word color will auto-invert.
+    (function () {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const randomDark = Math.random() < 0.5;
+      setTheme(randomDark ? 'dark' : 'light', prefersDark);
+
+      function setTheme(mode, prefersDark) {
+        // pick strong contrasting pairs
+        const root = document.documentElement;
+        if (mode === 'light') {
+          root.style.setProperty('--bg', '#f7f7f7');
+          root.style.setProperty('--fg', '#0c0c0c');
+        } else {
+          root.style.setProperty('--bg', '#0c0c0c');
+          root.style.setProperty('--fg', '#f7f7f7');
+        }
+      }
+
+      function toggleTheme() {
+        const currBg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim().toLowerCase();
+        const isDark = currBg === '#0c0c0c' || currBg === '#111' || currBg === '#000';
+        setTheme(isDark ? 'light' : 'dark');
+      }
+
+      // Click or press L to toggle
+      addEventListener('click', toggleTheme);
+      addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'l') toggleTheme();
+      });
+    })();
+  </script>
+</body>
+</html>
