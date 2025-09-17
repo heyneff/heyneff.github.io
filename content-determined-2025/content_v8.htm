@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CONTENT — Inline SVG Vectors</title>
+  <style>
+    :root {
+      --bg: #111;        /* start dark */
+      --fg: #fafafa;     /* inverse of bg */
+    }
+    .light {
+      --bg: #f5f5f5;     /* light background */
+      --fg: #111;        /* inverse of bg */
+    }
+
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      display: grid;
+      place-items: center;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    /* Wrapper ensures the word never exceeds 80% of viewport width/height */
+    .word-wrap {
+      max-width: 80vw;
+      max-height: 80vh;
+      width: min(80vw, 1400px);
+      aspect-ratio: 7 / 3; /* wide, condensed feel */
+      display: grid;
+      place-items: center;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .hint {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      letter-spacing: .04em;
+      opacity: .6;
+      user-select: none;
+    }
+    .hint kbd {
+      padding: 2px 6px;
+      border: 1px solid currentColor;
+      border-radius: 4px;
+      opacity: .8;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="word-wrap">
+    <!-- The inline SVG is programmatically constructed from rectangles and paths
+         to resemble Trade Gothic Bold Condensed #20 (geometric, heavy, condensed). -->
+    <svg id="word" viewBox="0 0 770 330" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title desc" role="img">
+      <title id="title">CONTENT</title>
+      <desc id="desc">The word CONTENT set in custom inline SVG letterforms, centered on the page. Colors invert with the page background.</desc>
+      <!-- Letters injected by script -->
+    </svg>
+  </div>
+
+  <div class="hint">Click or press <kbd>T</kbd> to toggle dark/light</div>
+
+  <script>
+    (function() {
+      const svg = document.getElementById('word');
+      const FG = getComputedStyle(document.documentElement).getPropertyValue('--fg').trim() || '#fafafa';
+
+      // Common metrics for all letters (condensed proportions)
+      const W = 100;     // letter box width
+      const H = 300;     // letter box height
+      const G = 10;      // gap between letters
+      const S = 30;      // stroke (bar) thickness
+      const R = 8;       // corner radius for softer industrial feel
+
+      // Utility to add a rectangle bar
+      function bar(parent, x, y, w, h) {
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', x);
+        rect.setAttribute('y', y);
+        rect.setAttribute('width', w);
+        rect.setAttribute('height', h);
+        rect.setAttribute('rx', R);
+        rect.setAttribute('fill', 'currentColor');
+        parent.appendChild(rect);
+        return rect;
+      }
+
+      // Utility to add a diagonal (for N)
+      function diag(parent, x, y, w, h, angle) {
+        const rect = bar(parent, x, y, w, h);
+        const cx = x + w/2, cy = y + h/2;
+        rect.setAttribute('transform', `rotate(${angle} ${cx} ${cy})`);
+        return rect;
+      }
+
+      // Letter constructors using bars (geometric approximation of Trade Gothic Bold Condensed)
+      const Letters = {
+        C(parent) {
+          const g = group(parent);
+          bar(g, 0, 0, S, H);                    // left stem
+          bar(g, S, 0, W - S, S);                // top bar
+          bar(g, S, H - S, W - S, S);            // bottom bar
+          return g;
+        },
+        O(parent) {
+          const g = group(parent);
+          bar(g, 0, 0, S, H);                    // left
+          bar(g, W - S, 0, S, H);                // right
+          bar(g, S, 0, W - 2*S, S);              // top
+          bar(g, S, H - S, W - 2*S, S);          // bottom
+          return g;
+        },
+        N(parent) {
+          const g = group(parent);
+          bar(g, 0, 0, S, H);                    // left
+          bar(g, W - S, 0, S, H);                // right
+          diag(g, S * .6, S * 1.0, S, H - 2.0*S, -12); // diagonal
+          return g;
+        },
+        T(parent) {
+          const g = group(parent);
+          bar(g, 0, 0, W, S);                    // top
+          bar(g, (W - S) / 2, 0, S, H);          // center stem
+          return g;
+        },
+        E(parent) {
+          const g = group(parent);
+          bar(g, 0, 0, S, H);                    // left
+          bar(g, S, 0, W - S, S);                // top
+          bar(g, S, (H - S) / 2, W - S * 0.72, S); // middle (shorter for rhythm)
+          bar(g, S, H - S, W - S, S);            // bottom
+          return g;
+        }
+      };
+
+      function group(parent) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('fill', 'currentColor');
+        parent.appendChild(g);
+        return g;
+      }
+
+      // Build the word CONTENT
+      const text = 'CONTENT';
+      const totalWidth = text.length * W + (text.length - 1) * G;
+      const offsetX = (770 - totalWidth) / 2;   // center inside viewBox width 770
+      const offsetY = (330 - H) / 2;            // center inside viewBox height 330
+
+      svg.setAttribute('style', `color: ${FG}`);
+
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        const g = group(svg);
+        const x = offsetX + i * (W + G);
+        const y = offsetY;
+        g.setAttribute('transform', `translate(${x}, ${y})`);
+
+        // Map to constructors (C, O, N, T, E, N, T)
+        if (Letters[ch]) {
+          Letters[ch](g);
+        } else {
+          // Fallback: rectangle block if letter missing
+          bar(g, 0, 0, W, H);
+        }
+      }
+
+      // Theme toggle (click or press T)
+      function toggleTheme() {
+        document.body.classList.toggle('light');
+        // Update SVG color to follow CSS var
+        const fg = getComputedStyle(document.documentElement).getPropertyValue('--fg').trim();
+        svg.style.color = fg || '#111';
+      }
+
+      document.addEventListener('click', toggleTheme);
+      document.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 't') toggleTheme();
+      });
+    })();
+  </script>
+</body>
+</html>
