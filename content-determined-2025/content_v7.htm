@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CONTENT</title>
+  <style>
+    :root {
+      --bg: #222;        /* dark gray background */
+      --fg: #fff;        /* inverse (word color) */
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+    }
+    .wrap {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* The word should fit within 80% of the viewport in both dimensions */
+    svg {
+      width: min(80vw, 1400px);
+      height: auto;
+      max-height: 80vh;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" aria-label="Word CONTENT rendered as inline SVG">
+    <!--
+      Geometric, condensed, bold letterforms built from vector shapes,
+      no fonts used. Each letter is 80 units wide by 200 high with 16 units spacing.
+      Stroke (bar) thickness ~24–28 units for a compact, bold feel.
+    -->
+    <svg viewBox="0 0 800 200" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+      <title id="title">CONTENT</title>
+      <desc id="desc">The word CONTENT drawn as condensed bold inline SVG letters, centered.</desc>
+      <g fill="var(--fg)">
+        <!-- Letter metrics -->
+        <!-- Letter width: 80, height: 200, spacing: 16 -->
+        <!-- Bar thickness -->
+        <!-- Using t = 28 for strong bold look -->
+        <defs>
+          <g id="C">
+            <!-- C built with three bars: top, left, bottom -->
+            <rect x="0" y="0"   width="80" height="28" rx="4" ry="4"/>
+            <rect x="0" y="0"   width="28" height="200" rx="4" ry="4"/>
+            <rect x="0" y="172" width="80" height="28" rx="4" ry="4"/>
+          </g>
+
+          <g id="O">
+            <!-- O: outer rect minus inner rect using even-odd fill -->
+            <path fill-rule="evenodd" d="
+              M 0 0 h 80 v 200 h -80 Z
+              M 28 28 h 24 v 0 h -24 Z
+              M 28 28 h 24 v 144 h -24 Z
+              " fill="none"/>
+            <!-- Easier: draw as outline via two rectangles with even-odd -->
+            <path fill-rule="evenodd" d="
+              M 0 0 H 80 V 200 H 0 Z
+              M 28 28 H 52 V 172 H 28 Z
+            "/>
+          </g>
+
+          <g id="N">
+            <!-- N: left and right stems plus diagonal -->
+            <rect x="0"  y="0" width="28" height="200" rx="4" ry="4"/>
+            <rect x="52" y="0" width="28" height="200" rx="4" ry="4"/>
+            <!-- Diagonal: a tall rect rotated to connect bottom-left to top-right -->
+            <!-- Place a 28x220 rect and rotate about its center -->
+            <rect x="26" y="-10" width="28" height="220" transform="rotate(-17 40 100)" rx="4" ry="4"/>
+          </g>
+
+          <g id="T">
+            <!-- T: top bar across width and center stem -->
+            <rect x="0"  y="0"   width="80" height="28" rx="4" ry="4"/>
+            <rect x="26" y="28"  width="28" height="172" rx="4" ry="4"/>
+          </g>
+
+          <g id="E">
+            <!-- E: left stem + three horizontals -->
+            <rect x="0"  y="0"   width="28" height="200" rx="4" ry="4"/>
+            <rect x="0"  y="0"   width="80" height="28" rx="4" ry="4"/>
+            <rect x="0"  y="86"  width="64" height="28" rx="4" ry="4"/>
+            <rect x="0"  y="172" width="80" height="28" rx="4" ry="4"/>
+          </g>
+        </defs>
+
+        <!-- Word layout -->
+        <!-- C O N T E N T -->
+        <g transform="translate(0,0)"><use href="#C"/></g>
+        <g transform="translate(96,0)"><use href="#O"/></g>
+        <g transform="translate(192,0)"><use href="#N"/></g>
+        <g transform="translate(288,0)"><use href="#T"/></g>
+        <g transform="translate(384,0)"><use href="#E"/></g>
+        <g transform="translate(480,0)"><use href="#N"/></g>
+        <g transform="translate(576,0)"><use href="#T"/></g>
+      </g>
+    </svg>
+  </div>
+</body>
+</html>
