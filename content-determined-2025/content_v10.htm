@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CONTENT — SVG Wordmark</title>
+  <style>
+    :root {
+      --bg: #111; /* dark by default */
+      --fg: #fff; /* inverse of bg */
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      display: grid;
+      place-items: center;
+    }
+    .wrap {
+      width: min(80vw, 1400px);
+      height: min(80vh, 60vmax);
+      display: grid;
+      place-items: center;
+    }
+    svg { display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%; }
+    /* Slight optical tracking to feel like Trade Gothic Condensed */
+    .word { gap: 10; }
+  </style>
+</head>
+<body>
+  <div class="wrap" aria-label="The word CONTENT centered on the page as inline SVG">
+    <!--
+      Geometric inline SVG letters, condensed and bold.
+      Each glyph is built with filled shapes (rects/paths), no font files used.
+    -->
+    <svg viewBox="0 0 900 200" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+      <title id="title">CONTENT</title>
+      <desc id="desc">The word CONTENT drawn in bold condensed geometric letterforms.</desc>
+      <defs>
+        <!-- Parameters -->
+        <!-- All glyphs sized to 100×200 units, with 10 units natural letter spacing -->
+        <g id="G-C" fill="currentColor">
+          <!-- C: left stem + long top/bottom arms for an open right side -->
+          <rect x="0" y="0" width="28" height="200" rx="0" ry="0"/>
+          <rect x="0" y="0" width="90" height="28"/>
+          <rect x="0" y="172" width="90" height="28"/>
+        </g>
+        <g id="G-O" fill="currentColor">
+          <!-- O: rectangular counter (boxy O for condensed industrial feel) -->
+          <!-- Outer -->
+          <rect x="0" y="0" width="100" height="200"/>
+          <!-- Inner counter punched out using mask -->
+          <mask id="M-O">
+            <rect x="0" y="0" width="100" height="200" fill="white"/>
+            <rect x="28" y="28" width="44" height="144" fill="black"/>
+          </mask>
+          <rect x="0" y="0" width="100" height="200" mask="url(#M-O)"/>
+        </g>
+        <g id="G-N" fill="currentColor">
+          <!-- N: left and right stems + diagonal -->
+          <rect x="0" y="0" width="28" height="200"/>
+          <rect x="72" y="0" width="28" height="200"/>
+          <polygon points="22,0 50,0 78,200 50,200"/>
+        </g>
+        <g id="G-T" fill="currentColor">
+          <!-- T: full cap bar + thick center stem -->
+          <rect x="0" y="0" width="100" height="28"/>
+          <rect x="36" y="28" width="28" height="172"/>
+        </g>
+        <g id="G-E" fill="currentColor">
+          <!-- E: left stem + three arms; extended mid for condensed look -->
+          <rect x="0" y="0" width="28" height="200"/>
+          <rect x="0" y="0" width="100" height="28"/>
+          <rect x="0" y="86" width="88" height="28"/>
+          <rect x="0" y="172" width="100" height="28"/>
+        </g>
+      </defs>
+
+      <!-- Compose the word: C O N T E N T -->
+      <g transform="translate(0,0)">
+        <use href="#G-C" x="0" y="0" />
+        <use href="#G-O" x="110" y="0" />
+        <use href="#G-N" x="220" y="0" />
+        <use href="#G-T" x="330" y="0" />
+        <use href="#G-E" x="440" y="0" />
+        <use href="#G-N" x="550" y="0" />
+        <use href="#G-T" x="660" y="0" />
+      </g>
+    </svg>
+  </div>
+
+  <script>
+    (function() {
+      // Randomly choose dark or light background on load
+      var dark = Math.random() < 0.5;
+      var root = document.documentElement;
+      if (dark) {
+        root.style.setProperty('--bg', '#111');
+        root.style.setProperty('--fg', '#fff');
+      } else {
+        root.style.setProperty('--bg', '#eee');
+        root.style.setProperty('--fg', '#000');
+      }
+      // Ensure SVG never exceeds 80% of viewport in either dimension (handled by .wrap sizing)
+      // Centering is handled with CSS grid place-items: center
+    })();
+  </script>
+</body>
+</html>
