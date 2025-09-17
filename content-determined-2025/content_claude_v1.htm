@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTENT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0a0a0a;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        body.light {
+            background-color: #f5f5f5;
+        }
+
+        .content-container {
+            max-width: 80vw;
+            max-height: 80vh;
+            width: 100%;
+            height: auto;
+        }
+
+        .content-svg {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+        }
+
+        .letter-path {
+            fill: #f5f5f5;
+            transition: fill 0.3s ease;
+        }
+
+        body.light .letter-path {
+            fill: #0a0a0a;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <svg class="content-svg" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- C -->
+            <path class="letter-path" d="M5 60 C5 20, 25 5, 65 5 C85 5, 95 10, 95 15 L95 35 C85 25, 75 20, 65 20 C40 20, 30 35, 30 60 C30 85, 40 100, 65 100 C75 100, 85 95, 95 85 L95 105 C95 110, 85 115, 65 115 C25 115, 5 100, 5 60 Z"/>
+            
+            <!-- O -->
+            <path class="letter-path" d="M115 60 C115 20, 135 5, 175 5 C215 5, 235 20, 235 60 C235 100, 215 115, 175 115 C135 115, 115 100, 115 60 Z M140 60 C140 85, 150 100, 175 100 C200 100, 210 85, 210 60 C210 35, 200 20, 175 20 C150 20, 140 35, 140 60 Z"/>
+            
+            <!-- N -->
+            <path class="letter-path" d="M255 10 L280 10 L280 75 L330 10 L360 10 L360 110 L335 110 L335 45 L285 110 L255 110 Z"/>
+            
+            <!-- T -->
+            <path class="letter-path" d="M380 10 L505 10 L505 30 L455 30 L455 110 L430 110 L430 30 L380 30 Z"/>
+            
+            <!-- E -->
+            <path class="letter-path" d="M525 10 L620 10 L620 30 L550 30 L550 50 L610 50 L610 70 L550 70 L550 90 L625 90 L625 110 L525 110 Z"/>
+            
+            <!-- N -->
+            <path class="letter-path" d="M645 10 L670 10 L670 75 L720 10 L750 10 L750 110 L725 110 L725 45 L675 110 L645 110 Z"/>
+            
+            <!-- T -->
+            <path class="letter-path" d="M770 10 L795 10 L795 110 L770 110 Z"/>
+        </svg>
+    </div>
+
+    <script>
+        let isDark = true;
+
+        document.body.addEventListener('click', function() {
+            isDark = !isDark;
+            if (isDark) {
+                document.body.classList.remove('light');
+            } else {
+                document.body.classList.add('light');
+            }
+        });
+
+        // Optional: Auto-switch based on system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            document.body.classList.add('light');
+            isDark = false;
+        }
+    </script>
+</body>
+</html>
