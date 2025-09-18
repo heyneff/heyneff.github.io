@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UNBRIDLED JOY — SVG</title>
+  <style>
+    :root {
+      /* Background between 0% and 100% black (0 = white, 100 = black). Adjust as desired. */
+      --bg-blackness: 85; /* set any value from 0–100 */
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background: hsl(0 0% calc(100% - var(--bg-blackness)*1%));
+      color: hsl(0 0% calc(var(--bg-blackness)*1%));
+    }
+    /* Center the SVG and constrain its size */
+    .wrap {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
+    svg {
+      width: min(80vw, 160vh); /* prefer width, but keep sane on tall viewports */
+      max-height: 80vh;
+      height: auto;
+      display: block;
+    }
+    /* Crisp, bold, condensed geometric look */
+    .glyph { fill: currentColor; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- The letters are built from vector rectangles on a tight condensed grid (no fonts used). -->
+    <svg id="word" viewBox="0 0 1000 200" role="img" aria-label="UNBRIDLED JOY"></svg>
+  </div>
+
+  <script>
+    (function () {
+      /* Invert text color relative to background lightness. */
+      const bgBlackness = parseFloat(getComputedStyle(document.documentElement)
+        .getPropertyValue('--bg-blackness')) || 85;
+      const isDark = bgBlackness > 50;
+      document.body.style.color = isDark ? '#fff' : '#000';
+
+      /* Simple condensed block “alphabet” on a 5×7 cell grid per glyph.
+         Each glyph is described by filled cells (x,y) to emulate a bold condensed sans look.
+         Cell aspect is tall to feel like Trade Gothic Bold Condensed #20. */
+      const G = new Map();
+
+      // Helper to list rectangles in ranges for brevity
+      const r = (x, y) => [x, y];
+
+      // Core strokes: We'll define a sturdy, condensed set.
+      // Grid is 5 columns (0..4) × 7 rows (0..6). We scale later.
+      // U
+      G.set('U', [
+        r(0,0),r(0,1),r(0,2),r(0,3),r(0,4),r(0,5),
+        r(1,6), r(2,6), r(3,6),
+        r(4,0),r(4,1),r(4,2),r(4,3),r(4,4),r(4,5),
+      ]);
+      // N
+      G.set('N', [
+        r(0,0),r(0,1),r(0,2),r(0,3),r(0,4),r(0,5),r(0,6),
+        r(1,1),r(2,2),r(3,3),r(4,4),
+        r(4,0),r(4,1),r(4,2),r(4,3),r(4,4),r(4,5),r(4,6),
+      ]);
+      // B
+      G.set('B', [
+        r(0,0),r(0,1),r(0,2),r(0,3),r(0,4),r(0,5),r(0,6),
+        r(1,0),r(2,0),r(3,1),r(1,3),r(2,3),r(3,4),
+        r(1,6),r(2,6),r(3,5),r(4,2),r(4,5)
+      ]);
+      // R
+      G.set('R', [
+        r(0,0),r(0,1),r(0,2),r(0,3),r(0,4),r(0,5),r(0,6),
+        r(1,0),r(2,0),r(3,1),r(1,3),r(2,3),r(3,4),
+        r(4,2),r(4,5),
+        r(2,4),r(3,6) // leg
+      ]);
+      // I
+      G.set('I', [
+        r(0,0),r(1,0),r(2,0),r(3,0),r(4,0),
+        r(2,1),r(2,2),r(2,3),r(2,4),r(2,5),
+        r(0,6),r(1,6),r(2,6),r(3,6),r(4,6),
+      ]);
+      // D
+      G.set('D', [
+        r(0,0),r(0,1),r(0,2),r(0,3),r(0,4),r(0,5),r(0,6),
+        r(1,0),r(2,0),r(3,1),r(4,2),r(4,3),r(4,4),r(3,5),
+        r(2,6),r(1,6),
+      ]);
+      // L
+      G.set('L', [
+        r(0,0),r(0,1),r(0,2),r(0,3),r(0,4),r(0,5),r(0,6),
+        r(1,6),r(2,6),r(3,6),r(4,6),
+      ]);
+      // E
+      G.set('E', [
+        r(0,0),r(0,1),r(0,2),r(0,3),r(0,4),r(0,5),r(0,6),
+        r(1,0),r(2,0),r(3,0),r(4,0),
+        r(1,3),r(2,3),
+        r(1,6),r(2,6),r(3,6),r(4,6),
+      ]);
+      // J
+      G.set('J', [
+        r(0,0),r(1,0),r(2,0),r(3,0),r(4,0),
+        r(2,1),r(2,2),r(2,3),r(2,4),r(2,5),
+        r(0,6),r(1,6),
+      ]);
+      // O
+      G.set('O', [
+        r(1,0),r(2,0),r(3,0),
+        r(0,1),r(0,2),r(0,3),r(0,4),r(0,5),
+        r(4,1),r(4,2),r(4,3),r(4,4),r(4,5),
+        r(1,6),r(2,6),r(3,6),
+      ]);
+      // Y
+      G.set('Y', [
+        r(0,0),r(1,1),r(2,2),
+        r(4,0),r(3,1),
+        r(2,3),r(2,4),r(2,5),r(2,6),
+      ]);
+      // Space
+      G.set(' ', []);
+
+      // Render the phrase as SVG rects with tight tracking and slight letterspacing
+      const phrase = 'UNBRIDLED JOY';
+      const svg = document.getElementById('word');
+
+      // Layout parameters (feel free to tweak for your taste)
+      const cellW = 12;     // base cell width
+      const cellH = 20;     // base cell height (tall for condensed feel)
+      const colCount = 5;   // per glyph
+      const rowCount = 7;
+      const glyphW = colCount * cellW;
+      const glyphH = rowCount * cellH;
+      const spacing = 6;    // letter spacing
+      const wordGap = 14;   // extra space for space characters
+
+      // Measure total width
+      let totalW = 0;
+      for (const ch of phrase) {
+        totalW += (ch === ' ' ? wordGap : glyphW) + spacing;
+      }
+      totalW -= spacing; // no trailing spacing
+
+      // Update viewBox to fit word tightly with small padding
+      const pad = 10;
+      const viewW = totalW + pad * 2;
+      const viewH = glyphH + pad * 2;
+      svg.setAttribute('viewBox', `0 0 ${viewW} ${viewH}`);
+
+      // Draw
+      let x = pad;
+      for (const ch of phrase) {
+        if (ch === ' ') {
+          x += wordGap + spacing;
+          continue;
+        }
+        const cells = G.get(ch) || [];
+        for (const [cx, cy] of cells) {
+          const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          rect.setAttribute('x', String(x + cx * cellW));
+          rect.setAttribute('y', String(pad + cy * cellH));
+          rect.setAttribute('width', String(cellW));
+          rect.setAttribute('height', String(cellH));
+          rect.setAttribute('rx', String(Math.min(cellW, cellH) * 0.12)); // soften corners
+          rect.setAttribute('class', 'glyph');
+          svg.appendChild(rect);
+        }
+        x += glyphW + spacing;
+      }
+
+      // Optional: allow ?bg=0..100 to set background blackness via URL
+      const params = new URLSearchParams(location.search);
+      if (params.has('bg')) {
+        const v = Math.max(0, Math.min(100, parseFloat(params.get('bg')) || 0));
+        document.documentElement.style.setProperty('--bg-blackness', v.toString());
+        const dark = v > 50;
+        document.body.style.color = dark ? '#fff' : '#000';
+        document.body.style.backgroundColor = `hsl(0 0% ${100 - v}%)`;
+      }
+    })();
+  </script>
+</body>
+</html>
