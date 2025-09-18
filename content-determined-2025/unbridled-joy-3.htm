@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>UNBRIDLED JOY</title>
+<style>
+  :root{
+    /* K = "blackness" percentage (0 = white bg, 100 = black bg) */
+    --k: 80; /* default */
+    --bg: hsl(0 0% calc(100% - var(--k)*1%));
+    --fg: hsl(0 0% calc(var(--k)*1%));
+  }
+  html, body {
+    height: 100%;
+  }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    display: grid;
+    place-items: center;
+  }
+
+  /* Wrap to control responsive sizing */
+  .word-wrap{
+    width: min(80vw, 2000px);
+    max-height: 80vh;
+    display: grid;
+    place-items: center;
+  }
+  svg{
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    display: block;
+  }
+
+  /* Minimal control to adjust blackness; hides unless hovered/focused */
+  .knob{
+    position: fixed;
+    inset: 1rem auto auto 1rem;
+    background: color-mix(in hsl, var(--bg) 85%, var(--fg));
+    color: var(--fg);
+    padding: .6rem .8rem;
+    border-radius: .75rem;
+    font: 12px/1 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    opacity: .3;
+    transition: opacity .25s ease;
+    user-select: none;
+  }
+  .knob:hover, .knob:focus-within { opacity: 1; }
+  .knob input[type="range"]{
+    width: 180px;
+    vertical-align: middle;
+  }
+
+  /* Knockouts (counters) inside letters follow the page background */
+  .knockout{ fill: var(--bg); }
+
+  /* Crisp edges for the bold, condensed, grotesque vibe */
+  svg { shape-rendering: crispEdges; }
+</style>
+</head>
+<body>
+
+<div class="knob" aria-label="Background blackness">
+  <label>
+    Blackness:
+    <input id="k" type="range" min="0" max="100" value="80" />
+    <span id="kval">80%</span>
+  </label>
+</div>
+
+<div class="word-wrap" aria-label="UNBRIDLED JOY">
+  <!--
+    Coordinate system:
+      Height = 1000 units (y: 0..1000)
+      Total width = 6890 units (x: 0..6890)
+      Each glyph is a custom vector (no fonts used).
+      Style: bold, condensed, straight-sided grotesque (Trade Gothic Condensed–inspired).
+  -->
+  <svg viewBox="0 0 6890 1000" role="img" aria-label="UNBRIDLED JOY" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Sizes -->
+      <!-- Common thickness for stems/bars -->
+      <!-- t = 160; glyph heights = 1000 -->
+
+      <!-- U (520) -->
+      <symbol id="G-U" viewBox="0 0 520 1000">
+        <g fill="currentColor">
+          <rect x="0"   y="0"   width="160" height="840"/>
+          <rect x="360" y="0"   width="160" height="840"/>
+          <rect x="0"   y="840" width="520" height="160"/>
+        </g>
+      </symbol>
+
+      <!-- N (520) -->
+      <symbol id="G-N" viewBox="0 0 520 1000">
+        <g fill="currentColor">
+          <rect x="0"   y="0" width="160" height="1000"/>
+          <rect x="360" y="0" width="160" height="1000"/>
+          <polygon points="
+            160,0  300,0
+            360,140 360,280
+            200,1000 160,1000
+          "/>
+        </g>
+      </symbol>
+
+      <!-- B (520) -->
+      <symbol id="G-B" viewBox="0 0 520 1000">
+        <g fill="currentColor">
+          <rect x="0" y="0" width="160" height="1000"/>
+          <rect x="0" y="0" width="520" height="440"/>
+          <rect x="0" y="560" width="520" height="440"/>
+          <!-- counters -->
+          <rect class="knockout" x="210" y="110" width="250" height="220"/>
+          <rect class="knockout" x="210" y="670" width="250" height="220"/>
+        </g>
+      </symbol>
+
+      <!-- R (520) -->
+      <symbol id="G-R" viewBox="0 0 520 1000">
+        <g fill="currentColor">
+          <rect x="0" y="0" width="160" height="1000"/>
+          <!-- upper bowl -->
+          <rect x="0" y="0" width="520" height="440"/>
+          <rect class="knockout" x="210" y="110" width="250" height="220"/>
+          <!-- diagonal leg -->
+          <polygon points="
+            260,560  520,1000  360,1000  160,680 160,560
+          "/>
+        </g>
+      </symbol>
+
+      <!-- I (250) -->
+      <symbol id="G-I" viewBox="0 0 250 1000">
+        <g fill="currentColor">
+          <rect x="45" y="0" width="160" height="1000"/>
+        </g>
+      </symbol>
+
+      <!-- D (520) -->
+      <symbol id="G-D" viewBox="0 0 520 1000">
+        <g fill="currentColor">
+          <!-- outer block -->
+          <rect x="0" y="0" width="520" height="1000"/>
+          <!-- carved inner; leaves a strong right sweep like a D -->
+          <rect class="knockout" x="210" y="110" width="270" height="780"/>
+          <!-- left stem stays thick because knockout starts at 210 -->
+        </g>
+      </symbol>
+
+      <!-- L (420) -->
+      <symbol id="G-L" viewBox="0 0 420 1000">
+        <g fill="currentColor">
+          <rect x="0" y="0" width="160" height="1000"/>
+          <rect x="0" y="840" width="420" height="160"/>
+        </g>
+      </symbol>
+
+      <!-- E (480) -->
+      <symbol id="G-E" viewBox="0 0 480 1000">
+        <g fill="currentColor">
+          <rect x="0" y="0" width="160" height="1000"/>
+          <rect x="0" y="0" width="480" height="160"/>
+          <rect x="0" y="420" width="420" height="160"/>
+          <rect x="0" y="840" width="480" height="160"/>
+        </g>
+      </symbol>
+
+      <!-- J (480) -->
+      <symbol id="G-J" viewBox="0 0 480 1000">
+        <g fill="currentColor">
+          <rect x="0" y="0" width="480" height="160"/>
+          <rect x="320" y="0" width="160" height="740"/>
+          <rect x="120" y="840" width="360" height="160"/>
+          <rect x="120" y="740" width="160" height="260"/>
+        </g>
+      </symbol>
+
+      <!-- O (520) -->
+      <symbol id="G-O" viewBox="0 0 520 1000">
+        <g fill="currentColor">
+          <rect x="0" y="0" width="520" height="1000"/>
+          <rect class="knockout" x="160" y="160" width="200" height="680"/>
+        </g>
+      </symbol>
+
+      <!-- Y (520) -->
+      <symbol id="G-Y" viewBox="0 0 520 1000">
+        <g fill="currentColor">
+          <!-- upper V -->
+          <polygon points="
+            0,0   180,0  260,180  340,0  520,0  340,360  340,460  260,460  260,360
+          "/>
+          <!-- lower stem -->
+          <rect x="200" y="460" width="160" height="540"/>
+        </g>
+      </symbol>
+    </defs>
+
+    <!-- Compose the word with manual advances (condensed tracking) -->
+    <!-- Per-glyph widths: U520 N520 B520 R520 I250 D520 L420 E480 D520 [space300] J480 O520 Y520 -->
+    <!-- Inter-letter spacing = 80 (except around the explicit space) -->
+    <g>
+      <use href="#G-U" x="0" y="0"/>
+      <use href="#G-N" x="600" y="0"/>
+      <use href="#G-B" x="1200" y="0"/>
+      <use href="#G-R" x="1800" y="0"/>
+      <use href="#G-I" x="2400" y="0"/>
+      <use href="#G-D" x="2730" y="0"/>
+      <use href="#G-L" x="3350" y="0"/>
+      <use href="#G-E" x="3850" y="0"/>
+      <use href="#G-D" x="4410" y="0"/>
+      <!-- space (300) -->
+      <use href="#G-J" x="5290" y="0"/>
+      <use href="#G-O" x="5850" y="0"/>
+      <use href="#G-Y" x="6450" y="0"/>
+    </g>
+  </svg>
+</div>
+
+<script>
+  const range = document.getElementById('k');
+  const kval = document.getElementById('kval');
+
+  function setK(v){
+    const k = Math.max(0, Math.min(100, Number(v)||0));
+    document.documentElement.style.setProperty('--k', k);
+    // For broad browser support, compute the actual colors and set them:
+    const bgL = 100 - k;
+    const fgL = k;
+    document.documentElement.style.setProperty('--bg', `hsl(0 0% ${bgL}%)`);
+    document.documentElement.style.setProperty('--fg', `hsl(0 0% ${fgL}%)`);
+    kval.textContent = `${k}%`;
+  }
+
+  range.addEventListener('input', e => setK(e.target.value));
+  setK(range.value);
+</script>
+
+</body>
+</html>
