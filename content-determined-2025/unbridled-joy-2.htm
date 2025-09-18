@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UNBRIDLED JOY</title>
+  <style>
+    :root {
+      /* Choose any value between 0% (white) and 100% (pure black). */
+      --blackness: 80%; /* edit this to taste */
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      background: hsl(0 0% calc(100% - var(--blackness)));
+      /* The background is between 0% black (white) and 100% black. */
+    }
+
+    .wrap {
+      display: grid;
+      place-items: center;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* The SVG word respects the 80% viewport width and max 80% viewport height. */
+    svg.word {
+      width: 80vw;
+      max-height: 80vh;
+      display: block;
+    }
+
+    /* We use mix-blend-mode:difference so the fill becomes the inverse of the background. */
+    .invert {
+      mix-blend-mode: difference;
+      fill: white; /* difference with background -> inverse */
+    }
+
+    /* Improve the condensed, bold, grotesk feel without relying on a specific licensed font. */
+    .tradeish {
+      font-family: "Impact", "Haettenschweiler", "Arial Narrow Black", "Anton", "Franklin Gothic Heavy", system-ui, sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+
+    /* Remove any selection color surprises */
+    ::selection { background: transparent; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!--
+      We use an SVG with a fixed viewBox. The text scales to 80vw (capped by 80vh).
+      The word is centered in the viewport both vertically and horizontally.
+      mix-blend-mode:difference ensures the text color is always the inverse of the background.
+    -->
+    <svg class="word" viewBox="0 0 1600 300" preserveAspectRatio="xMidYMid meet" aria-label="UNBRIDLED JOY" role="img">
+      <defs>
+        <!-- A subtle stroke helps maintain crisp edges at various scales -->
+        <style>
+          .stroke { stroke: white; stroke-width: 0; vector-effect: non-scaling-stroke; }
+        </style>
+      </defs>
+      <g class="invert">
+        <text
+          x="50%"
+          y="50%"
+          class="tradeish stroke"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          font-size="240"
+        >
+          UNBRIDLED JOY
+        </text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Optional: keyboard nudges to try different blackness levels (0%..100%). -->
+  <script>
+    (function () {
+      const root = document.documentElement;
+      let cur = 80; // starting blackness percentage
+      function set(v) {
+        cur = Math.max(0, Math.min(100, v));
+        root.style.setProperty("--blackness", cur + "%");
+      }
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowUp") set(cur + 5);
+        if (e.key === "ArrowDown") set(cur - 5);
+      });
+    })();
+  </script>
+</body>
+</html>
