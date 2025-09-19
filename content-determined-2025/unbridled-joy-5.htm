@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UNBRIDLED JOY — inline SVG paths</title>
+  <style>
+    :root {
+      --bg: #1a1a1a;   /* dark gray background */
+      --fg: #ffffff;   /* inverse text color */
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+    }
+    .wrap {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+    }
+    /* Constrain to 80% of viewport in BOTH axes, preserve aspect ratio, center */
+    svg {
+      width: min(80vw, calc(80vh * (8100 / 1000)));
+      height: min(80vh, calc(80vw * (1000 / 8100)));
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" aria-label="UNBRIDLED JOY wordmark">
+    <!--
+      Geometry:
+        Overall viewBox: 8100 × 1000
+        Per-glyph design box: W=600, H=1000, thickness T=140, spacing S=80, space width = 300
+        Letters are approximated as condensed blocky sans.
+        All shapes are paths (no <text>, no <rect>).
+    -->
+    <svg viewBox="0 0 8100 1000" role="img" aria-labelledby="title desc" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <title id="title">UNBRIDLED JOY</title>
+      <desc id="desc">Condensed sans letterforms drawn entirely with path data.</desc>
+
+      <defs>
+        <!-- Common fill -->
+        <style><![CDATA[
+          .g { fill: var(--fg); }
+          .eo { fill-rule: evenodd; clip-rule: evenodd; fill: var(--fg); }
+        ]]></style>
+
+        <!-- Glyph symbols (600x1000 design grid, T=140) -->
+        <!-- U -->
+        <symbol id="G-U" viewBox="0 0 600 1000">
+          <path class="g" d="M0 0 H140 V860 H0 Z" />
+          <path class="g" d="M460 0 H600 V860 H460 Z" />
+          <path class="g" d="M140 860 H460 V1000 H140 Z" />
+        </symbol>
+
+        <!-- N -->
+        <symbol id="G-N" viewBox="0 0 600 1000">
+          <path class="g" d="M0 0 H140 V1000 H0 Z" />
+          <path class="g" d="M460 0 H600 V1000 H460 Z" />
+          <!-- thick diagonal -->
+          <path class="g" d="M140 0 H300 L460 260 V500 L300 240 H140 Z" />
+          <path class="g" d="M300 760 L460 1000 H300 L140 740 V500 Z" />
+        </symbol>
+
+        <!-- B (two bowls via even-odd) -->
+        <symbol id="G-B" viewBox="0 0 600 1000">
+          <path class="g" d="M0 0 H140 V1000 H0 Z" />
+          <path class="eo" d="
+            M140 0 H560 V500 H140 Z
+            M280 140 H420 V360 H280 Z
+          " />
+          <path class="eo" d="
+            M140 500 H560 V1000 H140 Z
+            M280 640 H420 V860 H280 Z
+          " />
+        </symbol>
+
+        <!-- R (upper bowl + leg) -->
+        <symbol id="G-R" viewBox="0 0 600 1000">
+          <path class="g" d="M0 0 H140 V1000 H0 Z" />
+          <path class="eo" d="
+            M140 0 H560 V500 H140 Z
+            M280 140 H420 V360 H280 Z
+          " />
+          <!-- diagonal leg -->
+          <path class="g" d="M300 520 L560 1000 H420 L160 520 Z" />
+        </symbol>
+
+        <!-- I -->
+        <symbol id="G-I" viewBox="0 0 600 1000">
+          <path class="g" d="M230 0 H370 V1000 H230 Z" />
+        </symbol>
+
+        <!-- D (rectangular ‘D’ approximation via even-odd ring + flat left stem) -->
+        <symbol id="G-D" viewBox="0 0 600 1000">
+          <path class="g" d="M0 0 H140 V1000 H0 Z" />
+          <path class="eo" d="
+            M140 0 H560 V1000 H140 Z
+            M280 140 H420 V860 H280 Z
+          " />
+        </symbol>
+
+        <!-- L -->
+        <symbol id="G-L" viewBox="0 0 600 1000">
+          <path class="g" d="M0 0 H140 V1000 H0 Z" />
+          <path class="g" d="M140 860 H560 V1000 H140 Z" />
+        </symbol>
+
+        <!-- E -->
+        <symbol id="G-E" viewBox="0 0 600 1000">
+          <path class="g" d="M0 0 H140 V1000 H0 Z" />
+          <path class="g" d="M140 0 H560 V140 H140 Z" />
+          <path class="g" d="M140 430 H440 V570 H140 Z" />
+          <path class="g" d="M140 860 H560 V1000 H140 Z" />
+        </symbol>
+
+        <!-- J -->
+        <symbol id="G-J" viewBox="0 0 600 1000">
+          <path class="g" d="M0 0 H560 V140 H0 Z" />
+          <path class="g" d="M420 0 H560 V740 H420 Z" />
+          <path class="g" d="M140 740 H420 V1000 H140 Z" />
+        </symbol>
+
+        <!-- O (rectangular ring as condensed ‘O’) -->
+        <symbol id="G-O" viewBox="0 0 600 1000">
+          <path class="eo" d="
+            M0 0 H600 V1000 H0 Z
+            M140 140 H460 V860 H140 Z
+          " />
+        </symbol>
+
+        <!-- Y -->
+        <symbol id="G-Y" viewBox="0 0 600 1000">
+          <!-- upper arms -->
+          <path class="g" d="M0 0 H160 L280 220 L220 320 Z" />
+          <path class="g" d="M600 0 H440 L320 220 L380 320 Z" />
+          <!-- stem -->
+          <path class="g" d="M230 320 H370 V1000 H230 Z" />
+        </symbol>
+      </defs>
+
+      <!-- Compose the phrase with fixed advances (W=600, S=80) and a 300-wide space -->
+      <!-- UNBRIDLED -->
+      <use href="#G-U" x="0"   y="0"/>
+      <use href="#G-N" x="680" y="0"/>
+      <use href="#G-B" x="1360" y="0"/>
+      <use href="#G-R" x="2040" y="0"/>
+      <use href="#G-I" x="2720" y="0"/>
+      <use href="#G-D" x="3400" y="0"/>
+      <use href="#G-L" x="4080" y="0"/>
+      <use href="#G-E" x="4760" y="0"/>
+      <use href="#G-D" x="5440" y="0"/>
+
+      <!-- space: 300 -->
+      <!-- JOY -->
+      <use href="#G-J" x="6120" y="0"/>
+      <use href="#G-O" x="6800" y="0"/>
+      <use href="#G-Y" x="7480" y="0"/>
+    </svg>
+  </div>
+</body>
+</html>
