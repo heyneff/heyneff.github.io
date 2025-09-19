@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UNBRIDLED JOY — pure vectors</title>
+<style>
+  :root{
+    /* Background blackness: 0 = white, 100 = pure black. */
+    --k: 90;
+    --bgL: calc(100% - (var(--k) * 1%));
+    --fgL: calc(var(--k) * 1%);
+  }
+
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: grid;
+    place-items: center;
+    background: hsl(0 0% var(--bgL));
+  }
+
+  /* Frame enforces the 80% viewport constraints */
+  .frame {
+    width: 80vw;
+    height: 80vh;
+    display: grid;
+    place-items: center;
+  }
+
+  svg {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+
+  .ink { fill: hsl(0 0% var(--fgL)); }
+</style>
+</head>
+<body>
+  <div class="frame" aria-label="UNBRIDLED JOY">
+    <!--
+      Vector-only glyphs:
+      Coordinate system: each glyph nominal box W=80, H=180, stroke-ish thickness T=18
+      All letters are assembled with paths/rects/polys; counters via fill-rule="evenodd".
+      Word spacing = 24 units.
+    -->
+    <svg viewBox="0 0 1400 220" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+      <title id="title">UNBRIDLED JOY (vector outlines)</title>
+      <desc id="desc">All letters are drawn with SVG vector shapes, no text elements. The phrase is centered and scales to fit within 80% of the viewport’s width and height. Foreground color inverses the grayscale background.</desc>
+
+      <!-- Glyph kit -->
+      <defs>
+        <!-- Common metrics (documented, not code-exposed): W=80, H=180, T=18, R=18 -->
+        <!-- U -->
+        <symbol id="U" viewBox="0 0 80 180">
+          <g class="ink">
+            <rect x="0" y="0" width="18" height="130" />
+            <rect x="62" y="0" width="18" height="130" />
+            <path d="M18,130
+                     L18,150
+                     a22,22 0 0 0 22,22
+                     h0
+                     a22,22 0 0 0 0,0
+                     h0
+                     a22,22 0 0 0 22,-22
+                     v-20
+                     h-18 v18
+                     a4,4 0 0 1 -4,4
+                     h0
+                     a4,4 0 0 1 -4,-4
+                     v-18
+                     Z" />
+          </g>
+        </symbol>
+
+        <!-- N -->
+        <symbol id="N" viewBox="0 0 80 180">
+          <g class="ink">
+            <rect x="0" y="0" width="18" height="180" />
+            <rect x="62" y="0" width="18" height="180" />
+            <!-- Diagonal belly -->
+            <polygon points="18,0 38,0 62,140 62,180 42,180 18,40" />
+          </g>
+        </symbol>
+
+        <!-- B -->
+        <symbol id="B" viewBox="0 0 80 180">
+          <path class="ink" fill-rule="evenodd"
+            d="
+              M0,0 H18 V0 H45
+              a35,35 0 0 1 0,70 H18 V110 H45
+              a35,35 0 0 1 0,70 H18 H0 Z
+
+              M18,16 H44 a19,19 0 0 1 0,38 H18 Z
+              M18,126 H44 a19,19 0 0 1 0,38 H18 Z
+            " />
+        </symbol>
+
+        <!-- R -->
+        <symbol id="R" viewBox="0 0 80 180">
+          <path class="ink" fill-rule="evenodd"
+            d="
+              M0,0 H18 V0 H45
+              a35,35 0 0 1 0,70 H18 V180 H0 Z
+              M18,16 H44 a19,19 0 0 1 0,38 H18 Z
+            " />
+          <!-- Leg -->
+          <polygon class="ink" points="18,110 40,110 80,180 58,180" />
+        </symbol>
+
+        <!-- I -->
+        <symbol id="I" viewBox="0 0 40 180">
+          <g class="ink">
+            <rect x="0" y="0" width="40" height="18" />
+            <rect x="11" y="18" width="18" height="144" />
+            <rect x="0" y="162" width="40" height="18" />
+          </g>
+        </symbol>
+
+        <!-- D -->
+        <symbol id="D" viewBox="0 0 80 180">
+          <path class="ink" fill-rule="evenodd"
+            d="
+              M0,0 H44
+              a36,36 0 0 1 36,36 V144
+              a36,36 0 0 1 -36,36 H0 Z
+              M18,18 H42
+              a22,22 0 0 1 22,22 V140
+              a22,22 0 0 1 -22,22 H18 Z
+            " />
+        </symbol>
+
+        <!-- L -->
+        <symbol id="L" viewBox="0 0 80 180">
+          <g class="ink">
+            <rect x="0" y="0" width="18" height="180" />
+            <rect x="0" y="162" width="80" height="18" />
+          </g>
+        </symbol>
+
+        <!-- E -->
+        <symbol id="E" viewBox="0 0 80 180">
+          <g class="ink">
+            <rect x="0" y="0" width="18" height="180" />
+            <rect x="0" y="0" width="80" height="18" />
+            <rect x="0" y="81" width="62" height="18" />
+            <rect x="0" y="162" width="80" height="18" />
+          </g>
+        </symbol>
+
+        <!-- J -->
+        <symbol id="J" viewBox="0 0 80 180">
+          <g class="ink">
+            <rect x="40" y="0" width="40" height="18" />
+            <rect x="51" y="18" width="18" height="110" />
+            <path d="M51,128 v12
+                     a31,31 0 0 1 -31,31
+                     a31,31 0 0 1 -31,-26
+                     l0,-1 h18
+                     a13,13 0 0 0 13,9
+                     a13,13 0 0 0 13,-13
+                     v-12 z" />
+          </g>
+        </symbol>
+
+        <!-- O -->
+        <symbol id="O" viewBox="0 0 80 180">
+          <path class="ink" fill-rule="evenodd"
+            d="
+              M40,0
+              a40,40 0 0 1 40,40 V140
+              a40,40 0 0 1 -40,40
+              a40,40 0 0 1 -40,-40 V40
+              a40,40 0 0 1 40,-40 Z
+              M40,22
+              a18,18 0 0 1 18,18 V140
+              a18,18 0 0 1 -18,18
+              a18,18 0 0 1 -18,-18 V40
+              a18,18 0 0 1 18,-18 Z
+            " />
+        </symbol>
+
+        <!-- Y -->
+        <symbol id="Y" viewBox="0 0 80 180">
+          <g class="ink">
+            <polygon points="0,0 22,0 40,34 58,0 80,0 52,60 52,180 28,180 28,60" />
+          </g>
+        </symbol>
+
+        <!-- Space -->
+        <symbol id="SP" viewBox="0 0 24 180">
+          <rect x="0" y="0" width="24" height="1" opacity="0"/>
+        </symbol>
+      </defs>
+
+      <!-- Compose the phrase -->
+      <g transform="translate(10,20)">
+        <!-- UNBRIDLED -->
+        <use href="#U" x="0"   y="0" />
+        <use href="#N" x="92"  y="0" />
+        <use href="#B" x="184" y="0" />
+        <use href="#R" x="276" y="0" />
+        <use href="#I" x="368" y="0" />
+        <use href="#D" x="420" y="0" />
+        <use href="#L" x="512" y="0" />
+        <use href="#E" x="604" y="0" />
+        <use href="#D" x="696" y="0" />
+
+        <!-- space -->
+        <use href="#SP" x="788" y="0" />
+
+        <!-- JOY -->
+        <use href="#J" x="812" y="0" />
+        <use href="#O" x="904" y="0" />
+        <use href="#Y" x="996" y="0" />
+      </g>
+    </svg>
+  </div>
+
+  <!-- Optional: change background blackness via URL hash like #k=20 -->
+  <script>
+    (function () {
+      const m = location.hash.match(/k=(\d{1,3})\b/);
+      if (!m) return;
+      const v = Math.max(0, Math.min(100, parseInt(m[1], 10)));
+      document.documentElement.style.setProperty('--k', v);
+    })();
+  </script>
+</body>
+</html>
