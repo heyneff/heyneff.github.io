@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CONTENT — Vector</title>
+  <style>
+    :root {
+      --bg: #222;             /* dark gray background */
+      --fg: #ddd;             /* inverse-ish text color */
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    .wrap {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+    }
+    svg {
+      width: 80vw;
+      max-height: 80vh;
+      height: auto;
+      display: block;
+    }
+    /* Make all letter shapes inherit the current text color */
+    .letter * { fill: currentColor; }
+    /* Even-odd fill for letters with counters (O) */
+    .evenodd { fill-rule: evenodd; }
+    /* Optional crisp edges on some displays */
+    svg { shape-rendering: geometricPrecision; }
+  </style>
+</head>
+<body>
+  <div class="wrap" aria-label="CONTENT wordmark">
+    <!--
+      Coordinate system:
+      - Each glyph area is 60 (w) x 100 (h)
+      - Letter spacing = 8
+      - Word viewBox width = 7*60 + 6*8 = 468, height = 100
+      - All shapes are path rectangles / polygons (no <text>)
+    -->
+    <svg viewBox="0 0 468 100" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+      <title id="title">CONTENT</title>
+      <desc id="desc">The word CONTENT set in a bold condensed geometric style, drawn with inline SVG vector paths and centered in the viewport.</desc>
+
+      <!-- Letter C -->
+      <g class="letter" transform="translate(0,0)">
+        <!-- Top bar -->
+        <path d="M0 0 H60 V18 H0 Z" />
+        <!-- Bottom bar -->
+        <path d="M0 82 H60 V100 H0 Z" />
+        <!-- Left bar -->
+        <path d="M0 0 H18 V100 H0 Z" />
+      </g>
+
+      <!-- Letter O (donut, evenodd) -->
+      <g class="letter" transform="translate(68,0)">
+        <path class="evenodd"
+          d="M0 0 H60 V100 H0 Z
+             M18 18 H42 V82 H18 Z" />
+      </g>
+
+      <!-- Letter N (left & right stems + diagonal polygon) -->
+      <g class="letter" transform="translate(136,0)">
+        <!-- Left stem -->
+        <path d="M0 0 H18 V100 H0 Z" />
+        <!-- Right stem -->
+        <path d="M42 0 H60 V100 H42 Z" />
+        <!-- Diagonal (parallelogram), thickness ≈ 18 -->
+        <!-- Constructed to stay inside 0..100 viewBox -->
+        <path d="M26.8 100 L50.8 5.1 L33.2 0.9 L9.3 95.8 Z" />
+      </g>
+
+      <!-- Letter T -->
+      <g class="letter" transform="translate(204,0)">
+        <!-- Top bar -->
+        <path d="M0 0 H60 V18 H0 Z" />
+        <!-- Stem -->
+        <path d="M21 18 H39 V100 H21 Z" />
+      </g>
+
+      <!-- Letter E -->
+      <g class="letter" transform="translate(272,0)">
+        <!-- Spine -->
+        <path d="M0 0 H18 V100 H0 Z" />
+        <!-- Top arm -->
+        <path d="M18 0 H60 V18 H18 Z" />
+        <!-- Middle arm -->
+        <path d="M18 41 H48 V59 H18 Z" />
+        <!-- Bottom arm -->
+        <path d="M18 82 H60 V100 H18 Z" />
+      </g>
+
+      <!-- Letter N -->
+      <g class="letter" transform="translate(340,0)">
+        <!-- Left stem -->
+        <path d="M0 0 H18 V100 H0 Z" />
+        <!-- Right stem -->
+        <path d="M42 0 H60 V100 H42 Z" />
+        <!-- Diagonal -->
+        <path d="M26.8 100 L50.8 5.1 L33.2 0.9 L9.3 95.8 Z" />
+      </g>
+
+      <!-- Letter T -->
+      <g class="letter" transform="translate(408,0)">
+        <!-- Top bar -->
+        <path d="M0 0 H60 V18 H0 Z" />
+        <!-- Stem -->
+        <path d="M21 18 H39 V100 H21 Z" />
+      </g>
+    </svg>
+  </div>
+</body>
+</html>
