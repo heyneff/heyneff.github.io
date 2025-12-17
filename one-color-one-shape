@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Random Polygon</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    #poly {
+      /* Size will be set by JS. */
+      filter: drop-shadow(0 0 0 rgba(0,0,0,0.35));
+      will-change: filter, clip-path, width, height;
+    }
+  </style>
+</head>
+<body>
+  <div id="poly" aria-hidden="true"></div>
+
+  <script>
+    (function () {
+      const poly = document.getElementById('poly');
+
+      // --- Helpers ---
+      const rand = (min, max) => Math.random() * (max - min) + min;
+      const randi = (min, max) => Math.floor(rand(min, max + 1));
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+      // Build a "nice" polygon by sampling points around a circle with jitter,
+      // then converting to CSS clip-path polygon(% %,...)
+      function makePolygonPoints(n) {
+        const points = [];
+        const cx = 50, cy = 50;
+
+        // Ensure a stable ordering around the center
+        const start = rand(0, Math.PI * 2);
+        for (let i = 0; i < n; i++) {
+          const t = start + (i / n) * Math.PI * 2;
+          const radius = rand(28, 48);          // base radius in "percent"
+          const jitter = rand(-8, 8);           // radial jitter
+          const r = clamp(radius + jitter, 18, 49);
+
+          const x = cx + Math.cos(t) * r + rand(-2, 2);
+          const y = cy + Math.sin(t) * r + rand(-2, 2);
+
+          points.push([clamp(x, 1, 99), clamp(y, 1, 99)]);
+        }
+        return points;
+      }
+
+      function toClipPath(points) {
+        return 'polygon(' + points.map(([x, y]) => `${x.toFixed(2)}% ${y.toFixed(2)}%`).join(', ') + ')';
+      }
+
+      // --- Randomize on load ---
+      function generate() {
+        // Random HSL color, but keep it slightly muted/dark so shadow reads.
+        const h = randi(0, 360);
+        const s = randi(35, 70);
+        const l = randi(18, 45);
+        const color = `hsl(${h} ${s}% ${l}%)`;
+
+        document.body.style.background = color;
+        poly.style.background = color;
+
+        // Random polygon complexity
+        const sides = randi(5, 11);
+        const pts = makePolygonPoints(sides);
+        poly.style.clipPath = toClipPath(pts);
+
+        // Random size (responsive to viewport)
+        const minDim = Math.min(window.innerWidth, window.innerHeight);
+        const size = clamp(minDim * rand(0.18, 0.55), 120, 520);
+        poly.style.width = `${size}px`;
+        poly.style.height = `${size}px`;
+
+        // Soft shadow with no x/y offset; random blur + spread (via drop-shadow)
+        const blur = rand(size * 0.06, size * 0.22); // soft
+        const alpha = rand(0.18, 0.45);
+        poly.style.filter = `drop-shadow(0 0 ${blur.toFixed(1)}px rgba(0,0,0,${alpha.toFixed(2)}))`;
+      }
+
+      // Generate once on load, and regenerate on resize (keeps it centered anyway)
+      generate();
+      window.addEventListener('resize', () => generate(), { passive: true });
+    })();
+  </script>
+</body>
+</html>
