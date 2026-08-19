@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CONTENT – Inline SVG</title>
+  <style>
+    :root { --bg: #1e1e1e; /* dark gray */ --ink: #e1e1e1; /* inverse of #1e1e1e */ }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      display: grid;
+      place-items: center; /* centers horizontally & vertically */
+      min-height: 100svh; /* mobile safe */
+    }
+
+    /* Keep the word width at 80vw but never exceed 80vh in height.
+       The SVG viewBox is 1000×200, so aspect ratio = 5. */
+    .word {
+      --ratio: 5; /* 1000 / 200 */
+      width: min(80vw, calc(80vh * var(--ratio)));
+      height: auto;
+      display: block;
+    }
+
+    svg { shape-rendering: geometricPrecision; }
+  </style>
+</head>
+<body>
+  <!-- Inline SVG, no fonts used. Letters built from vector paths. -->
+  <svg class="word" viewBox="0 0 1000 200" role="img" aria-label="CONTENT" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <!-- Letter modules (120×200 each). Stroke thickness ≈ 32. -->
+      <g id="C" fill="currentColor">
+        <!-- Left vertical -->
+        <path d="M0 0H32V200H0Z" />
+        <!-- Top bar (shorter to open the C on the right) -->
+        <path d="M0 0H100V32H0Z" />
+        <!-- Bottom bar (shorter to open the C on the right) -->
+        <path d="M0 168H100V200H0Z" />
+      </g>
+
+      <g id="O" fill="currentColor">
+        <!-- Rectangular ring using evenodd to create the counter -->
+        <path fill-rule="evenodd" d="M0 0H120V200H0Z M32 32H88V168H32Z" />
+      </g>
+
+      <g id="N" fill="currentColor">
+        <!-- Left and right verticals -->
+        <path d="M0 0H32V200H0Z" />
+        <path d="M88 0H120V200H88Z" />
+        <!-- Diagonal (condensed slab) -->
+        <path d="M32 0 L48 0 L88 200 L72 200 Z" />
+      </g>
+
+      <g id="T" fill="currentColor">
+        <!-- Top bar -->
+        <path d="M0 0H120V32H0Z" />
+        <!-- Center stem -->
+        <path d="M44 32H76V200H44Z" />
+      </g>
+
+      <g id="E" fill="currentColor">
+        <!-- Left vertical -->
+        <path d="M0 0H32V200H0Z" />
+        <!-- Top bar -->
+        <path d="M0 0H120V32H0Z" />
+        <!-- Middle bar (shorter) -->
+        <path d="M0 84H96V116H0Z" />
+        <!-- Bottom bar -->
+        <path d="M0 168H120V200H0Z" />
+      </g>
+    </defs>
+
+    <!-- Layout: 7 letters @ 120 width with 20px tracking; total = 960, centered in 1000 viewBox -->
+    <g transform="translate(20,0)">
+      <use href="#C" x="0" y="0" />
+      <use href="#O" x="140" y="0" />
+      <use href="#N" x="280" y="0" />
+      <use href="#T" x="420" y="0" />
+      <use href="#E" x="560" y="0" />
+      <use href="#N" x="700" y="0" />
+      <use href="#T" x="840" y="0" />
+    </g>
+  </svg>
+</body>
+</html>

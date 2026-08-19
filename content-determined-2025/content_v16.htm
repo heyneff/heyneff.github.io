@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CONTENT</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #1a1a1a; /* dark gray */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    svg {
+      width: 80vw;
+      height: 80vh;
+      display: block;
+    }
+    path {
+      fill: #ffffff; /* inverse of background */
+    }
+  </style>
+</head>
+<body>
+  <svg viewBox="0 0 1400 200" preserveAspectRatio="xMidYMid meet">
+    <!-- The following paths are stylistic approximations -->
+    <path d="M0,0 V200 H60 C100,200 120,180 120,100 C120,20 100,0 60,0 Z" /> <!-- C -->
+    <path d="M150,0 V200 H210 V120 H250 V200 H310 V0 H250 V80 H210 V0 Z" />   <!-- O -->
+    <path d="M330,0 V200 H390 V120 H430 V200 H490 V0 H430 V80 H390 V0 Z" />   <!-- N -->
+    <path d="M510,0 V200 H570 V0 Z" />                                        <!-- T -->
+    <path d="M590,0 V200 H650 V80 H690 V200 H750 V0 H690 V120 H650 V0 Z" />   <!-- E -->
+    <path d="M770,0 V200 H830 V80 H870 V200 H930 V0 H870 V120 H830 V0 Z" />   <!-- N -->
+    <path d="M950,0 V200 H1010 V0 Z" />                                       <!-- T -->
+  </svg>
+</body>
+</html>
