@@ -108,53 +108,71 @@
 
 <script>
 (function () {
-  // The rotation is a fixed 90s grid on the server clock, so rather than poll we
-  // wait for the next boundary and fetch exactly once — one request per period
-  // per open tab. Fetched via fetch() (not Image()) so the response headers give
-  // us the filename without a second round trip.
-  var PERIOD = 90;
   var img   = document.getElementById('live');
   var idxEl = document.getElementById('idx');
   var cdEl  = document.getElementById('cd');
-  var remaining = PERIOD - (Math.floor(Date.now() / 1000) % PERIOD);
-  var lastUrl = null;
+
+  // When the current image expires, as a wall-clock time. Derived from the
+  // server's X-Next-Change, because slot boundaries fall on era_start + k*rotate
+  // and cannot be computed from the client's own clock.
+  var changesAt = 0;
+  var lastUrl   = null;
+  var loading   = false;
+  var frozen    = false;
 
   function load() {
+    if (loading) return;              // a slow network must not stack requests
+    loading = true;
     fetch('/wysiwyg.jpeg?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) {
+        var next = parseInt(r.headers.get('X-Next-Change') || '0', 10);
+        frozen = (next === 0);
+        // Recomputed from *this* response every time, so the schedule re-syncs
+        // after a sleeping laptop, a throttled background tab, or a new era.
+        changesAt = Date.now() + (frozen ? 0 : next * 1000);
         idxEl.textContent = r.headers.get('X-Image') || '—';
         return r.blob();
       })
       .then(function (b) {
         var url = URL.createObjectURL(b);
-        img.classList.add('swapping');
-        setTimeout(function () {
-          img.src = url;
-          img.classList.remove('swapping');
-          if (lastUrl) URL.revokeObjectURL(lastUrl);   // or every swap leaks a blob
-          lastUrl = url;
-        }, 200);
+        var pre = new Image();
+        pre.onload = function () {     // swap only once the bytes are decodable
+          img.classList.add('swapping');
+          setTimeout(function () {
+            img.src = url;
+            img.classList.remove('swapping');
+            if (lastUrl) URL.revokeObjectURL(lastUrl);
+            lastUrl = url;
+          }, 180);
+          loading = false;
+        };
+        pre.onerror = function () { URL.revokeObjectURL(url); loading = false; };
+        pre.src = url;
       })
-      .catch(function () { /* offline; the countdown keeps running */ });
+      .catch(function () {
+        loading = false;
+        changesAt = Date.now() + 15000;   // offline: retry shortly
+      });
   }
 
+  // Compares against the clock rather than decrementing a counter: background
+  // tabs throttle setInterval to ~1/minute and sleep suspends it entirely, so a
+  // decremented countdown silently stops reaching zero and the image never
+  // refreshes. This recovers on its own.
   function tick() {
-    remaining -= 1;
-    if (remaining <= 0) { remaining = PERIOD; load(); }
-    var m = Math.floor(remaining / 60), s = remaining % 60;
-    cdEl.textContent = (m ? m + 'm ' : '') + s + 's';
+    if (frozen) { cdEl.textContent = 'never'; return; }
+    var left = Math.round((changesAt - Date.now()) / 1000);
+    if (left <= 0) { load(); return; }
+    var m = Math.floor(left / 60), sec = left % 60;
+    cdEl.textContent = (m ? m + 'm ' : '') + sec + 's';
   }
 
-  // Don't keep fetching in a background tab nobody is looking at.
+  // Coming back to a hidden tab: re-check immediately rather than waiting.
   document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) {
-      remaining = PERIOD - (Math.floor(Date.now() / 1000) % PERIOD);
-      load();
-    }
+    if (!document.hidden) { if (Date.now() >= changesAt) load(); else tick(); }
   });
 
   load();
-  tick();
   setInterval(tick, 1000);
 })();
 </script>

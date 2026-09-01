@@ -67,7 +67,17 @@ header('Content-Length: ' . (string) filesize($path));
 header('X-Image: ' . $r['file']);
 header('X-Era: ' . $r['era']);
 header('X-Slot: ' . $r['idx']);
+
+// Seconds until this image is replaced. Slot boundaries fall on
+// era_start + k*rotate, NOT on multiples of the rotation period since the epoch,
+// so a client cannot derive this from its own clock. Sending it keeps the live
+// viewer aligned with what is actually being served.
+if (!$r['frozen'] && isset($r['slot_start'], $r['rotate'])) {
+    header('X-Next-Change: ' . max(1, $r['slot_start'] + $r['rotate'] - $now));
+} else {
+    header('X-Next-Change: 0');    // frozen: never changes again
+}
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Expose-Headers: X-Image, X-Era, X-Slot');
+header('Access-Control-Expose-Headers: X-Image, X-Era, X-Slot, X-Next-Change');
 
 readfile($path);
