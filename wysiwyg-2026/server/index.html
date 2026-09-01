@@ -27,17 +27,13 @@
      true proportions with no bars, and no vertical reflow, because the stage
      always occupies the same vertical space. Only width varies. */
   .stage{
-/*    height:clamp(240px,42vh,440px);*/
     margin-bottom:.9rem;
     display:flex; align-items:center; justify-content:center;
   }
-  /* Border on the IMAGE, not the stage, so the frame hugs the actual picture
-     rather than drawing a box around empty space. */
   .stage img{
     max-width:100%; max-height:100%;
     width:auto; height:auto;            /* never upscale past natural size */
     display:block;
-    border:1px solid var(--line); border-radius:3px;
     background:#242424;
     transition:opacity .35s;
   }
