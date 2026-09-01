@@ -46,7 +46,8 @@ mkdir -p "$INCOMING" "$SOURCE"
 collect() {
   find "$1" -maxdepth 1 -type f ! -name '.*' ! -name '*.txt' \
     \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' \
-       -o -iname '*.webp' -o -iname '*.bmp' -o -iname '*.tif' -o -iname '*.tiff' \) | sort
+       -o -iname '*.webp' -o -iname '*.bmp' -o -iname '*.tif' -o -iname '*.tiff' \
+       -o -iname '*.svg' \) | sort
 }
 NEW=()
 while IFS= read -r f; do [ -n "$f" ] && NEW+=("$f"); done < <(collect "$SRCDIR")

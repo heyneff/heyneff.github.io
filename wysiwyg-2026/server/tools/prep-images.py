@@ -24,12 +24,40 @@ extension would get it backwards for most of this set.
 Reads a directory (or explicit files); writes into server/images/.
 Originals are never modified.
 """
-import argparse, os, sys, io
+import argparse, os, sys, io, shutil, subprocess, tempfile
 from PIL import Image, ImageOps
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT  = os.path.join(os.path.dirname(HERE), "images")
-EXTS = (".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".tif", ".tiff")
+EXTS = (".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".tif", ".tiff", ".svg")
+
+
+def open_image(path):
+    """PIL cannot read SVG, and broken-image placeholders are often SVG.
+    Rasterise via cairosvg if installed, else macOS Quick Look."""
+    if not path.lower().endswith(".svg"):
+        return Image.open(path)
+    try:
+        import cairosvg
+        buf = io.BytesIO()
+        cairosvg.svg2png(url=path, write_to=buf, output_width=1600)
+        buf.seek(0)
+        return Image.open(buf)
+    except ImportError:
+        pass
+    if shutil.which("qlmanage"):
+        tmp = tempfile.mkdtemp()
+        try:
+            subprocess.run(["qlmanage", "-t", "-s", "1600", "-o", tmp, path],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
+            made = [os.path.join(tmp, f) for f in os.listdir(tmp)]
+            if made:
+                im = Image.open(made[0])
+                im.load()          # read before the temp dir goes away
+                return im
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+    raise OSError("cannot rasterise SVG (install cairosvg, or run on macOS)")
 
 
 def encode_jpeg(im, quality):
@@ -96,8 +124,15 @@ def main():
 
     for i, src in enumerate(files, 1):
         try:
-            im = Image.open(src)
+            im = open_image(src)
             im = ImageOps.exif_transpose(im)
+            if im.mode in ("RGBA", "LA", "P"):
+                # SVG and PNG transparency composites to black in JPEG; these are
+                # placeholder graphics, which are overwhelmingly light-on-white.
+                bg = Image.new("RGB", im.size, "white")
+                im = im.convert("RGBA")
+                bg.paste(im, mask=im.split()[-1])
+                im = bg
         except Exception as e:
             print(f"  skip {os.path.basename(src)[:50]}: {e}")
             n_skip += 1
