@@ -71,7 +71,7 @@
 <div class="wrap">
 
   <h1>WYSIWYG</h1>
-  <div class="sub">Michael Neff &nbsp;·&nbsp; 2026</div>
+  <div class="sub">Michael Neff · 2026</div>
 
   <div class="stage">
     <img id="live" src="/wysiwyg.jpeg" alt="The currently displayed image">
@@ -81,43 +81,45 @@
     <span>Changes in <b id="cd">—</b></span>
   </div>
 
-  <p class="lede">An eBay listing displays an image hosted on this server. The address
-  of that image never changes. The image does.</p>
+  <p style="margin:0 0 1.3em;font-size:.72rem;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.12em;">
+    The image above is not stored by eBay. It is loaded from the artist's server each time this page opens.
+  </p>
 
-  <p>Hotlinking is the practice of displaying an image from someone else's server on
-  your own page. The convention is that the borrower controls the page and the host
-  controls the file — so the host can change what appears, at any time, without touching
-  the page it appears on. Usually this is an accident, or a prank, or a bandwidth
-  dispute. Here it is the work.</p>
+  <p style="margin:0 0 1.3em;font-size:1.15rem;line-height:1.55;">
+    eBay functioned as a pivotal anchor during the transition into Web 2.0, a period defined by the democratization of online commerce. Suddenly, the technical barrier of the "webmaster" vanished, allowing anyone to list items for sale. This shift brought a wave of users who utilized hotlinking—often out of a lack of server space or technical knowledge—unknowingly shifting bandwidth expenses onto original hosts. In an era where data transfer had a real cost, these cross-origin embeds created a double-whammy of real cost and breached netiquette.
+  </p>
 
-  <p>The listing shows one image from a set of 1,373: broken-image placeholders scraped
-  from around the web, interleaved with generated photographs of demolition. A new one
-  takes over every ninety seconds. Nothing about the listing changes. No two people
-  arriving at different moments are looking at the same object.</p>
+  <p>
+    The architecture of modern AI image generation relies heavily on massive, scraped datasets like ImageNet, a product of that same Web 2.0 peak. As Trevor Paglen notes in <em>How to See Like a Machine</em>, these systems are fundamentally limited by their reliance on categorical nouns. With <em>WYSIWYG</em>, I've intentionally avoided concrete nouns. Every output was generated using the singular prompt "THIS IMAGE HAS BEEN DELETED," providing only an aspect ratio. By centering the work on such an ambiguous phrase, I am pushing the model to reveal its own internal bias—the underlying structural grain of its training data.
+  </p>
 
-  <h2>The sale</h2>
+  <p>
+    The image featured in this description is pulled from a collection of 1,405 files. While 99% are synthetic artifacts of our current AI era, the remaining 1% are authentic relics from the Web 2.0 period—remnants of a time defined by fragile servers and the human use of text-as-image. This project bridges the distance between the early days of eBay and the contemporary mechanics of blind NFT minting. Using custom software on my server, I have automated a cycle where the hotlinked image refreshes every 90 seconds. While the eBay listing remains static, the visual object is in constant flux. If you find a version that resonates, you must act before the server moves on. The only way to track this evolution is through a manual refresh.
+  </p>
 
-  <p>An <code>&lt;img&gt;</code> is fetched once, when the page loads, and never updates —
-  eBay strips the scripts that could refresh it. So whatever arrived when a buyer opened
-  the listing stays frozen on their screen while they browse, decide, and check out. The
-  server, meanwhile, has moved on. By the time a purchase completes, the object recorded
-  by the transaction is not the object the buyer was looking at when they chose to buy it.</p>
+  <p>
+    In the logic of hotlinking, the initial view is never a guarantee of future stability. Whether caused by a bandwidth dispute, a server prank, or a technical accident, the link is volatile. In this exhibition, that instability is the work.
+  </p>
 
-  <p>Every fetch is logged. At the moment of sale both images are recorded — the one on
-  the buyer's screen and the one the ledger timestamps — and the listing is frozen
-  permanently on the second. What the buyer receives is fixed by the transaction, not by
-  the looking.</p>
+  <h2>What is being sold</h2>
 
-  <h2>The listing</h2>
+  <p>
+    The image in the description of this eBay listing is fetched when the page loads and never updates afterward. Whatever arrives when the listing is loaded stays on screen while you read, decide, and check out. The server, meanwhile, keeps moving. By the time a purchase completes, the object recorded by the transaction may not be the object you were looking at when you chose to buy it.
+  </p>
 
-  <p>Presented as part of <em>WYSIWYG</em>, an exhibition staged inside eBay listings.</p>
+  <p>
+    The buyer receives the image from the time of transaction as an archival print and an NFT. The buyer and the artist will agree to print medium and dimensions. Upon resale on the secondary market, the original print shall be sent to the new owner. Shipping will be covered by the new owner.
+  </p>
 
-  <a class="cta" href="EBAY_LISTING_URL">View the listing on eBay</a>
+  <h2>Exhibition</h2>
 
-  <footer>
-    The image above is the same file the listing points at, refreshed here as it changes.
-    Requests from this page are recorded separately and excluded from the sale record.
-  </footer>
+  <p>
+    Presented as part of <em>WYSIWYG</em>, an exhibition of artists working with technology and media in ways that reveal how digital ephemera are embodied in material and infrastructure — staged entirely within eBay listings and curated by Dev Harlan.
+  </p>
+
+  <p style="margin:0;font-size:.72rem;color:rgba(255,255,255,.42);">
+    https://wysiwyg.michaelneff.com
+  </p>
 
 </div>
 

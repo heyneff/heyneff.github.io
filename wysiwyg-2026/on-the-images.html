@@ -1,0 +1,537 @@
+<title>This Image Has Been Deleted</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --ground:  #EDEEF1;
+    --surface: #F8F9FA;
+    --sunken:  #E3E5E9;
+    --ink:     #15181C;
+    --muted:   #676D75;
+    --faint:   #8D949C;
+    --rule:    #D3D7DC;
+    --accent:  #1D6E70;
+    --accent-soft: #1D6E7014;
+
+    --serif: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+    --mono:  "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    --measure: 64ch;
+    --rail: 8.5rem;
+    --gap: 2.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:  #101316;
+      --surface: #171B1F;
+      --sunken:  #0A0C0E;
+      --ink:     #E6E8EA;
+      --muted:   #8B939B;
+      --faint:   #6C747C;
+      --rule:    #2A3036;
+      --accent:  #55B7B9;
+      --accent-soft: #55B7B91A;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:  #101316;
+    --surface: #171B1F;
+    --sunken:  #0A0C0E;
+    --ink:     #E6E8EA;
+    --muted:   #8B939B;
+    --faint:   #6C747C;
+    --rule:    #2A3036;
+    --accent:  #55B7B9;
+    --accent-soft: #55B7B91A;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    font-variant-numeric: oldstyle-nums;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 58rem;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1.25rem, 5vw, 3rem) 6rem;
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero { display: flex; flex-direction: column; gap: 1.75rem; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--faint);
+    font-variant-numeric: normal;
+  }
+
+  /* The prompt, shown the way the browser shows an image that never arrived. */
+  .placeholder {
+    aspect-ratio: 2 / 1;
+    max-height: 20rem;
+    border: 1px dashed var(--rule);
+    background: var(--sunken);
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .placeholder p {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: clamp(0.75rem, 2.4vw, 1.0625rem);
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-variant-numeric: normal;
+  }
+
+  .placeholder .icon {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0 auto 1rem;
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .placeholder .icon::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background:
+      linear-gradient(to bottom right, transparent calc(50% - 0.5px), var(--rule) calc(50% - 0.5px), var(--rule) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 5.5vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.018em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .dek {
+    margin: 0;
+    max-width: var(--measure);
+    font-size: 1.1875rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* ---------- corpus strip ---------- */
+
+  .strip {
+    margin-top: 3.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 1.5rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 1.5rem 2rem;
+  }
+
+  .stat dt {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 0.4rem;
+    font-variant-numeric: normal;
+  }
+  .stat dd {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums lining-nums;
+    letter-spacing: -0.01em;
+  }
+  .stat dd small {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    margin-top: 0.45rem;
+    font-variant-numeric: normal;
+    line-height: 1.4;
+  }
+
+  .params {
+    margin: 1.25rem 0 0;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--muted);
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 0.25rem;
+    font-variant-numeric: normal;
+  }
+  .params b { color: var(--accent); font-weight: 500; }
+
+  /* ---------- sections ---------- */
+
+  section { margin-top: 4.5rem; }
+
+  .band {
+    display: grid;
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    gap: var(--gap);
+    align-items: start;
+  }
+
+  .band + .band { margin-top: 3rem; }
+
+  /* The rail label is written as an alt attribute — the text that stands in
+     for a picture is exactly what this page is about. */
+  .rail {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    color: var(--faint);
+    padding-top: 0.5rem;
+    font-variant-numeric: normal;
+    word-break: break-word;
+  }
+  .rail .tag {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.15rem 0.45rem;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.625rem;
+  }
+  .rail .tag.inferred {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3.2vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.012em;
+    margin: 0 0 1.5rem;
+    text-wrap: balance;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.1875rem;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.75rem;
+    text-wrap: balance;
+  }
+
+  .body > p { margin: 0 0 1.1rem; max-width: var(--measure); }
+  .body > p:last-child { margin-bottom: 0; }
+
+  .body strong { font-weight: 600; }
+  .body em { font-style: italic; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.875em;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 0.08em 0.35em;
+    font-variant-numeric: normal;
+    white-space: nowrap;
+  }
+
+  /* ---------- taxonomy ---------- */
+
+  .taxonomy { margin: 0; display: grid; gap: 1.25rem; max-width: var(--measure); }
+  .taxonomy > div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--rule);
+  }
+  .taxonomy > div.lead { border-left-color: var(--accent); }
+  .taxonomy dt { font-weight: 600; letter-spacing: -0.005em; }
+  .taxonomy dd { margin: 0; color: var(--muted); }
+
+  /* ---------- pull ---------- */
+
+  .pull {
+    margin: 2rem 0;
+    padding: 1.5rem 0 1.5rem 1.5rem;
+    border-left: 2px solid var(--accent);
+    font-size: 1.25rem;
+    line-height: 1.45;
+    font-style: italic;
+    color: var(--ink);
+    max-width: var(--measure);
+  }
+  .pull p { margin: 0; }
+
+  footer {
+    margin-top: 5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    line-height: 1.7;
+    color: var(--faint);
+    letter-spacing: 0.02em;
+    font-variant-numeric: normal;
+  }
+
+  @media (max-width: 46rem) {
+    .band { grid-template-columns: 1fr; gap: 0.85rem; }
+    .rail { padding-top: 0; }
+    .rail .tag { margin-top: 0.35rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<main class="page">
+
+  <header class="hero">
+    <p class="eyebrow">WYSIWYG (2026) — note on the source images</p>
+
+    <div class="placeholder">
+      <p><span class="icon" aria-hidden="true"></span>THIS IMAGE HAS BEEN DELETED</p>
+    </div>
+
+    <h1>The whole prompt was the sentence that appears <em>after</em> the picture is gone.</h1>
+
+    <p class="dek">Three hundred and fifty jobs, one instruction, no adjectives. What came back was
+      vacant offices, demolition, scattered rubbish, corporate headshots, empty roads at dusk — and,
+      more than any other recognizable face, Donald Trump. None of that was asked for. This is an
+      account of why it arrived anyway.</p>
+  </header>
+
+  <dl class="strip">
+    <div class="stat">
+      <dt>Frames</dt>
+      <dd>1,400</dd>
+    </div>
+    <div class="stat">
+      <dt>Jobs</dt>
+      <dd>350<small>four variants each</small></dd>
+    </div>
+    <div class="stat">
+      <dt>At 2:1</dt>
+      <dd>1,124<small>80% of all frames</small></dd>
+    </div>
+    <div class="stat">
+      <dt>Model</dt>
+      <dd>v6.1<small>48 frames on v7</small></dd>
+    </div>
+  </dl>
+
+  <p class="params">THIS IMAGE HAS BEEN DELETED <b>--ar 2:1 --raw --stylize 0 --v 6.1</b></p>
+
+  <section>
+    <div class="band">
+      <div class="rail">alt="what<br>the files<br>still hold"</div>
+      <div class="body">
+        <h2>The instruction did not survive</h2>
+        <p>Every file is named for the sentence that made it, and nothing else. The embedded XMP
+          carries a job identifier and no prompt; the caption baked into the PNG is the same phrase
+          repeated back. The corpus is orphaned from its own instruction in exactly the way a
+          hotlinked image is orphaned from the server that used to answer for it — the reference
+          survives, the thing referred to does not.</p>
+        <p>What that leaves is a corpus with no subject and no style, sampled 350 times. Which turns
+          out to be a useful instrument: it renders the model's defaults visible.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="band">
+      <div class="rail">alt="what<br>came back"</div>
+      <div class="body">
+        <h2>The recurring cast</h2>
+        <dl class="taxonomy">
+          <div class="lead">
+            <dt>Donald Trump</dt>
+            <dd>The most repeated identifiable person by a wide margin — podium speeches, Oval
+              Office desks, flag backdrops, rally crowds, close-up stares. No brand, place, or other
+              public figure recurs at anything near the same rate.</dd>
+          </div>
+          <div>
+            <dt>Vacated commercial space</dt>
+            <dd>Stripped office floors, empty retail units, bare concrete shells, disused
+              warehouses. Rooms whose contents have been taken out.</dd>
+          </div>
+          <div>
+            <dt>Demolition and rubble</dt>
+            <dd>Excavators mid-bite, collapsed slabs, debris fields, buildings opened to the
+              weather.</dd>
+          </div>
+          <div>
+            <dt>Discarded matter</dt>
+            <dd>Overflowing bins, fly-tipping, plastic scattered across waste ground, kerbside
+              refuse.</dd>
+          </div>
+          <div>
+            <dt>Broken glass on white</dt>
+            <dd>Cracks, shards, and dark fragments floating on plain pale grounds — the only cluster
+              in the corpus that isn't a place.</dd>
+          </div>
+          <div>
+            <dt>Stock-photograph filler</dt>
+            <dd>Corporate headshots against clean walls, skylines, mountains, sunsets, lone figures
+              seen from behind at golden hour.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="band">
+      <div class="rail">alt="mechanism"<span class="tag">observed</span></div>
+      <div class="body">
+        <h2>Why this, and not something else</h2>
+
+        <h3>A prompt with no picture in it falls back to the average picture</h3>
+        <p>There is no subject in the phrase. No noun to render, no style, no light, no place.
+          When the conditioning signal is that thin, output drifts toward the model's unconditional
+          distribution — the statistical centre of what it was trained on. That centre is stock
+          photography, because stock photography is what the photographed internet is mostly made
+          of. The headshots, the skylines, the golden-hour silhouettes are not answers to the
+          prompt. They are what remains when there is no answer to give.</p>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="rail">alt="mechanism"<span class="tag">observed</span></div>
+      <div class="body">
+        <h3><code>--raw --stylize 0</code> removed the house style</h3>
+        <p>Midjourney's aesthetic tuning normally sits on top of that centre and dresses it — pushing
+          contrast, drama, and painterliness until everything looks authored. Those two flags strip
+          most of it away. The result is the prior with its costume off, which is why the corpus
+          reads as a picture library rather than as art direction, and why so much of it is
+          plausibly, boringly photographic.</p>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="rail">alt="mechanism"<span class="tag">observed</span></div>
+      <div class="body">
+        <h3>"Deleted" is abstract, so it got translated</h3>
+        <p>The phrase is not visually empty — it just refuses to name anything you can point a
+          camera at. The model still has to fill the frame, and it cannot render nothing. So it
+          reached for the photographic synonyms of removal: rooms emptied of their contents,
+          buildings taken down, materials thrown away, people turned away from the lens.</p>
+        <p>That is the finding worth keeping. Asked to depict deletion, the system did not fail or
+          produce noise. It produced a coherent argument about what deletion looks like —
+          <em>vacancy, demolition, discard</em> — assembled entirely out of ordinary photographs of
+          the built world.</p>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="rail">alt="mechanism"<span class="tag">observed</span></div>
+      <div class="body">
+        <h3>The broken glass is the broken-image icon</h3>
+        <p>Cracked panes and dark fragments on flat pale grounds recur across the sheets, and they
+          are the one cluster with no location, no depth, and no weather. They are almost certainly
+          the browser's missing-image glyph — the torn corner, the fracture on white — reaching for
+          the nearest photographic form it can legally take. The model can't draw the icon, so it
+          photographs it.</p>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="rail">alt="mechanism"<span class="tag inferred">inferred</span></div>
+      <div class="body">
+        <h3>Trump is the deletion attractor</h3>
+        <p>This is the one claim here that rests on reasoning rather than on something visible in
+          the files, and it should be read that way. But the mechanism is hard to avoid: the sentence
+          "this image has been deleted" does not live in photo captions. It lives in the language of
+          content moderation — removed posts, withheld media, takedown notices, the grey box where
+          a screenshot used to be.</p>
+        <p>Across the years the training data was gathered, no subject sits closer to the
+          intersection of <em>news photograph</em> and <em>removed content</em>. Trump is
+          simultaneously among the most photographed people in the corpus and among the most
+          deleted-around. Give the model a moderation placeholder and no other constraint, and that
+          is where the probability piles up.</p>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="rail">alt="mechanism"<span class="tag">observed</span></div>
+      <div class="body">
+        <h3>2:1 told it this was a news page</h3>
+        <p>Four in five frames were requested at 2:1. That is not a photographic ratio; it is a
+          web-header ratio — the slot above an article, the banner across a listing. The crop
+          reinforces the same reading the text supplies, biasing toward establishing shots, skylines,
+          and generic scene-setting, and away from anything that would sit comfortably in a
+          portrait frame.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="band">
+      <div class="rail">alt="reading it<br>back into<br>the piece"</div>
+      <div class="body">
+        <h2>What the corpus is doing in this work</h2>
+        <p>WYSIWYG turns on a hotlink: an <code>&lt;img&gt;</code> whose source never changes and
+          whose bytes do, held in a listing that promises the buyer what they see. The premise
+          depends on the oldest instability on the web — that pointing at a picture is not the same
+          as having one, and that the far end of the reference can go quiet at any moment.</p>
+
+        <div class="pull">
+          <p>Every frame in the rotation is the model's attempt to picture its own disappearance.</p>
+        </div>
+
+        <p>Read that way, the images stop being arbitrary payload. They are 350 renderings of the
+          sentence that will eventually replace them — emptied rooms standing in for an emptied
+          <code>src</code>, demolition standing in for a dead host, the broken-image glyph
+          surfacing on its own as a photograph of shattered glass. The piece rotates pictures of
+          absence through the exact mechanism by which pictures become absent.</p>
+
+        <p>And because the prompt constrained so little, this isn't 350 variations on an idea. It is
+          350 independent draws from the model's default imagination, with one thumb on the scale.
+          The corpus is a census of what a machine reaches for when it is told only that something
+          used to be here.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Source: 1,400 PNG frames across 350 Midjourney jobs, prompt "THIS IMAGE HAS BEEN DELETED",
+    <code>--raw --stylize 0</code>, predominantly v6.1. Categories above were read from a
+    one-frame-per-job survey; proportions within them are described, not counted. The Trump
+    mechanism is marked inferred throughout.
+  </footer>
+
+</main>
