@@ -7,3 +7,12 @@ hairy-2025/48 hours.aup3
 .DS_Store
 .DS_Store
 .DS_Store
+
+# WYSIWYG Phase 0 throwaway probe — never commit
+wysiwyg-2026/_phase0/
+
+# WYSIWYG 2026 — image payloads live on Bluehost, never in git.
+# 1342 source images ≈ 2GB; GitHub blocks files >100MB and degrades past ~1GB repo.
+wysiwyg-2026/server/images/
+wysiwyg-2026/images-source/
+wysiwyg-2026/Midjourney/

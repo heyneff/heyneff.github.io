@@ -1,0 +1,40 @@
+# WYSIWYG (2026) — michaelneff.com / Bluehost
+# Docroot MUST stay outside public_html: inside the WordPress tree, Bluehost's
+# Endurance nginx cache replays responses and defeats both rotation and logging.
+
+RewriteEngine On
+
+# The hotlink target. A URL ending .jpeg, served by PHP.
+# Deliberately a rewrite and NOT `AddType application/x-httpd-php .jpeg`, which
+# would make every .jpeg on the account executable as PHP — a real RCE risk on
+# an account that also runs WordPress.
+RewriteRule ^wysiwyg\.jpeg$ serve.php [L]
+
+# Suppress validators that would let a cache answer 304 and hide a rotation.
+FileETag None
+<IfModule mod_headers.c>
+  Header unset ETag
+  Header unset Last-Modified
+</IfModule>
+
+# Only serve.php is a public entry point. Blocking the includes directly means a
+# future PHP handler misconfiguration cannot expose config.php's password hash
+# as plain text — they currently execute and emit nothing, which is one bad
+# setting away from not being true.
+<FilesMatch "^(config|lib)\.php$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Never serve raw sources, logs, or the schedule.
+RedirectMatch 404 ^/images/
+RedirectMatch 404 ^/data/
+
+Options -Indexes
+# The piece's home page at /, the artwork itself at /wysiwyg.jpeg.
+DirectoryIndex index.html

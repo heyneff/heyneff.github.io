@@ -1,0 +1,7 @@
+# The parent .htaccess sets `DirectoryIndex serve.php`, which subdirectories
+# inherit — without this override /admin/ looks for a serve.php that isn't here
+# and returns 403 under Options -Indexes.
+DirectoryIndex index.php
+
+# Auth itself is PHP session-based, in auth.php.
+Options -Indexes

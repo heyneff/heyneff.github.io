@@ -1,0 +1,90 @@
+<!-- ===================================================================
+     WYSIWYG (2026) — eBay listing description
+     Paste into eBay's description field using the HTML / code view (<>),
+     NOT the rich-text editor, which will rewrite the markup.
+
+     Constraints this is built around:
+       * eBay strips <script>. The rotation is entirely server-side, so
+         nothing here needs JavaScript.
+       * eBay strips or ignores <style> blocks in many surfaces — every
+         style below is therefore inline.
+       * The image MUST be https:// — eBay blocks mixed content.
+       * Gallery photos cannot be hotlinked; they must be uploaded to eBay.
+         Only this description can point at an external server.
+     =================================================================== -->
+
+<div style="max-width:900px;margin:0 auto;padding:8px 4px;font-family:Arial,Helvetica,sans-serif;color:#222;line-height:1.65;font-size:15px;">
+
+  <img src="https://wysiwyg.michaelneff.com/wysiwyg.jpeg"
+       alt="WYSIWYG — the image currently being served"
+       style="display:block;width:100%;height:auto;border:1px solid #ddd;margin:0 0 10px;">
+
+  <p style="margin:0 0 28px;font-size:12px;color:#888;letter-spacing:.04em;">
+    The image above is not stored by eBay. It is loaded from the artist's server
+    each time this page opens.
+  </p>
+
+  <h2 style="font-size:20px;font-weight:normal;margin:0 0 4px;letter-spacing:.01em;">WYSIWYG</h2>
+  <p style="margin:0 0 24px;font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.1em;">
+    Michael Neff &nbsp;&middot;&nbsp; 2026
+  </p>
+
+  <p style="margin:0 0 16px;font-size:17px;line-height:1.5;">
+    The address of the image above never changes. The image does.
+  </p>
+
+  <p style="margin:0 0 16px;">
+    Hotlinking is the practice of displaying an image from someone else's server on
+    your own page. The convention is that the borrower controls the page and the host
+    controls the file &mdash; so the host can change what appears, at any time, without
+    touching the page it appears on. Usually this is an accident, a prank, or a
+    bandwidth dispute. Here it is the work.
+  </p>
+
+  <p style="margin:0 0 16px;">
+    This listing shows one image from a set of 1,373: broken-image placeholders
+    collected from around the web, interleaved with generated photographs of demolition.
+    A new one takes over every ninety seconds. Nothing about the listing changes.
+    No two people arriving at different moments are looking at the same object.
+  </p>
+
+  <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:#888;font-weight:normal;margin:32px 0 12px;padding-top:16px;border-top:1px solid #e2e2e2;">
+    What is being sold
+  </h3>
+
+  <p style="margin:0 0 16px;">
+    An image on a web page is fetched once, when the page loads, and never updates
+    afterward. So whatever arrived when you opened this listing stays on your screen
+    while you read, decide, and check out. The server, meanwhile, has moved on. By the
+    time a purchase completes, the object recorded by the transaction is not the object
+    the buyer was looking at when they chose to buy it.
+  </p>
+
+  <p style="margin:0 0 16px;">
+    Every request for the image is logged. At the moment of sale both images are
+    recorded &mdash; the one on the buyer's screen and the one the transaction timestamps
+    &mdash; and this listing is frozen permanently on the second. What you receive is
+    fixed by the purchase, not by the looking.
+  </p>
+
+  <p style="margin:0 0 16px;">
+    The buyer receives the frozen image as an archival print, together with the server
+    log of every view this listing received and the record identifying the two images
+    at the moment of sale.
+  </p>
+
+  <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:#888;font-weight:normal;margin:32px 0 12px;padding-top:16px;border-top:1px solid #e2e2e2;">
+    Exhibition
+  </h3>
+
+  <p style="margin:0 0 28px;">
+    Presented as part of <em>WYSIWYG</em>, an exhibition of artists working with
+    technology and media in ways that reveal how digital ephemera are embodied in
+    material and infrastructure &mdash; staged entirely within eBay listings.
+  </p>
+
+  <p style="margin:0;font-size:12px;color:#999;">
+    If the image above fails to load, that is also the work.
+  </p>
+
+</div>
