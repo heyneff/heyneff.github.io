@@ -14,60 +14,46 @@ request, and caches via Fastly (`max-age=600`) — all three are fatal here.
   inside the WordPress tree, Bluehost's Endurance nginx cache replays responses and
   defeats both the rotation and the logging.
 
-## Swapping in the final images
+## Adding images
 
-Two different situations. Pick the right one.
-
-### A. Before the exhibition — replace the test set entirely
-
-Retires the provisional images *and* the history they generated, so the real run
-starts clean at era 0.
+Drop files into `wysiwyg-2026/incoming/`, then from `server/`:
 
 ```bash
-# 1. wipe (archives, never destroys — everything lands in data/retired-<stamp>/)
-ssh -t michaeln@michaelneff.com \
-  "cd /home3/michaeln/wysiwyg.michaelneff.com && php tools/reset.php"          # dry run
-ssh -t michaeln@michaelneff.com \
-  "cd /home3/michaeln/wysiwyg.michaelneff.com && php tools/reset.php --confirm"
-
-# 2. clear the local set and prep the finals
-rm server/images/*.jpeg
-python3 server/tools/prep-images.py ~/path/to/finals/*.jpg
-
-# 3. push and publish
-./server/tools/deploy.sh --images
-ssh michaeln@michaelneff.com \
-  "cd /home3/michaeln/wysiwyg.michaelneff.com && php tools/publish-era.php 'era 0 — final images'"
+./tools/add-images.sh
 ```
 
-Between the reset and the publish, `wysiwyg.jpeg` returns **503** — do this before
-the listing is live.
-
-### B. During the exhibition — add or change images
-
-Never reset mid-run: retiring `eras.json` destroys the record of what was
-displayed when, which is the evidence the piece depends on.
+That is the whole thing. It prepares them (adaptive JPEG/PNG, resized), assigns the
+next free numbers, tags their type, files the originals in `images-source/`, uploads,
+and publishes a new era with the placeholders spread evenly through the set.
 
 ```bash
-python3 server/tools/prep-images.py ~/path/to/more/*.jpg
-./server/tools/deploy.sh --images
+./tools/add-images.sh --dry-run              # show the plan, change nothing
+./tools/add-images.sh --type midjourney      # default is placeholder
+./tools/add-images.sh ~/some/other/folder    # read from elsewhere
 ```
 
-Then click **Publish new era** in admin. The old era stays in `eras.json`, so past
-timestamps still resolve correctly; only future views use the new set.
+**Do not put images in `server/images/`.** That folder holds prepared output only;
+anything dropped there skips preparation and would be served at full size. The script
+detects strays there, says so, and processes them properly rather than failing.
 
-### How removal works
+Nothing on the live listing changes until the script finishes.
 
-`--images` **syncs**: files on the server that aren't in `server/images/` are
-deleted, because `tar` alone never removes anything and a stale test image would
-otherwise be folded into your next era.
+### Removing images
 
-Files a **published era still references** are kept, and the deploy tells you so —
-deleting one would make a freeze on it return 503 and its admin preview 404.
-Override with `--images --force` only if you're sure that history is disposable.
+`./tools/deploy.sh --images` syncs — server files absent locally are deleted. Files a
+**published era still references** are kept and reported, because deleting one would
+make a freeze on it return 503 and its admin preview 404. `--images --force` overrides.
 
-Prep options: `--normalize --canvas 3:2` letterboxes everything onto one canvas so
-the eBay layout stops jumping between aspect ratios; `--max-edge`, `--quality` as needed.
+### Starting over (before the exhibition only)
+
+```bash
+ssh -t michaeln@michaelneff.com \
+  "cd /home3/michaeln/wysiwyg.michaelneff.com && php tools/reset.php"    # dry run
+```
+
+Add `--confirm` to proceed. Nothing is destroyed — images, eras, state and logs move to
+`data/retired-<stamp>/`. **Never mid-exhibition:** retiring `eras.json` destroys the
+record of what was displayed when, which is the evidence the work depends on.
 
 ## Why 90 seconds
 
