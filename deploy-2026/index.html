@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DEPLOY, 2026 — Michael Neff</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: rgba(0,0,0,0.69);
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { 
+      --bg: #000000;
+      --ink: rgba(255,255,255,0.69);
+    }
+  }
+  :root[data-theme="dark"] { 
+    --bg: #000000;
+    --ink: rgba(255,255,255,0.69);
+  }
+
+  *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .stack {
+    display: grid;
+    place-items: center;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: min(17vw, 34vh);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    user-select: none;
+  }
+  .stack span {
+    grid-area: 1 / 1;
+    white-space: nowrap;
+    will-change: transform;
+  }
+</style>
+</head>
+<body>
+  <h1 class="stack" id="stack" aria-label="DEPLOY"></h1>
+
+<script>
+  const stack = document.getElementById('stack');
+  const MAX = 10; // max offset in px on either axis
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < 99; i++) {
+    const s = document.createElement('span');
+    s.textContent = 'DEPLOY';
+    s.setAttribute('aria-hidden', 'true');
+    const x = (Math.random() * 2 - 1) * MAX;
+    const y = (Math.random() * 2 - 1) * MAX;
+    s.style.transform = translate(${x.toFixed(2)}px, ${y.toFixed(2)}px);
+    frag.appendChild(s);
+  }
+  stack.appendChild(frag);
+</script>
+</body>
+</html>
