@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>l I |</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #E6EAEE;
+    --cell: #F4F6F8;
+    --ink: #1C2740;
+    --muted: #6A7488;
+    --line: #CBD2DA;
+    --c-l: #2F6FDB;
+    --c-I: #C2410C;
+    --c-p: #0F8A5F;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141A26; --cell: #1B2332; --ink: #DCE3EE; --muted: #8C97AB; --line: #2A3445;
+      --c-l: #6EA4FF; --c-I: #FF8A4C; --c-p: #3FD19A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141A26; --cell: #1B2332; --ink: #DCE3EE; --muted: #8C97AB; --line: #2A3445;
+    --c-l: #6EA4FF; --c-I: #FF8A4C; --c-p: #3FD19A;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: inherit; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header {
+    width: var(--board);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0 0.75rem;
+    flex-wrap: wrap;
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 1.5rem;
+    letter-spacing: 0.35em;
+  }
+  .note { color: var(--muted); font-size: 0.875rem; margin: 0; }
+  .controls { display: flex; gap: 0.5rem; }
+  button.ctl {
+    font: 600 0.875rem/1 var(--sans);
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.55rem 1rem;
+    cursor: pointer;
+  }
+  button.ctl:hover { border-color: var(--ink); }
+  button.ctl[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  /* Board: sized to fill most of the viewport */
+  body { --board: min(94vw, calc(100dvh - 6.5rem)); }
+  .board {
+    width: var(--board);
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: clamp(2px, 0.35vmin, 6px);
+    margin-bottom: 1rem;
+  }
+  .cell {
+    all: unset;
+    box-sizing: border-box;
+    aspect-ratio: 1;
+    background: var(--cell);
+    border-radius: 3px;
+    container-type: inline-size;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    padding: 6%;
+    cursor: copy;
+    font-family: var(--mono);
+    line-height: 1;
+  }
+  .cell span {
+    font-size: 9.5cqi;
+    display: grid;
+    place-items: center;
+    transition: color 0.25s ease;
+  }
+  .cell:hover { background: var(--ink); color: var(--bg); }
+  .cell:focus-visible { outline: 2px solid var(--c-l); outline-offset: 2px; }
+
+  .reveal .cell span.l { color: var(--c-l); }
+  .reveal .cell span.I { color: var(--c-I); }
+  .reveal .cell span.p { color: var(--c-p); }
+  .reveal .cell:hover span { color: var(--bg); }
+
+  .legend { display: none; gap: 1rem; font-family: var(--mono); font-size: 0.875rem; }
+  .reveal .legend { display: flex; }
+  .legend b { font-weight: 500; }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    transform: translate(-50%, 1rem);
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 0.875rem;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* Portrait / narrow screens: 5 columns, width-led, page scrolls */
+  @media (max-aspect-ratio: 4/5), (max-width: 640px) {
+    body { --board: 94vw; }
+    .board { grid-template-columns: repeat(5, 1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cell span, .toast { transition: none; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>l I |</h1>
+      <p class="note">100 strings × 100 characters. Tap a block to copy its string.</p>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span><b style="color:var(--c-l)">l</b> lowercase L</span>
+      <span><b style="color:var(--c-I)">I</b> capital i</span>
+      <span><b style="color:var(--c-p)">|</b> pipe</span>
+    </div>
+    <div class="controls">
+      <button class="ctl" id="reveal" aria-pressed="false">Tell them apart</button>
+      <button class="ctl" id="shuffle">Shuffle</button>
+    </div>
+  </header>
+
+  <main class="board" id="board" aria-label="Grid of 100 strings"></main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  const CHARS = ['l', 'I', '|'];
+  const CLS = { 'l': 'l', 'I': 'I', '|': 'p' };
+  const COUNT = 100, LEN = 100;
+  const board = document.getElementById('board');
+  const toast = document.getElementById('toast');
+  let strings = [];
+
+  function randomString(len) {
+    const buf = new Uint8Array(len * 2);
+    crypto.getRandomValues(buf);
+    let out = '';
+    for (let i = 0; out.length < len && i < buf.length; i++) {
+      if (buf[i] < 255) out += CHARS[buf[i] % 3]; // 255 dropped to avoid modulo bias
+    }
+    while (out.length < len) out += CHARS[Math.floor(Math.random() * 3)];
+    return out;
+  }
+
+  function render() {
+    strings = Array.from({ length: COUNT }, () => randomString(LEN));
+    const frag = document.createDocumentFragment();
+    strings.forEach((s, i) => {
+      const cell = document.createElement('button');
+      cell.className = 'cell';
+      cell.dataset.i = i;
+      cell.setAttribute('aria-label', `String ${i + 1}, copy to clipboard`);
+      cell.title = `String ${i + 1}`;
+      cell.innerHTML = [...s].map(c => `<span class="${CLS[c]}">${c}</span>`).join('');
+      frag.appendChild(cell);
+    });
+    board.replaceChildren(frag);
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+  }
+
+  async function copy(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        ta.remove();
+        return ok;
+      } catch (e2) { return false; }
+    }
+  }
+
+  board.addEventListener('click', async (e) => {
+    const cell = e.target.closest('.cell');
+    if (!cell) return;
+    const i = +cell.dataset.i;
+    const ok = await copy(strings[i]);
+    showToast(ok ? `Copied string ${i + 1}` : `Copy blocked here. Select text from the console: strings[${i}]`);
+  });
+
+  document.getElementById('shuffle').addEventListener('click', render);
+
+  const revealBtn = document.getElementById('reveal');
+  revealBtn.addEventListener('click', () => {
+    const on = revealBtn.getAttribute('aria-pressed') !== 'true';
+    revealBtn.setAttribute('aria-pressed', on);
+    document.body.classList.toggle('reveal', on);
+  });
+
+  render();
+</script>
+</body>
+</html>
