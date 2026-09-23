@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DEPLOY, 2026 — Michael Neff</title>
+<title>DEPLOY</title>
 <style>
   :root {
     --bg: #ffffff;
-    --ink: rgba(0,0,0,0.69);
+    --ink: rgba(0,0,0,0.33);
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -16,12 +16,12 @@
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) { 
       --bg: #000000;
-      --ink: rgba(255,255,255,0.69);
+      --ink: rgba(255,255,255,0.33);
     }
   }
   :root[data-theme="dark"] { 
     --bg: #000000;
-    --ink: rgba(255,255,255,0.69);
+    --ink: rgba(255,255,255,0.33);
   }
 
   *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
@@ -38,7 +38,7 @@
     place-items: center;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: min(17vw, 34vh);
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1;
     letter-spacing: -0.02em;
     color: var(--ink);
@@ -64,7 +64,7 @@
     s.setAttribute('aria-hidden', 'true');
     const x = (Math.random() * 2 - 1) * MAX;
     const y = (Math.random() * 2 - 1) * MAX;
-    s.style.transform = translate(${x.toFixed(2)}px, ${y.toFixed(2)}px);
+    s.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px)`;
     frag.appendChild(s);
   }
   stack.appendChild(frag);
