@@ -25,12 +25,12 @@
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #141A26; --cell: #1B2332; --ink: #DCE3EE; --muted: #8C97AB; --line: #2A3445;
+      --bg: #0E1013; --cell: #16181C; --ink: #DCE0E5; --muted: #8B9097; --line: #24272C;
       --c-l: #6EA4FF; --c-I: #FF8A4C; --c-p: #3FD19A;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #141A26; --cell: #1B2332; --ink: #DCE3EE; --muted: #8C97AB; --line: #2A3445;
+    --bg: #0E1013; --cell: #16181C; --ink: #DCE0E5; --muted: #8B9097; --line: #24272C;
     --c-l: #6EA4FF; --c-I: #FF8A4C; --c-p: #3FD19A;
   }
   html { scroll-padding-top: env(safe-area-inset-top, 0px); }
@@ -44,16 +44,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* board sits at the visual center when the header is hidden */
+    --hh: 5rem; /* header zone, kept clear above and below the board */
   }
 
+  /* Header is out of flow and only appears on hover / keyboard focus */
   header {
-    width: var(--board);
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    min-height: var(--hh);
+    padding: calc(1rem + env(safe-area-inset-top, 0px)) max(3vw, 1rem) 0.75rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1rem 0 0.75rem;
     flex-wrap: wrap;
+    background: var(--bg);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+  }
+  header:hover, header:focus-within { opacity: 1; }
+  @media (hover: none) {
+    /* no hover on touch: keep the header reachable, in flow */
+    header { position: static; opacity: 1; width: var(--board); padding: 1rem 0 0.75rem; }
   }
   h1 {
     margin: 0;
@@ -77,13 +91,12 @@
   button.ctl[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
   /* Board: sized to fill most of the viewport */
-  body { --board: min(94vw, calc(100dvh - 6.5rem)); }
+  body { --board: min(94vw, calc(100dvh - 2 * var(--hh))); }
   .board {
     width: var(--board);
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     gap: clamp(2px, 0.35vmin, 6px);
-    margin-bottom: 1rem;
   }
   .cell {
     all: unset;
@@ -136,11 +149,12 @@
 
   /* Portrait / narrow screens: 5 columns, width-led, page scrolls */
   @media (max-aspect-ratio: 4/5), (max-width: 640px) {
-    body { --board: 94vw; }
+    body { --board: 94vw; padding-block: var(--hh); }
+    @media (hover: none) { body { padding-block: 0; } }
     .board { grid-template-columns: repeat(5, 1fr); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .cell span, .toast { transition: none; }
+    .cell span, .toast, header { transition: none; }
   }
 </style>
 </head>

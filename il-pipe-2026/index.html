@@ -1,0 +1,69 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>l|I Grid</title>
+<style>
+/* Layout: an N x N grid fills the viewport, so every cell shares the viewport's aspect ratio. N and every glyph are random per load. */
+:root {
+  --bg: #f3f2ee;
+  --fg: #16181d;
+  --font-sans: -apple-system, BlinkMacSystemFont, "avenir next", avenir, "segoe ui", "helvetica neue", "Adwaita Sans", Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+  --pad: 0.21; /* edge padding as a share of one cell, about half the space between glyphs */
+  --n: 8;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #101216; --fg: #e8e6df; color-scheme: dark }
+}
+:root[data-theme="dark"] { --bg: #101216; --fg: #e8e6df; color-scheme: dark }
+
+html, body { height: 100%; overflow: hidden }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-sans);
+  box-sizing: border-box;
+  /* padding scales with the viewport on each axis so cells keep the viewport aspect ratio */
+  --f: calc(var(--pad) / (var(--n) + var(--pad) * 2));
+  padding-inline: calc(100vw * var(--f));
+  padding-block: calc(100vh * var(--f));
+}
+
+#grid {
+  container-type: size;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+  grid-template-rows: repeat(var(--n), 1fr);
+}
+#grid span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  line-height: 1;
+  font-weight: 500;
+  font-size: min(calc(100cqh / var(--n) * 0.8), calc(100cqw / var(--n) * 1.5));
+}
+#grid b {
+  display: block;
+  font-weight: inherit;
+  text-box: trim-both cap alphabetic; /* trims the line box to the glyph so it centers on ink, where supported */
+}
+</style>
+
+<main id="grid" role="img" aria-label="A grid of random l, vertical bar and capital I characters"></main>
+
+<script>
+(function () {
+  var chars = ["l", "|", "I"];
+  var n = 3 + Math.floor(Math.random() * 30); // 3 to 32 per side
+  var grid = document.getElementById("grid");
+  document.documentElement.style.setProperty("--n", n);
+  var html = "";
+  for (var i = 0; i < n * n; i++) {
+    html += '<span aria-hidden="true"><b>' + chars[Math.floor(Math.random() * 3)] + "</b></span>";
+  }
+  grid.innerHTML = html;
+})();
+</script>
+
+</body></html>

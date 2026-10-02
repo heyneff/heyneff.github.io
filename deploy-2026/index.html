@@ -26,6 +26,7 @@
 
   *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
   html, body { height: 100%; }
+  body { min-height: 100vh; min-height: 100dvh; }
   body {
     background: var(--bg);
     display: grid;
@@ -43,6 +44,7 @@
     letter-spacing: -0.02em;
     color: var(--ink);
     user-select: none;
+    transform: translateY(var(--dy, 0px));
   }
   .stack span {
     grid-area: 1 / 1;
@@ -68,6 +70,23 @@
     frag.appendChild(s);
   }
   stack.appendChild(frag);
+
+  // Line boxes center the font's ascent+descent, not the capital letters' ink,
+  // so measure the real glyph bounds and shift the stack to center the ink.
+  const ctx = document.createElement('canvas').getContext('2d');
+  function centerInk() {
+    const cs = getComputedStyle(stack);
+    const size = parseFloat(cs.fontSize);
+    ctx.font = `${cs.fontWeight} ${size}px ${cs.fontFamily}`;
+    const m = ctx.measureText('DEPLOY');
+    const fA = m.fontBoundingBoxAscent, fD = m.fontBoundingBoxDescent;
+    const baseline = (size - (fA + fD)) / 2 + fA;          // from top of line box
+    const inkCenter = baseline - (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2;
+    stack.style.setProperty('--dy', (size / 2 - inkCenter).toFixed(2) + 'px');
+  }
+  centerInk();
+  addEventListener('resize', centerInk);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(centerInk);
 </script>
 </body>
 </html>
