@@ -1,12 +1,12 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>l|I Grid</title>
+<title>Il Pipe, 2026 | Michael Neff</title>
 <style>
 /* Layout: an N x N grid fills the viewport, so every cell shares the viewport's aspect ratio. N and every glyph are random per load. */
 :root {
   --bg: #f3f2ee;
   --fg: #16181d;
   --font-sans: -apple-system, BlinkMacSystemFont, "avenir next", avenir, "segoe ui", "helvetica neue", "Adwaita Sans", Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
-  --pad: 0.21; /* edge padding as a share of one cell, about half the space between glyphs */
+  --pad: 0.63; /* edge padding as a share of one cell, three times half the space between glyphs */
   --n: 8;
 }
 @media (prefers-color-scheme: dark) {
@@ -15,6 +15,7 @@
 :root[data-theme="dark"] { --bg: #101216; --fg: #e8e6df; color-scheme: dark }
 
 html, body { height: 100%; overflow: hidden }
+body { cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent }
 body {
   background: var(--bg); color: var(--fg); font-family: var(--font-sans);
   box-sizing: border-box;
@@ -55,14 +56,22 @@ body {
 <script>
 (function () {
   var chars = ["l", "|", "I"];
-  var n = 3 + Math.floor(Math.random() * 30); // 3 to 32 per side
   var grid = document.getElementById("grid");
-  document.documentElement.style.setProperty("--n", n);
-  var html = "";
-  for (var i = 0; i < n * n; i++) {
-    html += '<span aria-hidden="true"><b>' + chars[Math.floor(Math.random() * 3)] + "</b></span>";
+  function render() {
+    var n = 3 + Math.floor(Math.random() * 30); // 3 to 32 per side
+    document.documentElement.style.setProperty("--n", n);
+    var html = "";
+    for (var i = 0; i < n * n; i++) {
+      html += '<span aria-hidden="true"><b>' + chars[Math.floor(Math.random() * 3)] + "</b></span>";
+    }
+    grid.innerHTML = html;
   }
-  grid.innerHTML = html;
+  render();
+  document.addEventListener("click", render);
+  grid.tabIndex = 0;
+  grid.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); render(); }
+  });
 })();
 </script>
 
