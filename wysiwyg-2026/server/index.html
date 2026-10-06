@@ -28,9 +28,9 @@
   body{
     background:var(--bg); color:var(--fg);
     font:300 17px/1.6 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-    padding: 24px;
+    margin: 0;
   }
-  .wrap{max-width:660px;margin:0 auto}
+  .wrap{max-width:660px;margin:0 auto;padding:0 24px 24px}
   h1{font-size:2rem;font-weight:300;margin:0 0 .2em;letter-spacing:-.01em}
   .sub{color:var(--dim);font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:3rem}
   /* The set runs from 2.52:1 to 0.5:1 — a 5x spread — so a fixed-ratio frame
@@ -47,12 +47,16 @@
     display:block;
     background:#242424;
     transition:opacity .35s;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
   }
   .stage img.swapping{opacity:.15}
   .meta{
     display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
     color:var(--dim);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
     margin-bottom:1rem;
+    padding:0 24px;
   }
   .meta b{color:var(--fg);font-weight:400;font-variant-numeric:tabular-nums}
   p{margin:0 0 1.3em}
@@ -79,10 +83,10 @@
   <img id="live" src="/wysiwyg.jpeg" alt="The currently displayed image">
 </div>
 <div class="meta">
-  <span>Now showing <b id="idx">—</b></span>
+  <span>Now showing THIS IMAGE HAS BEEN DELETED <b id="idx">—</b></span>
   <span>Changes in <b id="cd">—</b></span>
 </div>
-  <p style="margin:0 0 1.3em;font-size:.72rem;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.12em;">
+  <p style="margin:0 0 1.3em;font-size:.72rem;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.12em;padding:0 24px;">
     The image above is served to an eBay listing.
   </p>
 <div class="wrap">
