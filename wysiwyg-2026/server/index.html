@@ -160,7 +160,8 @@
         // Recomputed from *this* response every time, so the schedule re-syncs
         // after a sleeping laptop, a throttled background tab, or a new era.
         changesAt = Date.now() + (frozen ? 0 : next * 1000);
-        idxEl.textContent = r.headers.get('X-Image') || '—';
+        var imageName = r.headers.get('X-Image') || '—';
+        idxEl.textContent = imageName.replace(/\.[^.]+$/, '');
         return r.blob();
       })
       .then(function (b) {
