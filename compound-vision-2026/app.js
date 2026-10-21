@@ -169,9 +169,7 @@ function build() {
     if (crossOrigin) video.crossOrigin = 'anonymous';
 
     video.addEventListener('loadedmetadata', () => {
-      seekTo(video, i);
-      hideMessage();
-      if (state.playing && state.videos.every((v) => v.readyState >= 1)) syncAndPlay();
+      seekTo(video, i, sharedClock());
     });
 
     // Wrap-around: when a tile reaches the end, it jumps back to its own offset.
@@ -198,9 +196,6 @@ function build() {
   connectAudio();
 }
 
-// Seek every tile to its offset, wait for all seeks to land, then start them
-// in the same tick so their startup lag does not skew the offsets.
-let syncRun = 0;
 let resyncTimer = null;
 
 // Playback rates drift apart over time. Once a second, check each tile against
@@ -230,34 +225,19 @@ function stopResync() {
   resyncTimer = null;
 }
 
-function syncAndPlay() {
-  // Only the newest run may start playback; older runs are superseded.
-  const run = ++syncRun;
-
-  const seeks = state.videos.map((video, i) => {
-    video.pause();
-    if (!Number.isFinite(video.duration)) return Promise.resolve();
-
-    const landed = new Promise((resolve) => {
-      video.addEventListener('seeked', resolve, { once: true });
+// Start every tile in the same call stack as the user's click or key press.
+// Browsers only allow playback with sound inside that gesture, so nothing
+// here waits on seeks or promises before calling play().
+function startAll() {
+  state.videos.forEach((video) => {
+    video.play().then(hideMessage, () => {
+      showMessage('Playback was blocked by the browser. Click the screen to start.');
     });
-    seekTo(video, i);
-    // Don't let one stalled tile hold up the others.
-    return Promise.race([landed, new Promise((resolve) => setTimeout(resolve, 1000))]);
   });
-
-  Promise.all(seeks).then(() => {
-    if (run !== syncRun || !state.playing) return;
-    state.videos.forEach((video) => {
-      video.play().then(hideMessage, () => {
-        showMessage('Playback was blocked by the browser. Click the screen to start.');
-      });
-    });
-    startResync();
-  });
+  startResync();
 }
 
-async function setPlaying(on) {
+function setPlaying(on) {
   state.playing = on;
   playButton.textContent = on ? 'Pause' : 'Play';
 
@@ -268,11 +248,8 @@ async function setPlaying(on) {
   }
 
   ensureAudio();
-  if (audioCtx.state === 'suspended') {
-    await audioCtx.resume().catch(() => {});
-  }
-
-  syncAndPlay();
+  if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+  startAll();
 }
 
 function togglePlaying() {
