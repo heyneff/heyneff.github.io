@@ -283,6 +283,10 @@
   }
   .popup.in { opacity: 1; transform: none; }
   .popup.out { opacity: 0; transform: scale(0.96); pointer-events: none; }
+  @media (min-width: 768px) {
+    .popup:not(.banner) { cursor: grab; }
+    .popup.dragging { cursor: grabbing; user-select: none; }
+  }
   .popup h2 { font-size: 1.05rem; margin: 0 0 6px; padding-right: 36px; }
   .popup p { margin: 0 0 14px; color: var(--muted); font-size: 0.9rem; line-height: 1.4; }
   .badge {
@@ -293,7 +297,7 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--brand);
-    opacity: 0.4; /* 60% transparency */
+    opacity: 0.75;
   }
 
   /* Persistent banner: one slim row, like a chat prompt */
@@ -785,12 +789,12 @@
   const ACTION_CONTENT = [
     { badge: 'Upgrade', title: 'Unlock Pro for your whole team', body: 'Unlimited projects, shared dashboards, and priority support.', cta: 'Upgrade now' },
     { badge: 'New', title: 'Meet Scribbly AI', body: 'Automatic meeting notes, summaries, and action items.', cta: 'Try it free' },
-    { badge: 'Newsletter', title: 'Get the weekly digest', body: 'Three short reads every Monday.', extra: 'email', cta: 'Subscribe' },
-    { badge: 'Privacy', title: 'Your cookie choices', body: 'Accept all, reject non-essential cookies, or manage your preferences.', cta: 'Accept all', secondaryLabel: 'Manage cookies', linkLabel: 'Reject all' },
+    { badge: 'Newsletter', title: 'Get the weekly digest', body: 'Three short reads every Monday.', extra: 'email', cta: 'Subscribe', alwaysX: true },
+    { badge: 'Privacy', title: 'Your cookie choices', body: 'Accept all, reject non-essential cookies, or manage your preferences.', cta: 'Accept all', secondaryLabel: 'Manage your preferences', linkLabel: 'Reject non-essential cookies', choices: true },
     { badge: 'Trial', title: 'Your trial ends in 2 days', body: 'Choose a plan to keep your saved reports.', cta: 'Choose a plan' },
-    { badge: 'Feature', title: 'Dark mode is here', body: 'Easier on the eyes, day or night.', cta: 'Try it now' },
-    { badge: 'Feedback', title: 'Enjoying Brightpath?', body: 'A quick rating helps us improve.', extra: 'stars', cta: 'Rate us' },
-    { badge: 'Survey', title: 'How likely are you to recommend us?', body: 'Takes five seconds.', extra: 'scale', cta: 'Send' },
+    { badge: 'Feature', title: 'Dark mode is here', body: 'Easier on the eyes, day or night.', cta: 'Go dark' },
+    { badge: 'Feedback', title: 'Enjoying Brightpath?', body: 'A quick rating helps us improve.', extra: 'stars', alwaysX: true },
+    { badge: 'Survey', title: 'How likely are you to recommend us?', body: 'Takes five seconds.', extra: 'scale', alwaysX: true },
     { badge: 'Limited', title: '30% off this week only', body: 'Annual plans. Offer ends Sunday.', cta: 'Claim offer' },
     { badge: 'Permissions', title: 'Allow notifications?', body: 'Get updates on mentions and replies.', cta: 'Allow' },
     { badge: 'Team', title: 'Invite your team', body: 'Work together in one workspace.', cta: 'Send invites', secondaryLabel: 'Remind me later' },
@@ -991,8 +995,15 @@
       if (content.extra === 'email') cta.disabled = true;
     }
 
-    const style = pick(unlockedStyles());
-    style.place(card, close, content);
+    if (content.choices) {
+      // The card's own choices are its dismiss controls, so no random close style is added.
+      addButton(card, 'btn ghost', content.secondaryLabel, null, close);
+      addButton(card, 'link', content.linkLabel, null, close);
+    } else if (content.alwaysX) {
+      CLOSE_STYLES.find((s) => s.id === 'corner').place(card, close, content);
+    } else {
+      pick(unlockedStyles()).place(card, close, content);
+    }
     return pop;
   }
 
@@ -1116,12 +1127,39 @@
   // ---------- start ----------
 
   // Touching a pop-up marks the player as having interacted and brings it to the front.
+  // On desktop widths, dragging a pop-up by its body moves it. Banners stay pinned to their edge.
+  const desktop = window.matchMedia('(min-width: 768px)');
+  let drag = null;
+
   layer.addEventListener('pointerdown', (e) => {
     const card = e.target.closest('.popup');
     if (!card) return;
     state.interacted = true;
     card.style.zIndex = ++state.z;
+
+    if (!desktop.matches || card.classList.contains('banner') || e.target.closest('button, input, a')) return;
+    drag = { card, pointerId: e.pointerId, dx: e.clientX - card.offsetLeft, dy: e.clientY - card.offsetTop };
+    card.setPointerCapture(e.pointerId);
+    card.classList.add('dragging');
+    e.preventDefault(); // keeps text from being selected while dragging
   });
+
+  layer.addEventListener('pointermove', (e) => {
+    if (!drag || e.pointerId !== drag.pointerId) return;
+    const { card } = drag;
+    const maxX = window.innerWidth - card.offsetWidth - MARGIN;
+    const maxY = window.innerHeight - card.offsetHeight - MARGIN;
+    card.style.left = Math.min(Math.max(e.clientX - drag.dx, MARGIN), Math.max(MARGIN, maxX)) + 'px';
+    card.style.top = Math.min(Math.max(e.clientY - drag.dy, MARGIN), Math.max(MARGIN, maxY)) + 'px';
+  });
+
+  function endDrag(e) {
+    if (!drag || e.pointerId !== drag.pointerId) return;
+    drag.card.classList.remove('dragging');
+    drag = null;
+  }
+  layer.addEventListener('pointerup', endDrag);
+  layer.addEventListener('pointercancel', endDrag);
 
   setTimeout(spawn, 800);
 })();

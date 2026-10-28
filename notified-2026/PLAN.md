@@ -22,6 +22,13 @@ Unlocked by difficulty step:
 - Step 4: tiny low-contrast ×
 - Step 5: "Maybe later" small link
 
+Fixed close controls, which ignore the difficulty step:
+- Newsletter, feedback, and survey always use the corner ×. Feedback and survey have no primary button, because the star or number rating is the primary action.
+- Cookie choices always show three controls: "Accept all" (primary), "Manage your preferences", and "Reject non-essential cookies". No random close style is added.
+
+## Desktop
+- At 768 px and wider, action and notification pop-ups can be dragged by their body. Buttons and inputs are excluded. Banners stay pinned to their edge.
+
 ## Background
 Generic dashboard (sidebar, header, cards, chart, list) that is responsive, mobile-first. It sits under a `filter: blur()` layer and is non-interactive.
 
