@@ -12,6 +12,7 @@
     --muted: #6b7388;
     --line: #e3e7f0;
     --brand: #4f46e5;
+    --brand-hover: #4338ca;
     --brand-ink: #ffffff;
     --danger: #dc2626;
     --radius: 14px;
@@ -24,6 +25,7 @@
       --muted: #9aa3b8;
       --line: #2b3446;
       --brand: #818cf8;
+      --brand-hover: #a5b4fc;
       --brand-ink: #0f1420;
       --danger: #f87171;
     }
@@ -35,6 +37,7 @@
     --muted: #9aa3b8;
     --line: #2b3446;
     --brand: #818cf8;
+    --brand-hover: #a5b4fc;
     --brand-ink: #0f1420;
     --danger: #f87171;
   }
@@ -46,6 +49,10 @@
     color: var(--ink);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     -webkit-tap-highlight-color: transparent;
+  }
+  button:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
   }
 
   /* Blurred background layer */
@@ -159,6 +166,16 @@
     text-transform: uppercase;
     color: var(--brand);
   }
+
+  /* Persistent banner */
+  .popup.banner {
+    width: auto;
+    padding: 14px 16px;
+  }
+  .popup.banner h2 { font-size: 0.95rem; }
+  .popup.banner p { margin-bottom: 10px; }
+
+  /* Buttons */
   .btn {
     display: block;
     width: 100%;
@@ -171,23 +188,36 @@
     font: inherit;
     font-weight: 600;
     cursor: pointer;
+    transition: background 0.15s ease, opacity 0.15s ease;
   }
+  .btn:hover:not(:disabled) { background: var(--brand-hover); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
   .btn.ghost {
     margin-top: 8px;
     background: transparent;
     color: var(--ink);
     border: 1px solid var(--line);
   }
+  .btn.ghost:hover:not(:disabled) {
+    background: var(--bg);
+    border-color: var(--muted);
+  }
   .field {
     width: 100%;
     min-height: 40px;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     padding: 10px;
     border: 1px solid var(--line);
     border-radius: 10px;
     background: var(--bg);
     color: var(--ink);
     font: inherit;
+  }
+  .hint {
+    min-height: 1em;
+    margin: 0 0 8px;
+    font-size: 0.75rem;
+    color: var(--danger);
   }
   .choices { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
   .choices button {
@@ -200,7 +230,9 @@
     color: var(--ink);
     font: inherit;
     cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
   }
+  .choices button:hover { border-color: var(--brand); color: var(--brand); }
 
   /* Close styles */
   .x-corner {
@@ -216,7 +248,9 @@
     font-size: 18px;
     line-height: 1;
     cursor: pointer;
+    transition: background 0.15s ease;
   }
+  .x-corner:hover { background: var(--line); }
   .x-edge {
     position: absolute;
     top: -9px;
@@ -230,7 +264,9 @@
     font-size: 13px;
     line-height: 1;
     cursor: pointer;
+    transition: filter 0.15s ease;
   }
+  .x-edge:hover { filter: brightness(0.88); }
   .x-tiny {
     position: absolute;
     top: 4px;
@@ -244,7 +280,9 @@
     line-height: 1;
     opacity: 0.5;
     cursor: pointer;
+    transition: opacity 0.15s ease, color 0.15s ease;
   }
+  .x-tiny:hover { opacity: 1; color: var(--ink); }
   .link {
     display: block;
     margin: 6px auto 0;
@@ -257,7 +295,9 @@
     font-size: 0.85rem;
     text-decoration: underline;
     cursor: pointer;
+    transition: color 0.15s ease;
   }
+  .link:hover { color: var(--ink); }
   .link-small {
     display: block;
     margin: 6px 0 0 auto;
@@ -268,10 +308,12 @@
     font: inherit;
     font-size: 0.72rem;
     cursor: pointer;
+    transition: color 0.15s ease;
   }
+  .link-small:hover { color: var(--ink); }
 
   /* Notification pop-ups */
-  .popup.notify { padding: 14px 14px 0; border-left: 4px solid var(--brand); }
+  .popup.notify { padding: 14px 14px 0; }
   .popup.notify h2 { font-size: 0.95rem; }
   .popup.notify p { margin-bottom: 12px; }
   .timer {
@@ -361,9 +403,13 @@
     avgWindow: 5,            // manual closes used for the rolling average
     fastAvgMs: 1800,         // rolling average below this steps difficulty up
     slowAvgMs: 3500,         // rolling average above this steps difficulty down
-    notifyChance: 0.35,      // share of spawns that are notifications
-    rareChance: 0.05         // chance each for the 2 s and 60 s notification extremes
+    rareChance: 0.05,        // chance each for the 2 s and 60 s notification extremes
+    refillBelow: 5,          // once the player has interacted, spawn faster below this many on screen
+    refillDelayMs: 250       // spawn delay used while refilling
   };
+
+  // Share of spawns by type. They must sum to 1.
+  const KIND_WEIGHTS = { action: 0.5, notify: 0.3, banner: 0.2 };
 
   const ACTION_CONTENT = [
     { badge: 'Upgrade', title: 'Unlock Pro for your whole team', body: 'Unlimited projects, shared dashboards, and priority support.', cta: 'Upgrade now' },
@@ -379,6 +425,13 @@
     { badge: 'Team', title: 'Invite your team', body: 'Work together in one workspace.', cta: 'Send invites' }
   ];
 
+  const BANNER_CONTENT = [
+    { badge: 'Heads up', title: 'Your workspace is almost full', body: 'Upgrade to keep adding files.', cta: 'View plans' },
+    { badge: 'Update', title: 'Scribbly AI now joins every call', body: 'Turn on note-taking for your meetings.', cta: 'Turn on' },
+    { badge: 'Cookies', title: 'We use cookies on this site', body: 'Choose what you allow.', cta: 'Review' },
+    { badge: 'Status', title: 'Scheduled maintenance tonight', body: 'Some features may be unavailable from 11 pm.', cta: 'Got it' }
+  ];
+
   const NOTIFY_CONTENT = [
     { title: 'This call is being recorded', body: 'All participants have been notified.' },
     { title: 'AI note-taking is available', body: 'Summaries will appear here after the call.' },
@@ -387,6 +440,7 @@
   ];
 
   const SECONDARY_LABELS = ['Close', 'Not now', 'Dismiss'];
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
   // Each close style: the step it unlocks at, and how it is placed on the card.
   const CLOSE_STYLES = [
@@ -411,12 +465,26 @@
   ];
 
   const layer = document.getElementById('popups');
-  const state = { step: 0, recent: [], timer: null, z: 20 };
+  const state = {
+    step: 0,
+    recent: [],
+    timer: null,
+    z: 20,
+    open: new Set(),     // pop-ups currently on screen
+    interacted: false    // true once the player has touched any pop-up
+  };
   const MARGIN = 8;
 
   // ---------- helpers ----------
 
   const pick = (list) => list[Math.floor(Math.random() * list.length)];
+
+  function pickKind() {
+    const r = Math.random();
+    if (r < KIND_WEIGHTS.action) return 'action';
+    if (r < KIND_WEIGHTS.action + KIND_WEIGHTS.notify) return 'notify';
+    return 'banner';
+  }
 
   function addButton(parent, className, label, ariaLabel, onClick) {
     const b = document.createElement('button');
@@ -451,35 +519,57 @@
     return CLOSE_STYLES.filter((s) => s.minStep <= state.step);
   }
 
+  // Refill once the player has interacted and fewer than refillBelow pop-ups are on screen.
+  function shouldRefill() {
+    return state.interacted && state.open.size < CONFIG.refillBelow;
+  }
+
   // ---------- spawning ----------
 
   function scheduleNext() {
     clearTimeout(state.timer);
-    state.timer = setTimeout(spawn, delayForStep(state.step));
+    const delay = shouldRefill() ? CONFIG.refillDelayMs : delayForStep(state.step);
+    state.timer = setTimeout(spawn, delay);
   }
 
   function spawn() {
-    const pop = Math.random() < CONFIG.notifyChance ? buildNotify() : buildAction();
+    const kind = pickKind();
+    const pop = kind === 'notify' ? buildNotify() : buildPrompt(kind);
     place(pop);
     scheduleNext();
   }
 
-  function buildAction() {
-    const content = pick(ACTION_CONTENT);
-    const card = el('article', 'popup');
-    card.setAttribute('role', 'dialog');
-    const pop = { el: card, kind: 'action', spawnedAt: 0, anim: null, closed: false };
+  // Action pop-ups and persistent banners share the same card structure.
+  function buildPrompt(kind) {
+    const isBanner = kind === 'banner';
+    const content = pick(isBanner ? BANNER_CONTENT : ACTION_CONTENT);
+    const card = el('article', isBanner ? 'popup banner' : 'popup');
+    card.setAttribute('role', isBanner ? 'region' : 'dialog');
+    const pop = { el: card, kind, spawnedAt: 0, anim: null, closed: false };
     const close = () => manualClose(pop);
 
     card.appendChild(el('div', 'badge', content.badge));
     card.appendChild(el('h2', null, content.title));
     card.appendChild(el('p', null, content.body));
 
+    let cta = null;
     if (content.extra === 'email') {
       const input = el('input', 'field');
       input.type = 'email';
       input.placeholder = 'you@example.com';
+      input.setAttribute('aria-label', 'Email address');
+      const hint = el('p', 'hint');
+      input.addEventListener('input', () => {
+        const value = input.value.trim();
+        const valid = EMAIL_RE.test(value);
+        cta.disabled = !valid;
+        hint.textContent = value && !valid ? 'Enter a valid email address.' : '';
+      });
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !cta.disabled) close();
+      });
       card.appendChild(input);
+      card.appendChild(hint);
     } else if (content.extra === 'stars') {
       const row = el('div', 'choices');
       for (let i = 1; i <= 5; i++) addButton(row, '', '★', `Rate ${i} stars`, close);
@@ -490,7 +580,8 @@
       card.appendChild(row);
     }
 
-    addButton(card, 'btn', content.cta, null, close);
+    cta = addButton(card, 'btn', content.cta, null, close);
+    if (content.extra === 'email') cta.disabled = true;
 
     const style = pick(unlockedStyles());
     style.place(card, close);
@@ -525,11 +616,21 @@
     const vh = window.innerHeight;
     const w = card.offsetWidth;
     const h = card.offsetHeight;
-    const maxX = Math.max(MARGIN, vw - w - MARGIN);
-    const maxY = Math.max(MARGIN, vh - h - MARGIN);
-    card.style.left = Math.round(MARGIN + Math.random() * (maxX - MARGIN)) + 'px';
-    card.style.top = Math.round(MARGIN + Math.random() * (maxY - MARGIN)) + 'px';
+
+    if (pop.kind === 'banner') {
+      // Banners span the width and stick to the top or bottom edge.
+      card.style.left = MARGIN + 'px';
+      card.style.right = MARGIN + 'px';
+      const top = Math.random() < 0.5 ? MARGIN : Math.max(MARGIN, vh - h - MARGIN);
+      card.style.top = top + 'px';
+    } else {
+      const maxX = Math.max(MARGIN, vw - w - MARGIN);
+      const maxY = Math.max(MARGIN, vh - h - MARGIN);
+      card.style.left = Math.round(MARGIN + Math.random() * (maxX - MARGIN)) + 'px';
+      card.style.top = Math.round(MARGIN + Math.random() * (maxY - MARGIN)) + 'px';
+    }
     card.style.zIndex = ++state.z;
+    state.open.add(pop);
 
     pop.spawnedAt = performance.now();
     requestAnimationFrame(() => card.classList.add('in'));
@@ -548,10 +649,12 @@
   function remove(pop) {
     if (pop.closed) return;
     pop.closed = true;
+    state.open.delete(pop);
     if (pop.anim) pop.anim.cancel();
     pop.el.classList.remove('in');
     pop.el.classList.add('out');
     setTimeout(() => pop.el.remove(), 200);
+    if (shouldRefill()) scheduleNext();
   }
 
   // The player closed it: counts toward difficulty and triggers the next pop-up.
@@ -584,6 +687,11 @@
   }
 
   // ---------- start ----------
+
+  // Any touch on a pop-up marks the player as having interacted.
+  layer.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('.popup')) state.interacted = true;
+  });
 
   setTimeout(spawn, 800);
 })();
