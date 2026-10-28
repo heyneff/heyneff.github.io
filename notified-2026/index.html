@@ -293,6 +293,7 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--brand);
+    opacity: 0.4; /* 60% transparency */
   }
 
   /* Persistent banner: one slim row, like a chat prompt */
@@ -399,6 +400,41 @@
     transition: border-color 0.15s ease, color 0.15s ease;
   }
   .choices button:hover { border-color: var(--brand); color: var(--brand); }
+
+  /* Star rating: hovering a star lights it and every star to its left */
+  .choices.stars {
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 14px;
+  }
+  .stars button {
+    flex: 0 0 auto;
+    min-width: 44px;
+    min-height: 44px;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+  .stars button:hover,
+  .stars button:hover ~ button { color: #facc15; }
+
+  /* Recommendation scale: each number previews its own color on hover */
+  .scale button:hover {
+    background: var(--hover);
+    border-color: var(--hover);
+    color: var(--hover-ink);
+  }
+
+  /* Button with a leading icon */
+  .btn.with-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
 
   /* Close styles */
   .x-corner {
@@ -582,6 +618,7 @@
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14 M5 12h14"/></symbol>
     <symbol id="i-chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12 M18 6 6 18"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11 M7.5 10.5 12 15l4.5-4.5 M5 20h14"/></symbol>
   </defs>
 </svg>
 
@@ -749,17 +786,17 @@
     { badge: 'Upgrade', title: 'Unlock Pro for your whole team', body: 'Unlimited projects, shared dashboards, and priority support.', cta: 'Upgrade now' },
     { badge: 'New', title: 'Meet Scribbly AI', body: 'Automatic meeting notes, summaries, and action items.', cta: 'Try it free' },
     { badge: 'Newsletter', title: 'Get the weekly digest', body: 'Three short reads every Monday.', extra: 'email', cta: 'Subscribe' },
-    { badge: 'Privacy', title: 'We use cookies', body: 'We use cookies to improve your experience and measure ads.', cta: 'Accept all' },
+    { badge: 'Privacy', title: 'Your cookie choices', body: 'Accept all, reject non-essential cookies, or manage your preferences.', cta: 'Accept all', secondaryLabel: 'Manage cookies', linkLabel: 'Reject all' },
     { badge: 'Trial', title: 'Your trial ends in 2 days', body: 'Choose a plan to keep your saved reports.', cta: 'Choose a plan' },
     { badge: 'Feature', title: 'Dark mode is here', body: 'Easier on the eyes, day or night.', cta: 'Try it now' },
     { badge: 'Feedback', title: 'Enjoying Brightpath?', body: 'A quick rating helps us improve.', extra: 'stars', cta: 'Rate us' },
     { badge: 'Survey', title: 'How likely are you to recommend us?', body: 'Takes five seconds.', extra: 'scale', cta: 'Send' },
     { badge: 'Limited', title: '30% off this week only', body: 'Annual plans. Offer ends Sunday.', cta: 'Claim offer' },
     { badge: 'Permissions', title: 'Allow notifications?', body: 'Get updates on mentions and replies.', cta: 'Allow' },
-    { badge: 'Team', title: 'Invite your team', body: 'Work together in one workspace.', cta: 'Send invites' },
+    { badge: 'Team', title: 'Invite your team', body: 'Work together in one workspace.', cta: 'Send invites', secondaryLabel: 'Remind me later' },
     { badge: 'Business', title: 'Go further with Business', body: 'Single sign-on, audit logs, and advanced permissions.', cta: 'Compare plans' },
     { badge: 'Referral', title: 'Get a month free', body: 'Earn one free month for every friend who joins.', cta: 'Share link' },
-    { badge: 'Desktop', title: 'Install the desktop app', body: 'Start from your menu bar and get notified faster.', cta: 'Download' },
+    { badge: 'Desktop', title: 'Install the desktop app', body: 'Start from your menu bar and get notified faster.', cta: 'Download', icon: 'download' },
     { badge: 'Calendar', title: 'Connect your calendar', body: 'Get automatic notes for every meeting on your schedule.', cta: 'Connect' },
     { badge: 'Review', title: 'Your goals review is due Friday', body: 'Takes about ten minutes to finish.', cta: 'Start review' },
     { badge: 'Security', title: 'Add a second step to sign-in', body: 'Protect your account with two-factor authentication.', cta: 'Set up 2FA' },
@@ -771,7 +808,7 @@
   const BANNER_CONTENT = [
     { text: 'How is Scribbly doing this session?', actions: ['Bad', 'Fine', 'Good'] },
     { text: 'Your workspace is almost full.', actions: ['Upgrade', 'Not now'] },
-    { text: 'We use cookies to improve your experience.', actions: ['Accept', 'Manage'] },
+    { text: 'We use cookies to improve your experience.', actions: ['Accept all', 'Manage cookies'] },
     { text: 'Scribbly now joins every call. Turn on notes?', actions: ['Turn on', 'Later'] },
     { text: 'Scheduled maintenance tonight from 11 pm.', actions: ['Got it'] },
     { text: 'Your trial ends in 2 days.', actions: ['Choose plan', 'Remind me'] },
@@ -801,11 +838,11 @@
     { id: 'corner', minStep: 0, place(card, close) {
       addButton(card, 'x-corner', '×', 'Close', close);
     }},
-    { id: 'secondary', minStep: 0, place(card, close) {
-      addButton(card, 'btn ghost', pick(SECONDARY_LABELS), null, close);
+    { id: 'secondary', minStep: 0, place(card, close, content) {
+      addButton(card, 'btn ghost', content.secondaryLabel || pick(SECONDARY_LABELS), null, close);
     }},
-    { id: 'link', minStep: 1, place(card, close) {
-      addButton(card, 'link', 'No thanks', null, close);
+    { id: 'link', minStep: 1, place(card, close, content) {
+      addButton(card, 'link', content.linkLabel || 'No thanks', null, close);
     }},
     { id: 'edge', minStep: 2, place(card, close) {
       addButton(card, 'x-edge', '×', 'Close', close);
@@ -923,12 +960,18 @@
       card.appendChild(input);
       card.appendChild(hint);
     } else if (content.extra === 'stars') {
-      const row = el('div', 'choices');
-      for (let i = 1; i <= 5; i++) addButton(row, '', '★', `Rate ${i} stars`, close);
+      const row = el('div', 'choices stars');
+      // Reversed DOM order so the row-reverse layout reads 1 to 5 from left to right
+      for (let i = 5; i >= 1; i--) addButton(row, '', '★', `Rate ${i} stars`, close);
       card.appendChild(row);
     } else if (content.extra === 'scale') {
-      const row = el('div', 'choices');
-      for (let i = 0; i <= 10; i++) addButton(row, '', String(i), `Score ${i}`, close);
+      const row = el('div', 'choices scale');
+      for (let i = 0; i <= 10; i++) {
+        const b = addButton(row, '', String(i), `Score ${i}`, close);
+        // Hue sweeps from red (0) to green (10), so each number previews its own color on hover
+        b.style.setProperty('--hover', `hsl(${i * 14.2} 75% 45%)`);
+        b.style.setProperty('--hover-ink', i >= 3 && i <= 7 ? '#111827' : '#ffffff');
+      }
       card.appendChild(row);
     }
 
@@ -937,12 +980,19 @@
     }
 
     if (content.cta) {
-      cta = addButton(card, 'btn', content.cta, null, close);
+      cta = addButton(card, 'btn', '', null, close);
+      if (content.icon) {
+        cta.classList.add('with-icon');
+        cta.innerHTML = '<svg class="ico"><use href="#i-download"/></svg><span></span>';
+        cta.querySelector('span').textContent = content.cta;
+      } else {
+        cta.textContent = content.cta;
+      }
       if (content.extra === 'email') cta.disabled = true;
     }
 
     const style = pick(unlockedStyles());
-    style.place(card, close);
+    style.place(card, close, content);
     return pop;
   }
 
