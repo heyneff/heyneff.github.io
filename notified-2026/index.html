@@ -16,6 +16,7 @@
     --brand-hover: #4338ca;
     --brand-ink: #ffffff;
     --danger: #dc2626;
+    --success: #059669;
     --radius: 14px;
     --c1: #6366f1;
     --c2: #10b981;
@@ -36,6 +37,7 @@
       --brand-hover: #a5b4fc;
       --brand-ink: #0f1420;
       --danger: #f87171;
+      --success: #34d399;
     }
   }
   :root[data-theme="dark"] {
@@ -49,6 +51,7 @@
     --brand-hover: #a5b4fc;
     --brand-ink: #0f1420;
     --danger: #f87171;
+    --success: #34d399;
   }
 
   * { box-sizing: border-box; }
@@ -331,6 +334,9 @@
     transition: color 0.15s ease;
   }
   .banner-action:hover { color: var(--ink); }
+  /* Session check-in: Bad turns red and Good turns green on hover. All three stay gray at rest. */
+  .banner-action.bad:hover { color: var(--danger); }
+  .banner-action.good:hover { color: var(--success); }
   .banner-x {
     width: 36px;
     height: 36px;
@@ -1018,7 +1024,8 @@
     card.appendChild(el('span', 'banner-text', content.text));
 
     const actions = el('div', 'banner-actions');
-    content.actions.forEach((label) => addButton(actions, 'banner-action', label, null, close));
+    const TONE = { Bad: 'bad', Good: 'good' };
+    content.actions.forEach((label) => addButton(actions, `banner-action ${TONE[label] || ''}`.trim(), label, null, close));
     card.appendChild(actions);
 
     const x = addButton(card, 'banner-x', '', 'Close', close);
