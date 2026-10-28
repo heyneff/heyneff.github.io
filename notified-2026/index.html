@@ -77,10 +77,13 @@
     stroke-linejoin: round;
   }
 
-  /* Blurred background layer */
+  /* Blurred background layer. It extends 24px past each edge so the blur has no
+     fade at the screen edges. The same 24px is padding, so the content lays out
+     exactly at the viewport. */
   #stage {
     position: fixed;
     inset: -24px;
+    padding: 24px;
     filter: blur(7px);
     pointer-events: none;
     user-select: none;
