@@ -6,6 +6,7 @@
 <title>Pop-Up Cascade</title>
 <style>
   :root {
+    color-scheme: light dark;
     --bg: #f4f6fb;
     --surface: #ffffff;
     --ink: #1d2433;
@@ -16,9 +17,16 @@
     --brand-ink: #ffffff;
     --danger: #dc2626;
     --radius: 14px;
+    --c1: #6366f1;
+    --c2: #10b981;
+    --c3: #f59e0b;
+    --c4: #f43f5e;
+    --c5: #0ea5e9;
+    --c6: #8b5cf6;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
+      color-scheme: dark;
       --bg: #0f1420;
       --surface: #1a2130;
       --ink: #e8ecf5;
@@ -31,6 +39,7 @@
     }
   }
   :root[data-theme="dark"] {
+    color-scheme: dark;
     --bg: #0f1420;
     --surface: #1a2130;
     --ink: #e8ecf5;
@@ -50,9 +59,19 @@
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     -webkit-tap-highlight-color: transparent;
   }
-  button:focus-visible {
+  button:focus-visible, a:focus-visible {
     outline: 2px solid var(--brand);
     outline-offset: 2px;
+  }
+  .ico {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   /* Blurred background layer */
@@ -68,19 +87,90 @@
     display: grid;
     grid-template-rows: auto 1fr;
   }
+
+  /* Sidebar (phone: top bar) */
   .side {
     display: flex;
-    gap: 14px;
+    flex-direction: row;
     align-items: center;
-    padding: 10px 14px;
+    gap: 10px;
+    padding: 8px 12px;
     background: var(--surface);
     border-bottom: 1px solid var(--line);
     overflow: hidden;
-    white-space: nowrap;
-    font-size: 0.85rem;
-    color: var(--muted);
   }
-  .brand { font-weight: 700; color: var(--ink); }
+  .ws {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  .ws-name { display: none; }
+  .ws-logo {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    background: var(--c1);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .search-nav,
+  .nav-label,
+  .nav-projects,
+  .nav-workspace,
+  .me-text { display: none; }
+  .nav { display: flex; flex-direction: column; gap: 2px; }
+  .nav-main { flex-direction: row; gap: 2px; margin-left: auto; }
+  .nav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 30px;
+    padding: 0 8px;
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+  .nav a.active { background: var(--line); color: var(--ink); font-weight: 600; }
+  .nav a .label { display: none; }
+  .nav-main a { padding: 0 9px; }
+  .nav-main a .ico { width: 18px; height: 18px; }
+  .nav .count {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: var(--c4);
+    color: #fff;
+    border-radius: 99px;
+    padding: 1px 6px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 3px; flex-shrink: 0; }
+  .me { display: flex; align-items: center; gap: 8px; margin-left: 4px; }
+  .avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .c1 { background: var(--c1); }
+  .c2 { background: var(--c2); }
+  .c3 { background: var(--c3); }
+  .c4 { background: var(--c4); }
+  .c5 { background: var(--c5); }
+  .c6 { background: var(--c6); }
+
+  /* Main content */
   .main {
     padding: 14px;
     overflow: hidden;
@@ -90,46 +180,84 @@
   }
   .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .top h1 { font-size: 1.1rem; margin: 0; }
-  .search {
-    width: 40%;
-    height: 32px;
-    border-radius: 8px;
-    border: 1px solid var(--line);
-    background: var(--surface);
+  .top p { margin: 2px 0 0; font-size: 0.8rem; color: var(--muted); }
+  .top-actions { display: flex; align-items: center; gap: 8px; }
+  .btn-sm {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 30px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 7px;
+    background: var(--c1);
+    color: #fff;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
   }
-  .cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .card, .panel {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 12px;
     padding: 12px;
+    overflow: hidden;
   }
-  .card span { display: block; font-size: 0.75rem; color: var(--muted); }
-  .card strong { font-size: 1.2rem; }
-  .bars {
+  .card span { display: block; font-size: 0.72rem; color: var(--muted); }
+  .card strong { display: block; margin: 4px 0; font-size: 1.2rem; }
+  .pill {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 99px;
+    font-size: 0.68rem;
+    font-weight: 600;
+  }
+  .good { background: rgba(16, 185, 129, 0.16); color: #059669; }
+  .warn { background: rgba(245, 158, 11, 0.18); color: #b45309; }
+  .bad { background: rgba(244, 63, 94, 0.16); color: #e11d48; }
+  .info { background: rgba(99, 102, 241, 0.16); color: #4f46e5; }
+  .panel h3 { margin: 0 0 10px; font-size: 0.85rem; }
+  .grid2 { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .stack {
     display: flex;
     align-items: flex-end;
-    gap: 6px;
-    height: 120px;
+    gap: 8px;
+    height: 130px;
   }
-  .bars i {
+  .stack .col {
     flex: 1;
-    background: var(--brand);
-    opacity: 0.7;
-    border-radius: 4px 4px 0 0;
-  }
-  .rows div {
     display: flex;
-    justify-content: space-between;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 0.85rem;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 2px;
+    height: 100%;
   }
-  .rows div:last-child { border-bottom: 0; }
+  .stack .col i { display: block; border-radius: 4px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; font-size: 0.72rem; color: var(--muted); }
+  .legend span { display: flex; align-items: center; gap: 5px; }
+  .donut { display: flex; align-items: center; gap: 14px; }
+  .donut svg { width: 96px; height: 96px; flex-shrink: 0; transform: rotate(-90deg); }
+  .donut .legend { flex-direction: column; margin: 0; gap: 6px; }
+  .table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  .table th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.7rem;
+    color: var(--muted);
+    padding: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  .table td {
+    padding: 9px 6px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .table tr:last-child td { border-bottom: 0; }
+  .table .who { display: flex; align-items: center; gap: 8px; }
+  .prog { height: 6px; width: 90px; border-radius: 99px; background: var(--line); overflow: hidden; }
+  .prog i { display: block; height: 100%; border-radius: 99px; }
+  .hide-mobile { display: none; }
 
   /* Pop-up layer */
   #popups {
@@ -167,13 +295,51 @@
     color: var(--brand);
   }
 
-  /* Persistent banner */
+  /* Persistent banner: one slim row, like a chat prompt */
   .popup.banner {
     width: auto;
-    padding: 14px 16px;
+    min-height: 52px;
+    padding: 0 6px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
   }
-  .popup.banner h2 { font-size: 0.95rem; }
-  .popup.banner p { margin-bottom: 10px; }
+  .banner-text {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .banner-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .banner-action {
+    padding: 8px 2px;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .banner-action:hover { color: var(--ink); }
+  .banner-x {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .banner-x:hover { background: var(--bg); color: var(--ink); }
 
   /* Buttons */
   .btn {
@@ -312,16 +478,17 @@
   }
   .link-small:hover { color: var(--ink); }
 
-  /* Notification pop-ups */
-  .popup.notify { padding: 14px 14px 0; }
+  /* Notification pop-ups: the timer sits flush on the bottom edge and is clipped by the card */
+  .popup.notify {
+    padding: 14px 14px 0;
+    overflow: hidden;
+  }
   .popup.notify h2 { font-size: 0.95rem; }
-  .popup.notify p { margin-bottom: 12px; }
+  .popup.notify p { margin-bottom: 14px; }
   .timer {
     height: 4px;
     margin: 0 -14px;
     background: var(--line);
-    overflow: hidden;
-    border-radius: 0 0 var(--radius) var(--radius);
   }
   .timer i {
     display: block;
@@ -332,17 +499,67 @@
 
   /* Desktop layout */
   @media (min-width: 768px) {
-    .app { grid-template-rows: 1fr; grid-template-columns: 200px 1fr; }
+    .app { grid-template-rows: 1fr; grid-template-columns: 232px 1fr; }
     .side {
       flex-direction: column;
       align-items: stretch;
-      gap: 10px;
-      padding: 18px;
+      gap: 0;
+      padding: 12px 10px;
       border-bottom: 0;
       border-right: 1px solid var(--line);
+      overflow-y: hidden;
     }
+    .ws { padding: 6px 6px 12px; font-size: 0.875rem; }
+    .ws-name { display: inline; }
+    .ws-logo { width: 22px; height: 22px; }
+    .search-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 30px;
+      margin-bottom: 8px;
+      padding: 0 8px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--bg);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .search-nav kbd {
+      margin-left: auto;
+      font: inherit;
+      font-size: 0.68rem;
+      padding: 0 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+    }
+    .nav { gap: 1px; }
+    .nav-main { margin-left: 0; flex-direction: column; gap: 1px; }
+    .nav a { height: 30px; font-size: 0.85rem; }
+    .nav a .label { display: inline; }
+    .nav-main a .ico { width: 16px; height: 16px; }
+    .nav-label {
+      display: block;
+      padding: 14px 8px 4px;
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .nav-projects, .nav-workspace { display: flex; }
+    .me {
+      margin: auto 0 0;
+      padding: 10px 8px 2px;
+      border-top: 1px solid var(--line);
+    }
+    .me-text { display: block; font-size: 0.8rem; font-weight: 600; }
+    .me-text small { display: block; font-size: 0.68rem; font-weight: 400; color: var(--muted); }
+    .main { padding: 22px; gap: 14px; }
+    .top h1 { font-size: 1.35rem; }
     .cards { grid-template-columns: repeat(4, 1fr); }
-    .main { padding: 22px; }
+    .grid2 { grid-template-columns: 1.6fr 1fr; }
+    .hide-mobile { display: table-cell; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -352,40 +569,157 @@
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13l2.5-8h13L21 13v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z M3 13h5l1.5 2.5h5L16 13h5"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><path d="M4 5h16v15H4z M4 10h16 M8 3v4 M16 3v4"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H10l2 2.5h7.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20 M10 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z M20 20v-1.5a3.5 3.5 0 0 0-2.5-3.35 M15.5 4.2a3.5 3.5 0 0 1 0 6.6"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4 M4 20h16 M8 16v-4 M12 16V8 M16 16v-6"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19.4 13.5l1.6 1.2-1.8 3.1-1.9-.7a7 7 0 0 1-1.6.9l-.3 2h-3.6l-.3-2a7 7 0 0 1-1.6-.9l-1.9.7-1.8-3.1 1.6-1.2a7 7 0 0 1 0-1.8L4.5 10.5l1.8-3.1 1.9.7a7 7 0 0 1 1.6-.9l.3-2h3.6l.3 2c.6.2 1.1.5 1.6.9l1.9-.7 1.8 3.1-1.6 1.2a7 7 0 0 1 0 1.8z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z M20 20l-4-4"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14 M5 12h14"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12 M18 6 6 18"/></symbol>
+  </defs>
+</svg>
+
 <div id="stage" aria-hidden="true">
   <div class="app">
-    <nav class="side">
-      <div class="brand">Pelican Works</div>
-      <span>Home</span>
-      <span>Projects</span>
-      <span>Analytics</span>
-      <span>Team</span>
-      <span>Settings</span>
-    </nav>
+    <aside class="side">
+      <div class="ws">
+        <span class="ws-logo">P</span>
+        <span class="ws-name">Pelican Works</span>
+      </div>
+      <div class="search-nav">
+        <svg class="ico"><use href="#i-search"/></svg>
+        <span>Search</span>
+        <kbd>⌘K</kbd>
+      </div>
+      <nav class="nav nav-main">
+        <a class="active"><svg class="ico"><use href="#i-home"/></svg><span class="label">Home</span></a>
+        <a><svg class="ico"><use href="#i-inbox"/></svg><span class="label">Inbox</span><span class="count">4</span></a>
+        <a><svg class="ico"><use href="#i-cal"/></svg><span class="label">Calendar</span></a>
+      </nav>
+      <div class="nav-label">Projects</div>
+      <nav class="nav nav-projects">
+        <a><span class="dot c1"></span>Website redesign</a>
+        <a><span class="dot c2"></span>Mobile app</a>
+        <a><span class="dot c3"></span>Q4 campaign</a>
+        <a><span class="dot c4"></span>Onboarding flow</a>
+        <a><span class="dot c5"></span>Pricing research</a>
+        <a><span class="dot c6"></span>Brand refresh</a>
+      </nav>
+      <div class="nav-label">Workspace</div>
+      <nav class="nav nav-workspace">
+        <a><svg class="ico"><use href="#i-users"/></svg>Team</a>
+        <a><svg class="ico"><use href="#i-folder"/></svg>Files</a>
+        <a><svg class="ico"><use href="#i-chart"/></svg>Analytics</a>
+        <a><svg class="ico"><use href="#i-gear"/></svg>Settings</a>
+      </nav>
+      <div class="me">
+        <span class="avatar c3">JM</span>
+        <div class="me-text">Jordan Mills<small>Admin</small></div>
+      </div>
+    </aside>
+
     <main class="main">
       <header class="top">
-        <h1>Overview</h1>
-        <input class="search" placeholder="Search" tabindex="-1">
+        <div>
+          <h1>Good morning, Jordan</h1>
+          <p>Here's what's happening across your projects.</p>
+        </div>
+        <div class="top-actions">
+          <button class="btn-sm" tabindex="-1"><svg class="ico"><use href="#i-plus"/></svg>New project</button>
+        </div>
       </header>
+
       <section class="cards">
-        <div class="card"><span>Revenue</span><strong>$48.2k</strong></div>
-        <div class="card"><span>Active users</span><strong>3,914</strong></div>
-        <div class="card"><span>Conversion</span><strong>4.8%</strong></div>
-        <div class="card"><span>Churn</span><strong>1.2%</strong></div>
+        <div class="card"><span>Revenue</span><strong>$48.2k</strong><i class="pill good">+12%</i></div>
+        <div class="card"><span>Active users</span><strong>3,914</strong><i class="pill info">+4%</i></div>
+        <div class="card"><span>Conversion</span><strong>4.8%</strong><i class="pill warn">-0.3%</i></div>
+        <div class="card"><span>Churn</span><strong>1.2%</strong><i class="pill bad">+0.4%</i></div>
       </section>
-      <section class="panel">
-        <div class="bars">
-          <i style="height:40%"></i><i style="height:55%"></i><i style="height:48%"></i>
-          <i style="height:70%"></i><i style="height:62%"></i><i style="height:80%"></i>
-          <i style="height:58%"></i><i style="height:75%"></i><i style="height:90%"></i>
-          <i style="height:84%"></i><i style="height:95%"></i><i style="height:100%"></i>
+
+      <section class="grid2">
+        <div class="panel">
+          <h3>Revenue by channel</h3>
+          <div class="stack">
+            <div class="col"><i style="height:40px;background:var(--c1)"></i><i style="height:26px;background:var(--c2)"></i><i style="height:18px;background:var(--c3)"></i></div>
+            <div class="col"><i style="height:52px;background:var(--c1)"></i><i style="height:30px;background:var(--c2)"></i><i style="height:14px;background:var(--c3)"></i></div>
+            <div class="col"><i style="height:44px;background:var(--c1)"></i><i style="height:36px;background:var(--c2)"></i><i style="height:22px;background:var(--c3)"></i></div>
+            <div class="col"><i style="height:60px;background:var(--c1)"></i><i style="height:40px;background:var(--c2)"></i><i style="height:20px;background:var(--c3)"></i></div>
+            <div class="col"><i style="height:48px;background:var(--c1)"></i><i style="height:34px;background:var(--c2)"></i><i style="height:26px;background:var(--c3)"></i></div>
+            <div class="col"><i style="height:70px;background:var(--c1)"></i><i style="height:42px;background:var(--c2)"></i><i style="height:24px;background:var(--c3)"></i></div>
+            <div class="col"><i style="height:62px;background:var(--c1)"></i><i style="height:38px;background:var(--c2)"></i><i style="height:30px;background:var(--c3)"></i></div>
+            <div class="col"><i style="height:82px;background:var(--c1)"></i><i style="height:48px;background:var(--c2)"></i><i style="height:28px;background:var(--c3)"></i></div>
+          </div>
+          <div class="legend">
+            <span><i class="dot c1"></i>Direct</span>
+            <span><i class="dot c2"></i>Search</span>
+            <span><i class="dot c3"></i>Referral</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Traffic sources</h3>
+          <div class="donut">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="var(--c1)" stroke-width="14" stroke-dasharray="87.97 251.33" stroke-dashoffset="0"/>
+              <circle cx="50" cy="50" r="40" fill="none" stroke="var(--c2)" stroke-width="14" stroke-dasharray="62.83 251.33" stroke-dashoffset="-87.97"/>
+              <circle cx="50" cy="50" r="40" fill="none" stroke="var(--c3)" stroke-width="14" stroke-dasharray="62.83 251.33" stroke-dashoffset="-150.8"/>
+              <circle cx="50" cy="50" r="40" fill="none" stroke="var(--c4)" stroke-width="14" stroke-dasharray="37.7 251.33" stroke-dashoffset="-213.63"/>
+            </svg>
+            <div class="legend">
+              <span><i class="dot c1"></i>Organic 35%</span>
+              <span><i class="dot c2"></i>Social 25%</span>
+              <span><i class="dot c3"></i>Email 25%</span>
+              <span><i class="dot c4"></i>Paid 15%</span>
+            </div>
+          </div>
         </div>
       </section>
-      <section class="panel rows">
-        <div><span>New signup</span><span>2m ago</span></div>
-        <div><span>Invoice paid</span><span>14m ago</span></div>
-        <div><span>Report exported</span><span>1h ago</span></div>
-        <div><span>Team member joined</span><span>3h ago</span></div>
+
+      <section class="panel">
+        <h3>Active projects</h3>
+        <table class="table">
+          <thead>
+            <tr><th>Project</th><th class="hide-mobile">Owner</th><th>Status</th><th>Progress</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="who"><span class="dot c1"></span>Website redesign</div></td>
+              <td class="hide-mobile"><div class="who"><span class="avatar c2">AK</span>Ana Kim</div></td>
+              <td><span class="pill good">On track</span></td>
+              <td><div class="prog"><i style="width:72%;background:var(--c1)"></i></div></td>
+            </tr>
+            <tr>
+              <td><div class="who"><span class="dot c2"></span>Mobile app</div></td>
+              <td class="hide-mobile"><div class="who"><span class="avatar c4">RT</span>Raj Tan</div></td>
+              <td><span class="pill warn">At risk</span></td>
+              <td><div class="prog"><i style="width:45%;background:var(--c2)"></i></div></td>
+            </tr>
+            <tr>
+              <td><div class="who"><span class="dot c3"></span>Q4 campaign</div></td>
+              <td class="hide-mobile"><div class="who"><span class="avatar c5">MO</span>Maya Ortiz</div></td>
+              <td><span class="pill info">Planning</span></td>
+              <td><div class="prog"><i style="width:20%;background:var(--c3)"></i></div></td>
+            </tr>
+            <tr>
+              <td><div class="who"><span class="dot c4"></span>Onboarding flow</div></td>
+              <td class="hide-mobile"><div class="who"><span class="avatar c6">DL</span>Dev Lal</div></td>
+              <td><span class="pill bad">Blocked</span></td>
+              <td><div class="prog"><i style="width:58%;background:var(--c4)"></i></div></td>
+            </tr>
+            <tr>
+              <td><div class="who"><span class="dot c5"></span>Pricing research</div></td>
+              <td class="hide-mobile"><div class="who"><span class="avatar c1">SB</span>Sam Bell</div></td>
+              <td><span class="pill good">On track</span></td>
+              <td><div class="prog"><i style="width:90%;background:var(--c5)"></i></div></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </main>
   </div>
@@ -422,21 +756,41 @@
     { badge: 'Survey', title: 'How likely are you to recommend us?', body: 'Takes five seconds.', extra: 'scale', cta: 'Send' },
     { badge: 'Limited', title: '30% off this week only', body: 'Annual plans. Offer ends Sunday.', cta: 'Claim offer' },
     { badge: 'Permissions', title: 'Allow notifications?', body: 'Get updates on mentions and replies.', cta: 'Allow' },
-    { badge: 'Team', title: 'Invite your team', body: 'Work together in one workspace.', cta: 'Send invites' }
+    { badge: 'Team', title: 'Invite your team', body: 'Work together in one workspace.', cta: 'Send invites' },
+    { badge: 'Business', title: 'Go further with Business', body: 'Single sign-on, audit logs, and advanced permissions.', cta: 'Compare plans' },
+    { badge: 'Referral', title: 'Get a month free', body: 'Earn one free month for every friend who joins.', cta: 'Share link' },
+    { badge: 'Desktop', title: 'Install the desktop app', body: 'Start from your menu bar and get notified faster.', cta: 'Download' },
+    { badge: 'Calendar', title: 'Connect your calendar', body: 'Get automatic notes for every meeting on your schedule.', cta: 'Connect' },
+    { badge: 'Review', title: 'Your goals review is due Friday', body: 'Takes about ten minutes to finish.', cta: 'Start review' },
+    { badge: 'Security', title: 'Add a second step to sign-in', body: 'Protect your account with two-factor authentication.', cta: 'Set up 2FA' },
+    { badge: 'Legal', title: 'We updated our terms', body: 'Review the changes before November 1.', cta: 'Review terms' },
+    { badge: 'Mobile', title: 'Take your projects on the go', body: 'Get the app and pick up where you left off.', cta: 'Text me the link' },
+    { badge: 'Poll', title: 'What should we build next?', body: 'Pick one. Takes two seconds.', options: ['Reports', 'Automations', 'Integrations'] }
   ];
 
   const BANNER_CONTENT = [
-    { badge: 'Heads up', title: 'Your workspace is almost full', body: 'Upgrade to keep adding files.', cta: 'View plans' },
-    { badge: 'Update', title: 'Scribbly AI now joins every call', body: 'Turn on note-taking for your meetings.', cta: 'Turn on' },
-    { badge: 'Cookies', title: 'We use cookies on this site', body: 'Choose what you allow.', cta: 'Review' },
-    { badge: 'Status', title: 'Scheduled maintenance tonight', body: 'Some features may be unavailable from 11 pm.', cta: 'Got it' }
+    { text: 'How is Scribbly doing this session?', actions: ['Bad', 'Fine', 'Good'] },
+    { text: 'Your workspace is almost full.', actions: ['Upgrade', 'Not now'] },
+    { text: 'We use cookies to improve your experience.', actions: ['Accept', 'Manage'] },
+    { text: 'Scribbly now joins every call. Turn on notes?', actions: ['Turn on', 'Later'] },
+    { text: 'Scheduled maintenance tonight from 11 pm.', actions: ['Got it'] },
+    { text: 'Your trial ends in 2 days.', actions: ['Choose plan', 'Remind me'] },
+    { text: 'Did this summary help you?', actions: ['Yes', 'No'] }
   ];
 
   const NOTIFY_CONTENT = [
     { title: 'This call is being recorded', body: 'All participants have been notified.' },
     { title: 'AI note-taking is available', body: 'Summaries will appear here after the call.' },
     { title: 'Recording started', body: 'Saved to your workspace.' },
-    { title: 'Transcript ready', body: 'Open it from Calls.' }
+    { title: 'Transcript ready', body: 'Open it from Calls.' },
+    { title: 'Export complete', body: 'Your report is ready to download.' },
+    { title: 'Mention in #design', body: 'Sam asked for your review.' },
+    { title: 'Standup starts in 5 minutes', body: 'Join from your calendar.' },
+    { title: 'Payment received', body: 'Invoice #1042 has been paid.' },
+    { title: 'All changes saved', body: 'Your draft is synced across devices.' },
+    { title: 'Screen sharing is on', body: 'Others in the call can see your screen.' },
+    { title: 'Automation ran', body: '12 tasks were updated overnight.' },
+    { title: 'Storage at 90%', body: 'Free up space or upgrade your plan.' }
   ];
 
   const SECONDARY_LABELS = ['Close', 'Not now', 'Dismiss'];
@@ -534,18 +888,16 @@
 
   function spawn() {
     const kind = pickKind();
-    const pop = kind === 'notify' ? buildNotify() : buildPrompt(kind);
+    const pop = kind === 'notify' ? buildNotify() : kind === 'banner' ? buildBanner() : buildAction();
     place(pop);
     scheduleNext();
   }
 
-  // Action pop-ups and persistent banners share the same card structure.
-  function buildPrompt(kind) {
-    const isBanner = kind === 'banner';
-    const content = pick(isBanner ? BANNER_CONTENT : ACTION_CONTENT);
-    const card = el('article', isBanner ? 'popup banner' : 'popup');
-    card.setAttribute('role', isBanner ? 'region' : 'dialog');
-    const pop = { el: card, kind, spawnedAt: 0, anim: null, closed: false };
+  function buildAction() {
+    const content = pick(ACTION_CONTENT);
+    const card = el('article', 'popup');
+    card.setAttribute('role', 'dialog');
+    const pop = { el: card, kind: 'action', spawnedAt: 0, anim: null, closed: false };
     const close = () => manualClose(pop);
 
     card.appendChild(el('div', 'badge', content.badge));
@@ -580,11 +932,36 @@
       card.appendChild(row);
     }
 
-    cta = addButton(card, 'btn', content.cta, null, close);
-    if (content.extra === 'email') cta.disabled = true;
+    if (content.options) {
+      content.options.forEach((label) => addButton(card, 'btn ghost', label, null, close));
+    }
+
+    if (content.cta) {
+      cta = addButton(card, 'btn', content.cta, null, close);
+      if (content.extra === 'email') cta.disabled = true;
+    }
 
     const style = pick(unlockedStyles());
     style.place(card, close);
+    return pop;
+  }
+
+  // Persistent banner: one slim row with muted text actions and an X, no timer.
+  function buildBanner() {
+    const content = pick(BANNER_CONTENT);
+    const card = el('article', 'popup banner');
+    card.setAttribute('role', 'region');
+    const pop = { el: card, kind: 'banner', spawnedAt: 0, anim: null, closed: false };
+    const close = () => manualClose(pop);
+
+    card.appendChild(el('span', 'banner-text', content.text));
+
+    const actions = el('div', 'banner-actions');
+    content.actions.forEach((label) => addButton(actions, 'banner-action', label, null, close));
+    card.appendChild(actions);
+
+    const x = addButton(card, 'banner-x', '', 'Close', close);
+    x.innerHTML = '<svg class="ico" viewBox="0 0 24 24"><use href="#i-x"/></svg>';
     return pop;
   }
 
@@ -688,9 +1065,12 @@
 
   // ---------- start ----------
 
-  // Any touch on a pop-up marks the player as having interacted.
+  // Touching a pop-up marks the player as having interacted and brings it to the front.
   layer.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('.popup')) state.interacted = true;
+    const card = e.target.closest('.popup');
+    if (!card) return;
+    state.interacted = true;
+    card.style.zIndex = ++state.z;
   });
 
   setTimeout(spawn, 800);
