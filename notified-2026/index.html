@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pop-Up Cascade</title>
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --surface: #ffffff;
+    --ink: #1d2433;
+    --muted: #6b7388;
+    --line: #e3e7f0;
+    --brand: #4f46e5;
+    --brand-ink: #ffffff;
+    --danger: #dc2626;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1420;
+      --surface: #1a2130;
+      --ink: #e8ecf5;
+      --muted: #9aa3b8;
+      --line: #2b3446;
+      --brand: #818cf8;
+      --brand-ink: #0f1420;
+      --danger: #f87171;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1420;
+    --surface: #1a2130;
+    --ink: #e8ecf5;
+    --muted: #9aa3b8;
+    --line: #2b3446;
+    --brand: #818cf8;
+    --brand-ink: #0f1420;
+    --danger: #f87171;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Blurred background layer */
+  #stage {
+    position: fixed;
+    inset: -24px;
+    filter: blur(7px);
+    pointer-events: none;
+    user-select: none;
+  }
+  .app {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+  .side {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .brand { font-weight: 700; color: var(--ink); }
+  .main {
+    padding: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .top h1 { font-size: 1.1rem; margin: 0; }
+  .search {
+    width: 40%;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .card, .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .card span { display: block; font-size: 0.75rem; color: var(--muted); }
+  .card strong { font-size: 1.2rem; }
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 120px;
+  }
+  .bars i {
+    flex: 1;
+    background: var(--brand);
+    opacity: 0.7;
+    border-radius: 4px 4px 0 0;
+  }
+  .rows div {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.85rem;
+  }
+  .rows div:last-child { border-bottom: 0; }
+
+  /* Pop-up layer */
+  #popups {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 10;
+  }
+  .popup {
+    position: absolute;
+    width: min(86vw, 340px);
+    padding: 18px;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+    pointer-events: auto;
+    opacity: 0;
+    transform: scale(0.96);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  .popup.in { opacity: 1; transform: none; }
+  .popup.out { opacity: 0; transform: scale(0.96); pointer-events: none; }
+  .popup h2 { font-size: 1.05rem; margin: 0 0 6px; padding-right: 36px; }
+  .popup p { margin: 0 0 14px; color: var(--muted); font-size: 0.9rem; line-height: 1.4; }
+  .badge {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--brand);
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 11px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--brand);
+    color: var(--brand-ink);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn.ghost {
+    margin-top: 8px;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+  .field {
+    width: 100%;
+    min-height: 40px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--ink);
+    font: inherit;
+  }
+  .choices { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+  .choices button {
+    flex: 1 1 auto;
+    min-width: 32px;
+    min-height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--ink);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  /* Close styles */
+  .x-corner {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .x-edge {
+    position: absolute;
+    top: -9px;
+    right: -9px;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--surface);
+    border-radius: 50%;
+    background: var(--danger);
+    color: #fff;
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .x-tiny {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 18px;
+    height: 18px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1;
+    opacity: 0.5;
+    cursor: pointer;
+  }
+  .link {
+    display: block;
+    margin: 6px auto 0;
+    padding: 8px;
+    min-height: 36px;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .link-small {
+    display: block;
+    margin: 6px 0 0 auto;
+    padding: 4px;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.72rem;
+    cursor: pointer;
+  }
+
+  /* Notification pop-ups */
+  .popup.notify { padding: 14px 14px 0; border-left: 4px solid var(--brand); }
+  .popup.notify h2 { font-size: 0.95rem; }
+  .popup.notify p { margin-bottom: 12px; }
+  .timer {
+    height: 4px;
+    margin: 0 -14px;
+    background: var(--line);
+    overflow: hidden;
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+  .timer i {
+    display: block;
+    height: 100%;
+    background: var(--brand);
+    transform-origin: left center;
+  }
+
+  /* Desktop layout */
+  @media (min-width: 768px) {
+    .app { grid-template-rows: 1fr; grid-template-columns: 200px 1fr; }
+    .side {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 18px;
+      border-bottom: 0;
+      border-right: 1px solid var(--line);
+    }
+    .cards { grid-template-columns: repeat(4, 1fr); }
+    .main { padding: 22px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .popup { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="stage" aria-hidden="true">
+  <div class="app">
+    <nav class="side">
+      <div class="brand">Pelican Works</div>
+      <span>Home</span>
+      <span>Projects</span>
+      <span>Analytics</span>
+      <span>Team</span>
+      <span>Settings</span>
+    </nav>
+    <main class="main">
+      <header class="top">
+        <h1>Overview</h1>
+        <input class="search" placeholder="Search" tabindex="-1">
+      </header>
+      <section class="cards">
+        <div class="card"><span>Revenue</span><strong>$48.2k</strong></div>
+        <div class="card"><span>Active users</span><strong>3,914</strong></div>
+        <div class="card"><span>Conversion</span><strong>4.8%</strong></div>
+        <div class="card"><span>Churn</span><strong>1.2%</strong></div>
+      </section>
+      <section class="panel">
+        <div class="bars">
+          <i style="height:40%"></i><i style="height:55%"></i><i style="height:48%"></i>
+          <i style="height:70%"></i><i style="height:62%"></i><i style="height:80%"></i>
+          <i style="height:58%"></i><i style="height:75%"></i><i style="height:90%"></i>
+          <i style="height:84%"></i><i style="height:95%"></i><i style="height:100%"></i>
+        </div>
+      </section>
+      <section class="panel rows">
+        <div><span>New signup</span><span>2m ago</span></div>
+        <div><span>Invoice paid</span><span>14m ago</span></div>
+        <div><span>Report exported</span><span>1h ago</span></div>
+        <div><span>Team member joined</span><span>3h ago</span></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div id="popups"></div>
+
+<script>
+(() => {
+  const CONFIG = {
+    baseDelayMs: 2000,       // spawn delay at step 0
+    delayFactor: 0.82,       // delay multiplier per step
+    minDelayMs: 400,         // hard floor on spawn delay
+    maxStep: 8,
+    avgWindow: 5,            // manual closes used for the rolling average
+    fastAvgMs: 1800,         // rolling average below this steps difficulty up
+    slowAvgMs: 3500,         // rolling average above this steps difficulty down
+    notifyChance: 0.35,      // share of spawns that are notifications
+    rareChance: 0.05         // chance each for the 2 s and 60 s notification extremes
+  };
+
+  const ACTION_CONTENT = [
+    { badge: 'Upgrade', title: 'Unlock Pro for your whole team', body: 'Unlimited projects, shared dashboards, and priority support.', cta: 'Upgrade now' },
+    { badge: 'New', title: 'Meet Scribbly AI', body: 'Automatic meeting notes, summaries, and action items.', cta: 'Try it free' },
+    { badge: 'Newsletter', title: 'Get the weekly digest', body: 'Three short reads every Monday.', extra: 'email', cta: 'Subscribe' },
+    { badge: 'Privacy', title: 'We use cookies', body: 'We use cookies to improve your experience and measure ads.', cta: 'Accept all' },
+    { badge: 'Trial', title: 'Your trial ends in 2 days', body: 'Choose a plan to keep your saved reports.', cta: 'Choose a plan' },
+    { badge: 'Feature', title: 'Dark mode is here', body: 'Easier on the eyes, day or night.', cta: 'Try it now' },
+    { badge: 'Feedback', title: 'Enjoying Brightpath?', body: 'A quick rating helps us improve.', extra: 'stars', cta: 'Rate us' },
+    { badge: 'Survey', title: 'How likely are you to recommend us?', body: 'Takes five seconds.', extra: 'scale', cta: 'Send' },
+    { badge: 'Limited', title: '30% off this week only', body: 'Annual plans. Offer ends Sunday.', cta: 'Claim offer' },
+    { badge: 'Permissions', title: 'Allow notifications?', body: 'Get updates on mentions and replies.', cta: 'Allow' },
+    { badge: 'Team', title: 'Invite your team', body: 'Work together in one workspace.', cta: 'Send invites' }
+  ];
+
+  const NOTIFY_CONTENT = [
+    { title: 'This call is being recorded', body: 'All participants have been notified.' },
+    { title: 'AI note-taking is available', body: 'Summaries will appear here after the call.' },
+    { title: 'Recording started', body: 'Saved to your workspace.' },
+    { title: 'Transcript ready', body: 'Open it from Calls.' }
+  ];
+
+  const SECONDARY_LABELS = ['Close', 'Not now', 'Dismiss'];
+
+  // Each close style: the step it unlocks at, and how it is placed on the card.
+  const CLOSE_STYLES = [
+    { id: 'corner', minStep: 0, place(card, close) {
+      addButton(card, 'x-corner', '×', 'Close', close);
+    }},
+    { id: 'secondary', minStep: 0, place(card, close) {
+      addButton(card, 'btn ghost', pick(SECONDARY_LABELS), null, close);
+    }},
+    { id: 'link', minStep: 1, place(card, close) {
+      addButton(card, 'link', 'No thanks', null, close);
+    }},
+    { id: 'edge', minStep: 2, place(card, close) {
+      addButton(card, 'x-edge', '×', 'Close', close);
+    }},
+    { id: 'tiny', minStep: 4, place(card, close) {
+      addButton(card, 'x-tiny', '×', 'Close', close);
+    }},
+    { id: 'later', minStep: 5, place(card, close) {
+      addButton(card, 'link-small', 'Maybe later', null, close);
+    }}
+  ];
+
+  const layer = document.getElementById('popups');
+  const state = { step: 0, recent: [], timer: null, z: 20 };
+  const MARGIN = 8;
+
+  // ---------- helpers ----------
+
+  const pick = (list) => list[Math.floor(Math.random() * list.length)];
+
+  function addButton(parent, className, label, ariaLabel, onClick) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = className;
+    b.textContent = label;
+    if (ariaLabel) b.setAttribute('aria-label', ariaLabel);
+    b.addEventListener('click', onClick);
+    parent.appendChild(b);
+    return b;
+  }
+
+  function el(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text) node.textContent = text;
+    return node;
+  }
+
+  function delayForStep(step) {
+    return Math.max(CONFIG.minDelayMs, Math.round(CONFIG.baseDelayMs * Math.pow(CONFIG.delayFactor, step)));
+  }
+
+  function notifyDuration() {
+    const r = Math.random();
+    if (r < CONFIG.rareChance) return 2000;
+    if (r < CONFIG.rareChance * 2) return 60000;
+    return 4000 + Math.random() * 6000;
+  }
+
+  function unlockedStyles() {
+    return CLOSE_STYLES.filter((s) => s.minStep <= state.step);
+  }
+
+  // ---------- spawning ----------
+
+  function scheduleNext() {
+    clearTimeout(state.timer);
+    state.timer = setTimeout(spawn, delayForStep(state.step));
+  }
+
+  function spawn() {
+    const pop = Math.random() < CONFIG.notifyChance ? buildNotify() : buildAction();
+    place(pop);
+    scheduleNext();
+  }
+
+  function buildAction() {
+    const content = pick(ACTION_CONTENT);
+    const card = el('article', 'popup');
+    card.setAttribute('role', 'dialog');
+    const pop = { el: card, kind: 'action', spawnedAt: 0, anim: null, closed: false };
+    const close = () => manualClose(pop);
+
+    card.appendChild(el('div', 'badge', content.badge));
+    card.appendChild(el('h2', null, content.title));
+    card.appendChild(el('p', null, content.body));
+
+    if (content.extra === 'email') {
+      const input = el('input', 'field');
+      input.type = 'email';
+      input.placeholder = 'you@example.com';
+      card.appendChild(input);
+    } else if (content.extra === 'stars') {
+      const row = el('div', 'choices');
+      for (let i = 1; i <= 5; i++) addButton(row, '', '★', `Rate ${i} stars`, close);
+      card.appendChild(row);
+    } else if (content.extra === 'scale') {
+      const row = el('div', 'choices');
+      for (let i = 0; i <= 10; i++) addButton(row, '', String(i), `Score ${i}`, close);
+      card.appendChild(row);
+    }
+
+    addButton(card, 'btn', content.cta, null, close);
+
+    const style = pick(unlockedStyles());
+    style.place(card, close);
+    return pop;
+  }
+
+  function buildNotify() {
+    const content = pick(NOTIFY_CONTENT);
+    const card = el('article', 'popup notify');
+    card.setAttribute('role', 'status');
+    const pop = { el: card, kind: 'notify', spawnedAt: 0, anim: null, closed: false };
+
+    card.appendChild(el('h2', null, content.title));
+    card.appendChild(el('p', null, content.body));
+    addButton(card, 'x-corner', '×', 'Close', () => manualClose(pop));
+
+    const timer = el('div', 'timer');
+    const fill = el('i');
+    timer.appendChild(fill);
+    card.appendChild(timer);
+
+    pop.duration = notifyDuration();
+    pop.fill = fill;
+    return pop;
+  }
+
+  function place(pop) {
+    const card = pop.el;
+    layer.appendChild(card);
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const w = card.offsetWidth;
+    const h = card.offsetHeight;
+    const maxX = Math.max(MARGIN, vw - w - MARGIN);
+    const maxY = Math.max(MARGIN, vh - h - MARGIN);
+    card.style.left = Math.round(MARGIN + Math.random() * (maxX - MARGIN)) + 'px';
+    card.style.top = Math.round(MARGIN + Math.random() * (maxY - MARGIN)) + 'px';
+    card.style.zIndex = ++state.z;
+
+    pop.spawnedAt = performance.now();
+    requestAnimationFrame(() => card.classList.add('in'));
+
+    if (pop.kind === 'notify') {
+      pop.anim = pop.fill.animate(
+        [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0)' }],
+        { duration: pop.duration, fill: 'forwards', easing: 'linear' }
+      );
+      pop.anim.onfinish = () => autoClose(pop);
+    }
+  }
+
+  // ---------- closing ----------
+
+  function remove(pop) {
+    if (pop.closed) return;
+    pop.closed = true;
+    if (pop.anim) pop.anim.cancel();
+    pop.el.classList.remove('in');
+    pop.el.classList.add('out');
+    setTimeout(() => pop.el.remove(), 200);
+  }
+
+  // The player closed it: counts toward difficulty and triggers the next pop-up.
+  function manualClose(pop) {
+    if (pop.closed) return;
+    const reaction = performance.now() - pop.spawnedAt;
+    remove(pop);
+    recordReaction(reaction);
+    scheduleNext();
+  }
+
+  // A notification timed out: the player did not act, so nothing is recorded.
+  function autoClose(pop) {
+    remove(pop);
+  }
+
+  function recordReaction(ms) {
+    state.recent.push(ms);
+    if (state.recent.length > CONFIG.avgWindow) state.recent.shift();
+    if (state.recent.length < CONFIG.avgWindow) return;
+
+    const avg = state.recent.reduce((a, b) => a + b, 0) / state.recent.length;
+    if (avg < CONFIG.fastAvgMs && state.step < CONFIG.maxStep) {
+      state.step++;
+      state.recent = []; // hysteresis: start a fresh window after each change
+    } else if (avg > CONFIG.slowAvgMs && state.step > 0) {
+      state.step--;
+      state.recent = [];
+    }
+  }
+
+  // ---------- start ----------
+
+  setTimeout(spawn, 800);
+})();
+</script>
+</body>
+</html>
