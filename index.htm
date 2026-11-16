@@ -1,116 +1,243 @@
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Michael Neff — Digital and Code-Based Art</title>
-  <meta name="description" content="Art">
+  <meta name="description" content="Digital and code-based art by Michael Neff, grouped by year.">
   <meta name="author" content="Michael Neff">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1e1c1a">
 
   <style>
+    /* Colour tokens: a warm, dark grey (not black). All text pairs meet WCAG AA. */
     :root {
-      font-family: system-ui, sans-serif;
+      color-scheme: dark;
+      --bg: #1e1c1a;
+      --fg: #f0ebe5;        /* primary text, ~15:1 on --bg */
+      --text: #d8d1c9;      /* project names, ~11:1 */
+      --muted: #9a948c;     /* years and notes, ~5.7:1 */
+      --rule: #3b3834;
+      --hover: #2c2925;
+      --accent: #e9bb72;    /* warm amber for focus and hover cues */
+
+      /* System font stack: no web fonts to load. */
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Helvetica Neue", "Noto Sans", Roboto, Cantarell, Ubuntu, Arial, sans-serif;
+
+      --gutter: clamp(1.25rem, 4vw, 3.5rem);
     }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
     body {
-      background-color: rgb(48,48,48);
-      margin: 10vh auto;
-      max-width: 40vh;
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
+
+    .wrap {
+      max-width: 90rem;
+      margin: 0 auto;
+      padding: clamp(2.5rem, 9vh, 6rem) var(--gutter) clamp(3rem, 8vh, 5rem);
+    }
+
+    /* Header */
+    header {
+      margin-bottom: clamp(2.5rem, 7vh, 4.5rem);
+    }
+
     h1 {
-      font-size: 2rem;
-      color: rgba(2255,255,255,0.8);
+      margin: 0;
+      font-size: 2.25rem;
+      font-weight: 400;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      text-wrap: balance;
     }
-    h1 span {
-      color: rgba(255,255,255,0.4);
-      font-size: 0.75rem;
-      letter-spacing: 1px;
+
+    .tagline {
+      margin: 0.75rem 0 0;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: var(--muted);
     }
-    h2 {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.4);
-      margin-top: 2em;
+
+    /* Years: stacked on narrow screens, a horizontal row of columns on wide ones. */
+    .years {
+      display: grid;
+      gap: 2.5rem;
     }
-    ul {
-      font-size: 1.25rem;
-      line-height: 1.4rem;
-      list-style-type: none;
-      margin: 0 -0.5em;
+
+    .year h2 {
+      margin: 0 0 0.75rem;
+      padding-top: 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .year ul {
+      list-style: none;
+      margin: 0;
       padding: 0;
     }
-    li {
-      margin: 0;
-      color: rgba(255,255,255,0.4);
-    }
-    li a {
-      color: rgba(255,255,255,0.6);
-      padding: 8px;
-      text-decoration: none;
+
+    .year li + li { margin-top: 0.125rem; }
+
+    .year a {
       display: block;
+      padding: 0.4rem 0.6rem;
+      margin: 0 -0.6rem;
+      border-radius: 4px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.0625rem;
+      line-height: 1.35;
+      transition: background-color 150ms ease, color 150ms ease;
     }
-    li a:hover {
-      background-color: rgb(50,50,250,0.6);
-      border-radius: 3px;
+
+    .year a:hover {
+      background-color: var(--hover);
+      color: var(--fg);
+    }
+
+    .year a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .year a .ext {
+      display: inline-block;
+      margin-left: 0.25em;
+      color: var(--muted);
+      font-size: 0.85em;
+      text-decoration: none;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.9375rem;
+    }
+
+    /* Wide displays: each year is a column, and the columns run left to right. */
+    @media (min-width: 56rem) {
+      .years {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(min(100%, 11rem), 1fr);
+        grid-template-columns: none;
+        gap: 2rem;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        /* Padding gives the links' negative side margins room inside the
+           scroll box, so hover backgrounds aren't clipped at the edges. */
+        margin-inline: -0.6rem;
+        padding-inline: 0.6rem;
+        padding-bottom: 0.75rem;
+        scrollbar-width: thin;
+        scrollbar-color: var(--rule) transparent;
+      }
+
+      .year { min-width: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .year a { transition: none; }
     }
   </style>
-
-  <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-  <![endif]-->
 </head>
 
 <body>
-  <div>
-    <h1>Michael Neff<br>
-    <span>Digital and Code-Based Art</span></h1>
-    <h2>2026</h2>
-      <ul>
-        <li><a href="take-action-2026">Take Action</a></li>
-        <li><a href="compound-vision-2026">Compound Vision</a></li>
-        <li><a href="Ooo-2026">Ooo</a></li>
-        <li><a href="il-pipe-2026">Il Pipe</a></li>
-        <li><a href="deploy-2026">DEPLOY</a></li>
-        <li><a href="l|I-2026">l|I</a></li>
-        <li><a href="https://wysiwyg.michaelneff.com">WYSIWYG</a></li>
-      </ul>
-    <h2>2025</h2>
-      <ul>
-        <li><a href="https://verse.works/series/tarmac-by-michael-neff">Tarmac</a></li>
-        <li><a href="https://verse.works/series/your-land-by-michael-neff">Your Land</a></li>
-        <li><a href="your-video-will-be-ready-soon-2025/">Your video will be ready soon</a></li>
-        <li><a href="content-determined-2025/">Content / Determined</a></li>
-        <li><a href="output-2025/">Output</a></li>
-        <li><a href="hairy-2025/">Hairy</a></li>
-      </ul>
-    <h2>2024</h2>
-      <ul>
-        <li><a href="https://verse.works/series/rules-of-the-game-by-michael-neff">Rules of the Game</a>&nbsp;curated by TENDER, released on Verse</li>
-        <li><a href="obfuscate-2024/">Obfuscate</a></li>
-        <li><a href="the-wind-is-coming-2024/">The Wind is Coming (sketch)</a></li>
-        <li><a href="mail-art-5-self-portrait-2020-2024">Mail Art 5: Self-Portrait</a></li>
-        <li><a href="border-2024">Border (sketch)</a></li>
-        <li><a href="edge-of-perception-2024">Edge of Perception</a></li>
-        <li><a href="what-choice-do-i-have-2023-2024/">What Choice Do I Have? (sketch)</a></li>
-        <li><a href="this-is-the-end-2024/">This is the End</a></li>
-        <li><a href="all-the-grays-2017-2024">All the Grays</a></li>
-      </ul>
-    <h2>2023</h2>
-      <ul>
-        <li><a href="mail-art-4-a-record-of-your-failures-2023/">Mail Art 4: A Record of Your Failures</a></li>
-        <li><a href="dialog-2023/">Dialog</a></li>
-        <li><a href="notification-2023/">Notification</a></li>
-        <li><a href="ping-pong-2023/ping/">Ping / Pong</a></li>
-        <li><a href="mean-flag-1997-2023">Mean Flag</a></li>
-      </ul>
-    <h2>2017</h2>
-      <ul>
-        <li><a href="ghost-2017">Ghost</a></li>
-        <li><a href="cher-2017">Cher</a></li>
-        <li><a href="so-sad-2017">So Sad</a></li>
-      </ul>
-    <h2>2015</h2>
-      <ul>
-        <li><a href="endless-cycle-2015">Endless Cycle</a></li>
-      </ul>
+  <div class="wrap">
+    <header>
+      <h1>Michael Neff</h1>
+      <p class="tagline">Digital and Code-Based Art</p>
+    </header>
+
+    <main>
+      <div class="years">
+
+        <section class="year" aria-labelledby="y2026">
+          <h2 id="y2026">2026</h2>
+          <ul role="list">
+            <li><a href="compound-vision-2026">Compound Vision</a></li>
+            <li><a href="Ooo-2026">Ooo</a></li>
+            <li><a href="il-pipe-2026">Il Pipe</a></li>
+            <li><a href="deploy-2026">DEPLOY</a></li>
+            <li><a href="l|I-2026">l|I</a></li>
+            <li><a href="https://wysiwyg.michaelneff.com">WYSIWYG<span class="ext" aria-hidden="true">↗</span></a></li>
+          </ul>
+        </section>
+
+        <section class="year" aria-labelledby="y2025">
+          <h2 id="y2025">2025</h2>
+          <ul role="list">
+            <li><a href="https://verse.works/series/tarmac-by-michael-neff">Tarmac<span class="ext" aria-hidden="true">↗</span></a> <span class="note">curated Exhibited at Artie Galerie, released on Verse</span></li>
+            <li><a href="https://verse.works/series/your-land-by-michael-neff">Your Land<span class="ext" aria-hidden="true">↗</span></a> <span class="note">curated by TENDER, released on Verse</span></li>
+            <li><a href="your-video-will-be-ready-soon-2025/">Your video will be ready soon</a></li>
+            <li><a href="content-determined-2025/">Content / Determined</a></li>
+            <li><a href="output-2025/">Output</a></li>
+            <li><a href="hairy-2025/">Hairy</a></li>
+          </ul>
+        </section>
+
+        <section class="year" aria-labelledby="y2024">
+          <h2 id="y2024">2024</h2>
+          <ul role="list">
+            <li><a href="https://verse.works/series/rules-of-the-game-by-michael-neff">Rules of the Game<span class="ext" aria-hidden="true">↗</span></a> <span class="note">curated by TENDER, released on Verse</span></li>
+            <li><a href="obfuscate-2024/">Obfuscate</a></li>
+            <li><a href="the-wind-is-coming-2024/">The Wind is Coming (sketch)</a></li>
+            <li><a href="mail-art-5-self-portrait-2020-2024">Mail Art 5: Self-Portrait</a></li>
+            <li><a href="border-2024">Border (sketch)</a></li>
+            <li><a href="edge-of-perception-2024">Edge of Perception</a></li>
+            <li><a href="what-choice-do-i-have-2023-2024/">What Choice Do I Have? (sketch)</a></li>
+            <li><a href="this-is-the-end-2024/">This is the End</a></li>
+            <li><a href="all-the-grays-2017-2024">All the Grays</a></li>
+          </ul>
+        </section>
+
+        <section class="year" aria-labelledby="y2023">
+          <h2 id="y2023">2023</h2>
+          <ul role="list">
+            <li><a href="mail-art-4-a-record-of-your-failures-2023/">Mail Art 4: A Record of Your Failures</a></li>
+            <li><a href="dialog-2023/">Dialog</a></li>
+            <li><a href="notification-2023/">Notification</a></li>
+            <li><a href="ping-pong-2023/ping/">Ping / Pong</a></li>
+            <li><a href="mean-flag-1997-2023">Mean Flag</a></li>
+          </ul>
+        </section>
+
+        <section class="year" aria-labelledby="y2017">
+          <h2 id="y2017">2017</h2>
+          <ul role="list">
+            <li><a href="ghost-2017">Ghost</a></li>
+            <li><a href="cher-2017">Cher</a></li>
+            <li><a href="so-sad-2017">So Sad</a></li>
+          </ul>
+        </section>
+
+        <section class="year" aria-labelledby="y2015">
+          <h2 id="y2015">2015</h2>
+          <ul role="list">
+            <li><a href="endless-cycle-2015">Endless Cycle</a></li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
   </div>
 </body>
 </html>
